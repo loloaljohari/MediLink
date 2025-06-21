@@ -71,7 +71,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
-    
+       print('');
       String thememode = context.watch<SelectionTheme>().state == 4 ? 'light' : 'dark';
         String langCode = context.watch<Selection>().state == 1 ? 'ar' : 'en';
         TextDirection textDirection =
