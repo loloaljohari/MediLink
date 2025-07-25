@@ -47,6 +47,19 @@ dependencies:
   image_gallery_saver_plus: ^4.0.1
   permission_handler: ^11.3.1
   flutter_to_pdf: ^0.4.0
+  http: ^1.4.0
+  image_picker: ^1.1.2
+  dartz: ^0.10.1
+  flutter_otp_text_field: ^1.5.1+1
+  lottie: ^3.1.3
+  flutter_svg: ^2.0.7
+  get: ^4.6.6
+  lib: ^0.0.3
+  dio: ^5.8.0+1
+  file_selector: ^1.0.3
+  
+  
+
 
 dev_dependencies:
   flutter_test:
@@ -74,6 +87,7 @@ flutter:
   assets:
     - images/
     - assets/telephone-ring-03b.wav
+    - lottie/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -87,10 +101,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+     - family: PlayfairDisplay
+       fonts:
+        - asset: lib\ammar\lib\fonts\PlayfairDisplay-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
