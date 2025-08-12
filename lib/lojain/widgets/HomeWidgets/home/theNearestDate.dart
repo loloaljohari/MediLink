@@ -1,4 +1,9 @@
+import 'package:MediLink/ammar/lib/view/screen/aouth/sinup.dart';
+import 'package:MediLink/lojain/models/Dates/deleteDate.dart';
+import 'package:MediLink/lojain/models/Dates/getDates.dart';
+import 'package:MediLink/lojain/models/Dates/getNearestdate.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TheNearestDate extends StatelessWidget {
   final String Imagepath;
@@ -7,6 +12,7 @@ class TheNearestDate extends StatelessWidget {
   final String Date;
   final String Time;
   final bool Dates;
+  final idApp;
   const TheNearestDate(
       {Key? key,
       required this.Imagepath,
@@ -14,7 +20,8 @@ class TheNearestDate extends StatelessWidget {
       required this.medSpecialty,
       required this.Date,
       required this.Time,
-      required this.Dates})
+      required this.Dates,
+      required this.idApp})
       : super(key: key);
 
   @override
@@ -47,7 +54,8 @@ class TheNearestDate extends StatelessWidget {
                         color: Colors.transparent,
                         borderRadius: BorderRadius.circular(50),
                         border: Border.all(
-                            width: 2, color: const Color.fromRGBO(38, 115, 221, 1)),
+                            width: 2,
+                            color: const Color.fromRGBO(38, 115, 221, 1)),
                         boxShadow: const [
                           BoxShadow(
                               color: Color.fromRGBO(0, 0, 0, 0.25),
@@ -128,24 +136,44 @@ class TheNearestDate extends StatelessWidget {
                     width: 20,
                   ),
                   Dates
-                      ? InkWell(
-                          onTap: () {},
-                          child: const Column(
-                            children: [
-                              Icon(
-                                Icons.cancel_outlined,
-                                size: 36,
-                                color: Color.fromRGBO(168, 40, 48, 1),
-                              ),
-                              Text(
-                                'Cancel',
-                                style: TextStyle(
-                                    color: Color.fromRGBO(168, 40, 48, 1),
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 14),
-                              )
-                            ],
+                      ? BlocBuilder<DeleteDate, dynamic>(
+                          builder: (context, state) {
+                            return InkWell(
+                              onTap: () async{
+                              bool isSuccess=await  context.read<DeleteDate>().post(idApp: idApp);
+                               if(isSuccess){ ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            backgroundColor: Color.fromRGBO(20, 210, 23, 1),
+                            content: Text('success'),
                           ),
+                        );
+                        context.read<GetNearestdateCubit>().fetchProfile();
+                        }
+                        else   ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            backgroundColor: Color.fromRGBO(210, 48, 20, 1),
+                            content: Text('error'),
+                          ),
+                        );
+                              },
+                              child: state==idApp?CircularProgressIndicator(): Column(
+                                children: [
+                                  Icon(
+                                    Icons.cancel_outlined,
+                                    size: 36,
+                                    color: Color.fromRGBO(168, 40, 48, 1),
+                                  ),
+                                  Text(
+                                    'Cancel',
+                                    style: TextStyle(
+                                        color: Color.fromRGBO(168, 40, 48, 1),
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 14),
+                                  )
+                                ],
+                              ),
+                            );
+                          },
                         )
                       : const SizedBox()
                 ],
@@ -254,31 +282,54 @@ class TheNearestDate extends StatelessWidget {
                         const SizedBox(
                           width: 10,
                         ),
-                        ElevatedButton(
-                            style: const ButtonStyle(
-                                overlayColor:
-                                    WidgetStatePropertyAll(Colors.white30),
-                                fixedSize:
-                                    WidgetStatePropertyAll(Size(123, 35)),
-                                backgroundColor: WidgetStatePropertyAll(
-                                    Color.fromRGBO(168, 40, 48, 1))),
-                            onPressed: () {},
-                            child: Row(
-                              children: [
-                                Image.asset('images/Vector12.png'),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                const Text(
-                                  'Cancel',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 14,
-                                  ),
-                                )
-                              ],
-                            ))
+                        BlocBuilder<DeleteDate, dynamic>(
+                          builder: (context, state) {
+                            return ElevatedButton(
+                                style: ButtonStyle(
+                                    overlayColor:
+                                        WidgetStatePropertyAll(Colors.white30),
+                                    fixedSize:
+                                        WidgetStatePropertyAll(Size(123, 35)),
+                                    backgroundColor: WidgetStatePropertyAll(
+                                        Color.fromRGBO(168, 40, 48, 1))),
+                                onPressed: () async{
+                                  bool isSuccess=await context.read<DeleteDate>().post(idApp: idApp);
+                                        if(isSuccess){ ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            backgroundColor: Color.fromRGBO(20, 210, 23, 1),
+                            content: Text('success'),
+                          ),
+                        );
+                        context.read<GetNearestdateCubit>().fetchProfile();
+                        }
+                        else   ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            backgroundColor: Color.fromRGBO(210, 48, 20, 1),
+                            content: Text('error'),
+                          ),
+                        );
+                             
+                                },
+                                child: state==idApp
+                                    ? CircularProgressIndicator()
+                                    : Row(
+                                        children: [
+                                          Image.asset('images/Vector12.png'),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          const Text(
+                                            'Cancel',
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 14,
+                                            ),
+                                          )
+                                        ],
+                                      ));
+                          },
+                        )
                       ],
                     )
             ],

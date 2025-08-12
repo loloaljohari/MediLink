@@ -505,7 +505,9 @@ class FillOutSensitivity extends StatelessWidget {
           ),
           BlocBuilder<GetSensitivityCubit, GetSensitivityState>(
               builder: (context, state) {
-            if (state is GetSensitivityLoaded)
+            if (state is GetSensitivityLoaded )
+            { Map l;
+               if(state.Sensitivity.containsKey('data'))
               return SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Expanded(
@@ -610,7 +612,8 @@ class FillOutSensitivity extends StatelessWidget {
                   ),
                 ),
               );
-            return SizedBox();
+            else return  SizedBox();
+           } return SizedBox();
           }),
         ],
       ),

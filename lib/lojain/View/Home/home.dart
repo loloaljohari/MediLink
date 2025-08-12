@@ -1,5 +1,6 @@
 import 'package:MediLink/ammar/lib/view/screen/aouth/sinup.dart';
 import 'package:MediLink/lojain/Controllers/home/NavigationCubit.dart';
+import 'package:MediLink/lojain/models/Doctors/getDoctors.dart';
 import 'package:MediLink/lojain/models/Proflie/getProfile.dart';
 import 'package:MediLink/lojain/widgets/HomeWidgets/Doctors/doctorWidget.dart';
 import 'package:MediLink/lojain/widgets/HomeWidgets/home/theNearestDate.dart';
@@ -7,12 +8,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
+import '../../models/Dates/getNearestdate.dart';
+
 class Home extends StatelessWidget {
   const Home({super.key});
 
   @override
   Widget build(BuildContext context) {
     context.read<GetprofileCubit>().fetchProfile();
+    context.read<GetDoctorsCubit>().fetchProfile();
+     context.read<GetNearestdateCubit>().fetchProfile();
     return Scaffold(
       appBar: AppBar(
         leading: Padding(
@@ -115,10 +120,51 @@ class Home extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     Padding(
+            //       padding: const EdgeInsets.only(left: 19.0),
+            //       child: Image.asset('images/Vector4.png'),
+            //     ),
+            //     const Padding(
+            //       padding: EdgeInsets.only(left: 15.0),
+            //       child: Text(
+            //         'Upcoming Appointments',
+            //         style: TextStyle(
+            //             color: Colors.white,
+            //             fontWeight: FontWeight.w700,
+            //             fontSize: 20),
+            //       ),
+            //     ),
+            //     BlocBuilder<NavigationCubit, int>(
+            //       builder: (context, state) {
+            //         return TextButton(
+            //             onPressed: () {
+            //               context.read<NavigationCubit>().changePage(3);
+            //             },
+            //             child: const Text('view all',
+            //                 style: TextStyle(
+            //                     color: Color.fromRGBO(38, 115, 221, 1),
+            //                     fontWeight: FontWeight.w400,
+            //                     fontSize: 16)));
+            //       },
+            //     )
+            //   ],
+            // ),
+             BlocBuilder<GetNearestdateCubit, GetNearestdateState>(
+              builder: (context, state) {
+                if(state is GetNearestdateLoading){
+                  return Center(child: CircularProgressIndicator());
+                }
+              else if(state is GetNearestdateLoaded){ return 
+             state.dates['appointment']==null?Text(''):  Column(
+               children: [
+                const SizedBox(
               height: 15,
             ),
-            Row(
+          
+                 Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
@@ -150,13 +196,23 @@ class Home extends StatelessWidget {
                 )
               ],
             ),
-            const TheNearestDate(
-              Dates: false,
-              Imagepath: 'images/unsplash_7bMdiIqz_J4 (2).png',
-              medSpecialty: 'Cardiomyopathy',
-              namedoctor: 'Dr. Ali Kane',
-              Date: '15 May , Monday',
-              Time: '8:00 - 9:00 PM',
+           
+                 TheNearestDate(
+                    idApp:state.dates['appointment']['id'] ,
+                      Dates: false,
+                      Imagepath: 'images/unsplash_7bMdiIqz_J4 (2).png',
+                      medSpecialty: 'Cardiomyopathy',
+                      namedoctor: 'Dr. Ali Kane',
+                      Date: '${state.dates['appointment']['date']} , ${state.dates['appointment']['day']}',
+                      Time: 
+                      '${state.dates['appointment']['start_time'].toString().substring(0, 5)}-${state.dates['appointment']['end_time'].toString().substring(0, 5)}',
+                 
+                    ),
+               ],
+             );
+             } 
+             else return SizedBox();
+             },
             ),
             const SizedBox(
               height: 10,
@@ -194,32 +250,38 @@ class Home extends StatelessWidget {
                 )
               ],
             ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(children: [
-                DoctorWidget(
-                  showStar: true,
-                  imageDoctor: 'images/unsplash_7bMdiIqz_J4 (2).png',
-                  medSpecialty: 'Cardiomyopathy',
-                  namedoctor: 'Dr. Ali Kane',
-                  star: '  4.5',
-                ),
-                DoctorWidget(
-                  showStar: true,
-                  imageDoctor: 'images/unsplash_NMkGww4E7B0.png',
-                  medSpecialty: 'Psychiatry',
-                  namedoctor: 'Dr. Alaa',
-                  star: '4.8',
-                ),
-                DoctorWidget(
-                  showStar: true,
-                  imageDoctor: 'images/unsplash_jnodpAk8H7c.png',
-                  medSpecialty: 'Cardiomyopathy',
-                  namedoctor: 'Dr. Ali Kane',
-                  star: '4.6',
-                )
-              ]),
-            )
+            BlocBuilder<GetDoctorsCubit, GetDoctorsState>(
+              builder: (context, state) {
+                if (state is GetDoctorsLoading) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.white,
+                    ),
+                  );
+                } else if (state is GetDoctorsLoaded) {
+                  return SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                        children: List.generate(
+                      state.doctors['data'].length,
+                      (index) {
+                        return DoctorWidget(
+                          id: state.doctors['data'][index]["id"],
+                          showStar: true,
+                          imageDoctor: state.doctors['data'][index]["photo"],
+                          medSpecialty:
+                              '${state.doctors['data'][index]['specialization']}',
+                          namedoctor:
+                              'Dr. ${state.doctors['data'][index]['name']}',
+                          star: '  ${state.doctors['data'][index]['rating']}',
+                        );
+                      },
+                    )),
+                  );
+                } else
+                  return SizedBox();
+              },
+            ),
           ],
         ),
       ),

@@ -1,20 +1,13 @@
+import 'dart:convert';
+
 import 'package:MediLink/lojain/Static/Static.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-class PostpublicState extends Cubit<bool> {
-  PostpublicState() : super(false);
-  Future<bool> update(
-      var weight,
-      var height,
-      var date_birth,
-      var gender,
-      var blood_type,
-      var matital_status,
-      var smoker,
-      var alcohol,
-      var drug) async {
+class PostArriveClinic extends Cubit<bool> {
+  PostArriveClinic() : super(false);
+  Future<dynamic> post({required id, required arrivved_time}) async {
     try {
       SharedPreferences sharedPreferences =
           await SharedPreferences.getInstance();
@@ -31,26 +24,21 @@ class PostpublicState extends Cubit<bool> {
       };
       emit(true);
       var request = await http.MultipartRequest(
-          'POST', Uri.parse('$url/patient-record/profile'));
+          'POST', Uri.parse('$url/appointments/$id/setArrivvedTime'));
+
       request.fields.addAll({
-        'weight': weight,
-        'height': height,
-        'date_birth': date_birth,
-        'blood_type': blood_type,
-        'gender': gender,
-        'matital_status': matital_status,
-        'smoker': smoker ? '1' : '0',
-        'alcohol': alcohol ? '1' : '0',
-        'drug': drug ? '1' : '0'
+        'arrivved_time': '$arrivved_time',
+        
       });
-      
+
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
-        var responsebody=await http.Response.fromStream(response);
-
+      var responsebody = await http.Response.fromStream(response);
+      var data = json.decode(responsebody.body);
+      print(data);
       emit(false);
-      if (response.statusCode == 200||response.statusCode == 201) {
+      if (response.statusCode == 201 || response.statusCode == 200) {
         print(await responsebody.body);
 
         return true;

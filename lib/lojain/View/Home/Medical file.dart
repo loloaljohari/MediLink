@@ -37,124 +37,128 @@ class MedicalFile extends StatelessWidget {
             child: CircularProgressIndicator(),
           );
         } else if (state is GetmedicalfileLoaded) {
-         if (state.medicalfile.containsKey('data')) {
+          if (state.medicalfile.containsKey('data')) {
             if (state.medicalfile['data'].isNotEmpty) {
               return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 17.0),
-            child: ListView(
-              children: [
-                Column(
-                  children: List.generate(
-                    state.medicalfile['data'].length,
-                    (index) {
-                      return Column(
-                        children: [
-                          Row(
-                            children: [
-                              Image.asset('images/Group 1053.png'),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                state.medicalfile['data'][index]['ray_name'],
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.w700),
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Column(
+                padding: const EdgeInsets.symmetric(horizontal: 17.0),
+                child: ListView(
+                  children: [
+                    Column(
+                      children: List.generate(
+                        state.medicalfile['data'].length,
+                        (index) {
+                          return Column(
                             children: [
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Row(
-                                    children: [
-                                      Image.asset('images/Vector (17).png'),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Text(
-                                        state.medicalfile['data'][index]
-                                            ['ray_laboratory'],
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w400),
-                                      )
-                                    ],
+                                  Image.asset('images/Group 1053.png'),
+                                  SizedBox(
+                                    width: 10,
                                   ),
-                                  Row(
-                                    children: [
-                                      Image.asset('images/Vector (20).png'),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Text(
-                                        state.medicalfile['data'][index]
-                                            ['ray_date'],
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w400),
-                                      )
-                                    ],
-                                  ),
+                                  Text(
+                                    state.medicalfile['data'][index]
+                                        ['ray_name'],
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w700),
+                                  )
                                 ],
                               ),
                               SizedBox(
-                                height: 10,
+                                height: 20,
                               ),
-                              Container(
-                                  height: 366,
-                                  width: double.infinity,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(20),
-                                    child: Image.network(
-                                      state.medicalfile['data'][index]
-                                          ['ray_image_url'],
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ))
+                              Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Image.asset('images/Vector (17).png'),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(
+                                            state.medicalfile['data'][index]
+                                                ['ray_laboratory'],
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w400),
+                                          )
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Image.asset('images/Vector (20).png'),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(
+                                            state.medicalfile['data'][index]
+                                                ['ray_date'],
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w400),
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Container(
+                                      height: 366,
+                                      width: double.infinity,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(20),
+                                        child: Image.network(
+                                          state.medicalfile['data'][index]
+                                              ['ray_image_url'],
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ))
+                                ],
+                              ),
+                              SizedBox(
+                                height: 40,
+                              ),
                             ],
-                          ),
-                          SizedBox(
-                            height: 40,
-                          ),
-                        ],
-                      );
-                    },
-                  ).toList(),
-                )
-              ],
-            ),
-          );
-      } else
+                          );
+                        },
+                      ).toList(),
+                    )
+                  ],
+                ),
+              );
+            } else
               return Text('empty');
-          }
-          else  return Center(
+          } else
+            return Center(
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    padding: EdgeInsets.all(20),
-                    height: 150,
-                    width: double.infinity,
-                    
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(color:  Color.fromRGBO(130, 182, 255, 1),blurRadius: 18,spreadRadius: 1),
-
-                      ],
-                      color:  Color.fromRGBO(21, 62, 120, 1),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                padding: EdgeInsets.all(20),
+                height: 170,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                        color: Color.fromRGBO(130, 182, 255, 1),
+                        blurRadius: 18,
+                        spreadRadius: 1),
+                  ],
+                  color: Color.fromRGBO(21, 62, 120, 1),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
                     Text(
-                      style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.bold),
                         '${state.medicalfile['message']}: To view your medical record, you must have an account on the app. Sign up for our app to access our services.'),
                     ElevatedButton(
                         style: ButtonStyle(
@@ -170,11 +174,10 @@ class MedicalFile extends StatelessWidget {
                           'Register',
                           style: TextStyle(color: Colors.white),
                         )),
-                                  ],
-                                ),
-                  ),
-                ));
-    
+                  ],
+                ),
+              ),
+            ));
         } else if (state is GetmedicalfileError) {
           return Text(state.messageError.toString());
         } else

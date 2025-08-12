@@ -1,32 +1,53 @@
 import 'package:MediLink/lojain/Controllers/doctors/Selecttheday.dart';
+import 'package:MediLink/lojain/models/Doctors/getTimes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ButtonDay extends StatelessWidget {
   final bool isfall;
-  final int date;
+  final color;
+  final date;
+  final id;
   final String day;
 
   const ButtonDay(
-      {Key? key, required this.isfall, required this.date, required this.day})
+      {Key? key,
+      required this.isfall,
+      required this.date,
+      required this.day,
+      required this.color,required this.id})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10),
-      child: BlocBuilder<Selecttheday, int?>(builder: (context, i) {
+      child: BlocBuilder<Selecttheday, dynamic>(builder: (context, i) {
         return InkWell(
           onTap: () {
-            if (isfall == false) {
+            if (color == '#0000FF') {
               context.read<Selecttheday>().selectLang(date);
+              var day = context.read<Selecttheday>().state;
+              context.read<GetTimesCubit>().fetchProfile(id: id, date: day);
+            } else if (color == '#FFFFFF') {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                    backgroundColor: Color.fromRGBO(255, 255, 255, 1),
+                    content: Text(
+                        'the day there is work<, but it is completely booked!')),
+              );
+            } else if (color == '#FF0000') {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                    backgroundColor: Color.fromRGBO(175, 11, 11, 1),
+                    content: Text('there is no work in this day')),
+              );
             } else
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  backgroundColor: Color.fromRGBO(175, 11, 11, 1),
-                    content: Text('the date is fall you can\'t book in it!  ')),
+                    backgroundColor: Color.fromARGB(255, 213, 46, 127),
+                    content: Text('the date is old')),
               );
-            ;
           },
           child: Container(
             width: 40,
@@ -37,9 +58,13 @@ class ButtonDay extends StatelessWidget {
                     : Colors.transparent,
                 border: (i != date)
                     ? Border.all(
-                        color: isfall
+                        color: color == '#FF0000'
                             ? Color.fromRGBO(175, 11, 11, 1)
-                            : Color.fromRGBO(38, 115, 221, 0.3),
+                            : color == '#FFFFFF'
+                                ? Colors.white
+                                : color == '#FFC0CB'
+                                    ? const Color.fromARGB(255, 213, 46, 127)
+                                    : Color.fromRGBO(37, 111, 213, 0.964),
                         width: 1)
                     : Border(),
                 borderRadius: BorderRadius.circular(4)),
@@ -47,7 +72,7 @@ class ButtonDay extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  date.toString(),
+                  date.substring(date.toString().length - 2),
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 10,

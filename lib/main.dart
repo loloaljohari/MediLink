@@ -14,6 +14,15 @@ import 'package:MediLink/lojain/Controllers/record/dropgeneral.dart';
 import 'package:MediLink/lojain/Controllers/services/darkcontrol.dart';
 import 'package:MediLink/lojain/View/Home/HomePages.dart';
 import 'package:MediLink/lojain/View/SplashScrean/splashscreen.dart';
+import 'package:MediLink/lojain/models/Dates/deleteDate.dart';
+import 'package:MediLink/lojain/models/Dates/getDates.dart';
+import 'package:MediLink/lojain/models/Dates/getNearestdate.dart';
+import 'package:MediLink/lojain/models/Doctors/getDaysForDoctor.dart';
+import 'package:MediLink/lojain/models/Doctors/getDoctorinfo.dart';
+import 'package:MediLink/lojain/models/Doctors/getDoctors.dart';
+import 'package:MediLink/lojain/models/Doctors/getTimes.dart';
+import 'package:MediLink/lojain/models/Doctors/postArriveClinic.dart';
+import 'package:MediLink/lojain/models/Doctors/postBook.dart';
 import 'package:MediLink/lojain/models/Proflie/updateProfile.dart';
 import 'package:MediLink/lojain/models/alarm/deleteAlarm.dart';
 import 'package:MediLink/lojain/models/alarm/getAlarms.dart';
@@ -67,6 +76,15 @@ void main() async {
   runApp(
     MultiBlocProvider(
       providers: [
+        BlocProvider(create: (context) => GetDoctorsCubit()),
+        BlocProvider(create: (context) => GetDatesCubit()),
+        BlocProvider(create: (context) => DeleteDate()),
+        BlocProvider(create: (context) => GetNearestdateCubit()),
+        BlocProvider(create: (context) => PostBook()),
+        BlocProvider(create: (context) => PostArriveClinic()),
+        BlocProvider(create: (context) => GetTimesCubit()),
+        BlocProvider(create: (context) => GetDaysForDoctorCubit()),
+        BlocProvider(create: (context) => GetDoctorinfoCubit()),
         BlocProvider(create: (context) => DeleteAlarm()),
         BlocProvider(create: (context) => Buttonsdates()),
         BlocProvider(create: (context) => NavigationCubit()),

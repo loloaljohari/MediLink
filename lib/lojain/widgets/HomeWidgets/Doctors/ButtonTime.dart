@@ -35,7 +35,7 @@ class ButtonTime extends StatelessWidget {
                     ? Border.all(
                         color: isfall
                             ? Color.fromRGBO(175, 11, 11, 1)
-                            : Color.fromRGBO(38, 115, 221, 0.3),
+                            : Color.fromRGBO(38, 114, 221, 1),
                         width: 1)
                     : Border(),
                 borderRadius: BorderRadius.circular(12)),

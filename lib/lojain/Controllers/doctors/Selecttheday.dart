@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 
-class Selecttheday extends Cubit<int?> {
+class Selecttheday extends Cubit<dynamic> {
   Selecttheday() : super(null);
-  void selectLang(int option) async {
+  void selectLang(dynamic option) async {
     emit(option);
   }
 }

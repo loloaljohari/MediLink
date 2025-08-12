@@ -1,4 +1,7 @@
 import 'package:MediLink/lojain/Controllers/mydates/ButtonsDates.dart';
+import 'package:MediLink/lojain/Static/Static.dart';
+import 'package:MediLink/lojain/models/Dates/getDates.dart';
+import 'package:MediLink/lojain/models/Dates/getNearestdate.dart';
 import 'package:MediLink/lojain/widgets/HomeWidgets/Mydate/DateWidget.dart';
 import 'package:MediLink/lojain/widgets/HomeWidgets/home/theNearestDate.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +12,7 @@ class Mydates extends StatelessWidget {
   int Select = 0;
   @override
   Widget build(BuildContext context) {
+    context.read<GetDatesCubit>().fetchProfile();
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -23,7 +27,36 @@ class Mydates extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 15.0),
         child: ListView(
           children: [
-            Row(
+            // Row(
+            //   children: [
+            //     Padding(
+            //       padding: const EdgeInsets.only(left: 19.0),
+            //       child: Image.asset('images/Vector4.png'),
+            //     ),
+            //     Padding(
+            //       padding: const EdgeInsets.only(left: 15.0),
+            //       child: Text(
+            //         'Upcoming Date',
+            //         style: TextStyle(
+            //             color: Colors.white,
+            //             fontWeight: FontWeight.w700,
+            //             fontSize: 20),
+            //       ),
+            //     ),
+            //   ],
+            // ),
+            // SizedBox(
+            //   height: 7,
+            // ),
+             BlocBuilder<GetNearestdateCubit, GetNearestdateState>(
+              builder: (context, state) {
+                if(state is GetNearestdateLoading){
+                  return Center(child: CircularProgressIndicator());
+                }
+              else if(state is GetNearestdateLoaded){ return
+              state.dates['appointment']==null?Text(''): Column(
+                children: [
+                     Row(
               children: [
                 Padding(
                   padding: const EdgeInsets.only(left: 19.0),
@@ -44,14 +77,24 @@ class Mydates extends StatelessWidget {
             SizedBox(
               height: 7,
             ),
-            TheNearestDate(
-              Dates: true,
-              Imagepath: 'images/unsplash_7bMdiIqz_J4 (2).png',
-              medSpecialty: 'Cardiomyopathy',
-              namedoctor: 'Dr. Ali Kane',
-              Date: '15 May , Monday',
-              Time: '8:00 - 9:00 PM',
+                  TheNearestDate(
+                      Dates: true,
+                        idApp:state.dates['appointment']['id'] ,
+                      Imagepath: 'images/unsplash_7bMdiIqz_J4 (2).png',
+                      medSpecialty: 'Cardiomyopathy',
+                      namedoctor: 'Dr. Ali Kane',
+                      Date: '${state.dates['appointment']['date']} , ${state.dates['appointment']['day']}',
+                      Time: 
+                      '${state.dates['appointment']['start_time'].toString().substring(0, 5)}-${state.dates['appointment']['end_time'].toString().substring(0, 5)}',
+                  
+                    ),
+                ],
+              );
+             } 
+             else return SizedBox();
+             },
             ),
+          
             SizedBox(
               height: 15,
             ),
@@ -130,53 +173,228 @@ class Mydates extends StatelessWidget {
                     ],
                   ),
                   index == 0
-                      ? Column(
-                        children: [
-                          const DateWidget(
-                              Imagepath: 'images/Rectangle 675.png',
-                              namedoctor: 'Dr. Amena',
-                              time: '9:00 - 8:00',
-                              date: '15 May',
-                            ),
-                               const DateWidget(
-                              Imagepath: 'images/Rectangle 675.png',
-                              namedoctor: 'Dr. Amena',
-                              time: '9:00 - 8:00',
-                              date: '15 May',
-                            ),   const DateWidget(
-                              Imagepath: 'images/Rectangle 675.png',
-                              namedoctor: 'Dr. Amena',
-                              time: '9:00 - 8:00',
-                              date: '15 May',
-                            ),   const DateWidget(
-                              Imagepath: 'images/Rectangle 675.png',
-                              namedoctor: 'Dr. Amena',
-                              time: '9:00 - 8:00',
-                              date: '15 May',
-                            ),
-                        ],
-                      )
-                      : index==1?Column(
-                        children: [
-                          const DateWidget(
-                              Imagepath: 'images/Rectangle 675.png',
-                              namedoctor: 'Dr. Amena',
-                              time: '9:00 - 8:00',
-                              date: '15 May',
-                            ),
-                               const DateWidget(
-                              Imagepath: 'images/Rectangle 675.png',
-                              namedoctor: 'Dr. Amena',
-                              time: '9:00 - 8:00',
-                              date: '15 May',
-                            ),   
-                        ],
-                      ) : 
-                      Text('')
+                      ? BlocBuilder<GetDatesCubit, GetDatesState>(
+                          builder: (context, state) {
+                            if (state is GetDatesLoading) {
+                              return Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+                            if (state is GetDatesLoaded) {
+                              return state
+                                                .dates['appointments']
+                                                    ['confirmed']
+                                                .isEmpty? Text('no thing'): Column(
+                                  children: List.generate(
+                                state.dates['appointments']['confirmed'].length,
+                                (index) {
+                                  return DateWidget(
+                                    status: false,
+                                    idApp: state.dates['appointments']
+                                        ['confirmed'][index]['id'],
+                                    Imagepath: state.dates['appointments']
+                                        ['confirmed'][index]['doctor_photo'],
+                                    namedoctor: state.dates['appointments']
+                                        ['confirmed'][index]['doctor_name'],
+                                    time:
+                                        '${state.dates['appointments']['confirmed'][index]['start_time'].toString().substring(0, 5)}-${state.dates['appointments']['confirmed'][index]['end_time'].toString().substring(0, 5)}',
+                                    date:
+                                        '${state.dates['appointments']['confirmed'][index]['date']}',
+                                  );
+                                },
+                              ));
+                            } else
+                              return SizedBox();
+                          },
+                        )
+                      : index == 1
+                          ?   BlocBuilder<GetDatesCubit, GetDatesState>(
+                              builder: (context, state) {
+                                if (state is GetDatesLoading) {
+                                  return Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                }
+                                if (state is GetDatesLoaded) {
+                                  return state
+                                                .dates['appointments']
+                                                    ['pending']
+                                                .isEmpty? Text('no thing'): Column(
+                                      children: List.generate(
+                                    state.dates['appointments']['pending']
+                                        .length,
+                                    (index) {
+                                      return DateWidget(
+                                        status: false,
+                                        idApp: state.dates['appointments']
+                                            ['pending'][index]['id'],
+                                        Imagepath: state.dates['appointments']
+                                            ['pending'][index]['doctor_photo'],
+                                        namedoctor: state.dates['appointments']
+                                            ['pending'][index]['doctor_name'],
+                                        time:
+                                            '${state.dates['appointments']['pending'][index]['start_time'].toString().substring(0, 5)}-${state.dates['appointments']['pending'][index]['end_time'].toString().substring(0, 5)}',
+                                        date:
+                                            '${state.dates['appointments']['pending'][index]['date']}',
+                                      );
+                                    },
+                                  ));
+                                } else
+                                  return SizedBox();
+                              },
+                            )
+                          : BlocBuilder<GetDatesCubit, GetDatesState>(
+                              builder: (context, state) {
+                                if (state is GetDatesLoading) {
+                                  return Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                }
+                                if (state is GetDatesLoaded) {
+                                  return Container(
+                                    width: double.infinity,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'By Patient',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: 20),
+                                        ),
+                                        state
+                                                .dates['appointments']
+                                                    ['canceled_by_patient']
+                                                .isEmpty
+                                            ? Text('no thing')
+                                            : Column(
+                                                children: List.generate(
+                                                state
+                                                    .dates['appointments']
+                                                        ['canceled_by_patient']
+                                                    .length,
+                                                (index) {
+                                                  return DateWidget(
+                                                    status: true,
+                                                    idApp: state.dates[
+                                                                'appointments'][
+                                                            'canceled_by_patient']
+                                                        [index]['id'],
+                                                    Imagepath: state.dates[
+                                                                'appointments'][
+                                                            'canceled_by_patient']
+                                                        [index]['doctor_photo'],
+                                                    namedoctor: state.dates[
+                                                                'appointments'][
+                                                            'canceled_by_patient']
+                                                        [index]['doctor_name'],
+                                                    time:
+                                                        '${state.dates['appointments']['canceled_by_patient'][index]['start_time'].toString().substring(0, 5)}-${state.dates['appointments']['canceled_by_patient'][index]['end_time'].toString().substring(0, 5)}',
+                                                    date:
+                                                        '${state.dates['appointments']['canceled_by_patient'][index]['date']}',
+                                                  );
+                                                },
+                                              )),
+                                        SizedBox(
+                                          height: 20,
+                                        ),
+                                        Divider(),
+                                        Text(
+                                          'By Doctor',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: 20),
+                                        ),
+                                        state
+                                                .dates['appointments']
+                                                    ['canceled_by_doctor']
+                                                .isEmpty
+                                            ? Text('no thing')
+                                            : Column(
+                                                children: List.generate(
+                                                state
+                                                    .dates['appointments']
+                                                        ['canceled_by_doctor']
+                                                    .length,
+                                                (index) {
+                                                  return DateWidget(
+                                                    status: true,
+                                                    idApp: state.dates[
+                                                                'appointments'][
+                                                            'canceled_by_doctor']
+                                                        [index]['id'],
+                                                    Imagepath: state.dates[
+                                                                'appointments'][
+                                                            'canceled_by_doctor']
+                                                        [index]['doctor_photo'],
+                                                    namedoctor: state.dates[
+                                                                'appointments'][
+                                                            'canceled_by_doctor']
+                                                        [index]['doctor_name'],
+                                                    time:
+                                                        '${state.dates['appointments']['canceled_by_doctor'][index]['start_time'].toString().substring(0, 5)}-${state.dates['appointments']['canceled_by_doctor'][index]['end_time'].toString().substring(0, 5)}',
+                                                    date:
+                                                        '${state.dates['appointments']['canceled_by_doctor'][index]['date']}',
+                                                  );
+                                                },
+                                              )),
+                                        SizedBox(
+                                          height: 20,
+                                        ),
+                                        Divider(),
+                                        Text(
+                                          'By Secretary',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: 20),
+                                        ),
+                                        state
+                                                .dates['appointments']
+                                                    ['canceled_by_secretary']
+                                                .isEmpty
+                                            ? Text('no thing')
+                                            : Column(
+                                                children: List.generate(
+                                                state
+                                                    .dates['appointments'][
+                                                        'canceled_by_secretary']
+                                                    .length,
+                                                (index) {
+                                                  return DateWidget(
+                                                    status: true,
+                                                    idApp: state.dates[
+                                                                'appointments'][
+                                                            'canceled_by_secretary']
+                                                        [index]['id'],
+                                                    Imagepath: state.dates[
+                                                                'appointments'][
+                                                            'canceled_by_secretary']
+                                                        [index]['doctor_photo'],
+                                                    namedoctor: state.dates[
+                                                                'appointments'][
+                                                            'canceled_by_secretary']
+                                                        [index]['doctor_name'],
+                                                    time:
+                                                        '${state.dates['appointments']['canceled_by_secretary'][index]['start_time'].toString().substring(0, 5)}-${state.dates['appointments']['canceled_by_secretary'][index]['end_time'].toString().substring(0, 5)}',
+                                                    date:
+                                                        '${state.dates['appointments']['canceled_by_secretary'][index]['date']}',
+                                                  );
+                                                },
+                                              )),
+                                      ],
+                                    ),
+                                  );
+                                } else
+                                  return SizedBox();
+                              },
+                            )
                 ],
               );
             }),
-           
           ],
         ),
       ),

@@ -9,10 +9,12 @@ import 'package:MediLink/lojain/widgets/HomeWidgets/FillOutRecord/filloutpublic.
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FillOutRecord extends StatelessWidget {
-  FillOutRecord({Key? key}) : super(key: key);
+  final cont;
+  FillOutRecord({Key? key, this.cont}) : super(key: key);
 
   final GlobalKey<ScaffoldState> scaffold = GlobalKey<ScaffoldState>();
   Future<void> showMyDialog(BuildContext context) async {
@@ -85,7 +87,7 @@ class FillOutRecord extends StatelessWidget {
                           backgroundColor: Colors.green,
                           duration: Duration(seconds: 2),
                         ));
-                        Navigator.of(context).pop();
+                        Navigator.popUntil(cont, (route) => route.isFirst,);
                       } else {
                         // ignore: use_build_context_synchronously
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -109,6 +111,7 @@ class FillOutRecord extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+   
       key: scaffold,
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10),

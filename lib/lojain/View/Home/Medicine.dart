@@ -1,4 +1,5 @@
 import 'package:MediLink/lojain/Controllers/mydates/ButtonsDates.dart';
+import 'package:MediLink/lojain/widgets/HomeWidgets/Record/Medicine/ArchiveMedicine.dart';
 import 'package:MediLink/lojain/widgets/HomeWidgets/Record/Medicine/NowMedicine.dart';
 import 'package:MediLink/lojain/widgets/HomeWidgets/Record/Medicine/Temporary%20medicines.dart';
 import 'package:flutter/material.dart';
@@ -97,59 +98,8 @@ class Medicine extends StatelessWidget {
                   children: [
                     index == 0
                         ? NowMedicine()
-                        : Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                          child: Column(
-                              children: [
-                                TemporaryMedicines(
-                                  temporarymedicinesname: 'proven',
-                                  startdate: '30 /3 /2025',
-                                  enddate: '12 / 4 / 2025',
-                                  doctorname: 'Amar',
-                                  time: 'After eating',
-                                  dosage: 'one pill',
-                                  repeat: 'one a Day',
-                                  per: 24,
-                                  max: 24,
-                                ),
-                                TemporaryMedicines(
-                                  temporarymedicinesname: 'proven',
-                                  startdate: '30 /3 /2025',
-                                  enddate: '12 / 4 / 2025',
-                                  doctorname: 'Amar',
-                                  time: 'After eating',
-                                  dosage: 'one pill',
-                                  repeat: 'one a Day',
-                                  per: 14,
-                                  max: 18,
-                                ),
-                                TemporaryMedicines(
-                                      temporarymedicinesname: 'proven',
-                                      startdate: '30 /3 /2025',
-                                      enddate: '12 / 4 / 2025',
-                                      doctorname: 'Amar',
-                                      time: 'After eating',
-                                      dosage: 'one pill',
-                                      repeat: 'one a Day',
-                                      per: 14,
-                                      max: 14,
-                                    ),
-                                    TemporaryMedicines(
-                                      temporarymedicinesname: 'proven',
-                                      startdate: '30 /3 /2025',
-                                      enddate: '12 / 4 / 2025',
-                                      doctorname: 'Amar',
-                                      time: 'After eating',
-                                      dosage: 'one pill',
-                                      repeat: 'one a Day',
-                                      per: 6,
-                                      max: 24,
-                                    )
-                                    ,
-                              ],
-                            ),
-                        )
-                  ],
+                        : ArchiveMedicine()  
+                         ],
                 ),
               ),
             ],

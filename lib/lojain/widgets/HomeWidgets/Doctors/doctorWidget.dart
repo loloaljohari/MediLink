@@ -6,6 +6,7 @@ class DoctorWidget extends StatelessWidget {
   final String imageDoctor;
   final String namedoctor;
   final String medSpecialty;
+  final id;
   String star;
   DoctorWidget(
       {super.key,
@@ -13,7 +14,7 @@ class DoctorWidget extends StatelessWidget {
       required this.namedoctor,
       required this.medSpecialty,
       required this.star,
-      required this.showStar});
+      required this.showStar,required this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class DoctorWidget extends StatelessWidget {
             
             PageRouteBuilder(
               pageBuilder: (context, animation, secondaryAnimation) =>
-                  DoctorInfo( star: star, imageDoctor: imageDoctor, namedoctor: namedoctor, medSpecialty:medSpecialty,),
+                  DoctorInfo(id:id),
               transitionDuration: Duration(milliseconds: 300),
               transitionsBuilder:
                   (context, animation, secondaryAnimation, child) {
@@ -68,7 +69,7 @@ class DoctorWidget extends StatelessWidget {
                           child: Container(
                               width: 160,
                               height: 190,
-                              child: Image.asset(imageDoctor)),
+                              child: Image.network(imageDoctor)),
                         ))
                   ],
                 )
@@ -102,7 +103,7 @@ class DoctorWidget extends StatelessWidget {
                               child: Container(
                                   width: 160,
                                   height: 190,
-                                  child: Image.asset(imageDoctor)),
+                                  child: Image.network(imageDoctor)),
                             ))
                       ],
                     ),

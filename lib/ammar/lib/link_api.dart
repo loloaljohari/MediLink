@@ -2,7 +2,7 @@ class Applink {
 
 
 
-  static const String server = "http://192.168.247.164:8000/api";
+  static const String server = "http://192.168.1.8:8000/api";
 
 //static const String test = "$server/test.php ";
 ////////////////////////////////////////////aouth//////////////////////////
