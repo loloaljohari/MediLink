@@ -5,29 +5,29 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-class GetDatesState {}
+class GetAllNearestdateState {}
 
-class GetDatesLoading extends GetDatesState {}
+class GetAllNearestdateLoading extends GetAllNearestdateState {}
 
-class GetDatesLoaded extends GetDatesState {
-  final  dates;
-  GetDatesLoaded({
+class GetAllNearestdateLoaded extends GetAllNearestdateState {
+  final   dates;
+  GetAllNearestdateLoaded({
     required this.dates,
   });
 }
 
-class GetDatesError extends GetDatesState {
+class GetAllNearestdateError extends GetAllNearestdateState {
   final String messageError;
-  GetDatesError({
+  GetAllNearestdateError({
     required this.messageError,
   });
 }
 
-class GetDatesCubit extends Cubit<GetDatesState> {
-  GetDatesCubit() : super(GetDatesLoading());
+class GetAllNearestdateCubit extends Cubit<GetAllNearestdateState> {
+  GetAllNearestdateCubit() : super(GetAllNearestdateLoading());
 
   Future fetchProfile() async {
-    emit(GetDatesLoading());
+    emit(GetAllNearestdateLoading());
     try {
       SharedPreferences sharedPreferences =
           await SharedPreferences.getInstance();
@@ -43,23 +43,23 @@ class GetDatesCubit extends Cubit<GetDatesState> {
         'Authorization': '$Authorization',
       };
       final response =
-          await http.get(Uri.parse('$url/patient/appointments'), headers: headers);
+          await http.get(Uri.parse('$url/appointments/confirmed/nearestAll'), headers: headers);
       var dates = json.decode(response.body);
       print(await response.body);
 
       if (response.statusCode == 200) {
-        print(await dates);
+        print(await response.body);
 
-        emit(GetDatesLoaded(dates: dates));
+        emit(GetAllNearestdateLoaded(dates: dates));
       } else {
         print(await response.body);
 
-        emit(GetDatesLoaded(dates: dates));
+        emit(GetAllNearestdateLoaded(dates: dates));
         print(response.reasonPhrase);
       }
     } catch (e) {
       print(e.toString());
-      emit(GetDatesError(messageError: e.toString()));
+      emit(GetAllNearestdateError(messageError: e.toString()));
     }
   }
 }

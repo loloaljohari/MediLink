@@ -281,39 +281,53 @@ class DoctorInfo extends StatelessWidget {
     );
   }
 
-  void showBookedDialog(BuildContext context, id) {
+  void showBookedDialog(BuildContext context, BuildContext scaffold, id) {
     TextEditingController controller = TextEditingController();
     showDialog(
-      useRootNavigator: false,
       useSafeArea: false,
-      barrierDismissible: false,
       context: context,
       builder: (context) {
         return AlertDialog(
+          backgroundColor: Color.fromRGBO(31, 90, 172, 0.961),
           content: Container(
             height: 150,
             child: Column(
               children: [
                 Text(
                     'The reservation has been made , but we need to know how long it will take you to arrive at the clinic!'),
+                SizedBox(
+                  height: 20,
+                ),
                 TextField(
+                  cursorColor: Colors.white,
                   controller: controller,
-                  decoration:
-                      InputDecoration(hintText: 'enter the time in minute'),
+                  decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white)),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white)),
+                      disabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white)),
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white)),
+                      labelStyle: TextStyle(color: Colors.white, fontSize: 18),
+                      labelText: 'enter the time in minute'),
                 )
               ],
             ),
           ),
           actions: [
             BlocBuilder<PostArriveClinic, bool>(
-              builder: (context1, state) {
+              builder: (context, state) {
                 return ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor: WidgetStatePropertyAll(Colors.white)),
                     onPressed: () async {
-                      bool isSuccess = await context1
+                      bool isSuccess = await context
                           .read<PostArriveClinic>()
                           .post(id: id, arrivved_time: controller.text);
                       if (isSuccess) {
-                        ScaffoldMessenger.of(context).showSnackBar(
+                        ScaffoldMessenger.of(scaffold).showSnackBar(
                           SnackBar(
                             backgroundColor: Color.fromRGBO(20, 210, 86, 1),
                             content: Text('success'),
@@ -321,15 +335,24 @@ class DoctorInfo extends StatelessWidget {
                         );
                         Get.back();
                       } else
-                        ScaffoldMessenger.of(context).showSnackBar(
+                        ScaffoldMessenger.of(scaffold).showSnackBar(
                           SnackBar(
                             backgroundColor: Color.fromRGBO(210, 48, 20, 1),
                             content: Text('error'),
                           ),
                         );
                     },
-                    child:state? CircularProgressIndicator(): Text('save'));
-              }, 
+                    child: state
+                        ? CircularProgressIndicator(
+                            color: Color.fromRGBO(31, 90, 172, 0.961),
+                          )
+                        : Text(
+                            'save',
+                            style: TextStyle(
+                                color: Color.fromRGBO(31, 90, 172, 0.961),
+                                fontSize: 18),
+                          ));
+              },
             )
           ],
         );
@@ -678,7 +701,7 @@ class DoctorInfo extends StatelessWidget {
                             builder: (context, state) {
                               if (state is GetTimesLoading) {
                                 return Center(
-                                  child: CircularProgressIndicator(),
+                                  child: CircularProgressIndicator(color: Colors.white,),
                                 );
                               } else if (state is GetTimesLoaded) {
                                 if (state.times.containsKey('data')) {
@@ -709,9 +732,9 @@ class DoctorInfo extends StatelessWidget {
                                         )),
                                   ));
                                 } else
-                                  return SizedBox();
+                                   return SizedBox(child: Text('you should choice the day! '),);
                               } else
-                                return SizedBox();
+                                return SizedBox(child: Text('you should choice the day! '),);
                             },
                           ),
                           const SizedBox(
@@ -735,7 +758,7 @@ class DoctorInfo extends StatelessWidget {
                                       await SharedPreferences.getInstance();
                                   var saveInfoRecord = sharedPreferences
                                       .getBool('saveInfoRecord');
-                                  if (saveInfoRecord!) {
+                                  if (saveInfoRecord != null) {
                                     var time =
                                         context.read<Selectthetime>().state;
                                     var day =
@@ -745,7 +768,7 @@ class DoctorInfo extends StatelessWidget {
                                         .read<PostBook>()
                                         .post(id: id, date: day, time: time);
                                     if (isSuccess.containsKey('appointment')) {
-                                      showBookedDialog(context,
+                                      showBookedDialog(context, context,
                                           isSuccess['appointment']['id']);
                                     } else {
                                       ScaffoldMessenger.of(context)

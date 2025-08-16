@@ -8,6 +8,7 @@ class MyAlarmMedication extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<GetAlarmsCubit>().fetch();
     return Column(
       children: [
         Container(
@@ -51,17 +52,24 @@ class MyAlarmMedication extends StatelessWidget {
                         width: MediaQuery.of(context).size.width * 0.66,
                         child: BlocBuilder<GetAlarmsCubit, GetAlarmsState>(
                             builder: (context, state) {
-                          if (state is GetAlarmsLoading) {
-                            return CircularProgressIndicator();
-                          } else if (state is GetAlarmsLoaded) {
-                            return Text(
+                          if (state is GetAlarmsLoaded) {
+                         if(state.alarms.containsKey('data'))  { return Text(
                               '${state.alarms['data'].length} Alarm',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w400,
                                   fontSize: 20),
                             );
-                          } else
+                         } 
+                         else return Text(
+                              'no Alarm',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 20),
+                            );
+
+                         } else
                             return Text(
                               'many Alarm',
                               style: TextStyle(
@@ -70,15 +78,16 @@ class MyAlarmMedication extends StatelessWidget {
                                   fontSize: 20),
                             );
                         })),
-                    SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.66,
-                        child: Text(
-                          'After 30 minute',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w400,
-                              fontSize: 12),
-                        )),
+                  //   SizedBox(
+                  //       width: MediaQuery.of(context).size.width * 0.66,
+                  //       child: Text(
+                  //         'After 30 minute',
+                  //         style: TextStyle(
+                  //             color: Colors.white,
+                  //             fontWeight: FontWeight.w400,
+                  //             fontSize: 12),
+                  //       )),
+                  // 
                   ],
                 ),
                 const Icon(

@@ -1,4 +1,5 @@
 import 'package:MediLink/lojain/Class/ImagePick.dart';
+import 'package:MediLink/lojain/Static/Static.dart';
 import 'package:MediLink/lojain/models/Proflie/getProfile.dart';
 import 'package:MediLink/lojain/models/Proflie/updateProfile.dart';
 import 'package:flutter/material.dart';
@@ -101,7 +102,10 @@ class EdatProfile extends StatelessWidget {
                                         decoration: const BoxDecoration(
                                             shape: BoxShape.circle),
                                         child: ClipOval(
-                                          child: Image.network(
+                                          child:(state.myprofile['photo'] ==
+                                      '$Imagepathurl/storage/avatars/defaults.jpg' ||
+                                  state.myprofile['photo'] ==
+                                      '$Imagepathurl/storage/avatars/6681221.png')? Image.asset('images/Group 1013.png',   fit: BoxFit.cover,): Image.network(
                                             state.myprofile['photo'],
                                             fit: BoxFit.cover,
                                           ),

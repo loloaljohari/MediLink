@@ -12,9 +12,11 @@ import 'package:MediLink/lojain/Controllers/onboarding/SelectionType.dart';
 import 'package:MediLink/lojain/Controllers/record/SliderValueCubit.dart';
 import 'package:MediLink/lojain/Controllers/record/dropgeneral.dart';
 import 'package:MediLink/lojain/Controllers/services/darkcontrol.dart';
-import 'package:MediLink/lojain/View/Home/HomePages.dart';
+
 import 'package:MediLink/lojain/View/SplashScrean/splashscreen.dart';
+import 'package:MediLink/lojain/models/Aouth/changeAccount.dart';
 import 'package:MediLink/lojain/models/Dates/deleteDate.dart';
+import 'package:MediLink/lojain/models/Dates/getAllNearestdate.dart';
 import 'package:MediLink/lojain/models/Dates/getDates.dart';
 import 'package:MediLink/lojain/models/Dates/getNearestdate.dart';
 import 'package:MediLink/lojain/models/Doctors/getDaysForDoctor.dart';
@@ -77,6 +79,8 @@ void main() async {
     MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => GetDoctorsCubit()),
+        BlocProvider(create: (context) => GetAllNearestdateCubit()),
+        BlocProvider(create: (context) => ChangeAccount()),
         BlocProvider(create: (context) => GetDatesCubit()),
         BlocProvider(create: (context) => DeleteDate()),
         BlocProvider(create: (context) => GetNearestdateCubit()),

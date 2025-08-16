@@ -1,11 +1,13 @@
-
 import 'package:MediLink/ammar/lib/core/class/statusrequest.dart';
 import 'package:MediLink/ammar/lib/core/constant/routes.dart';
 import 'package:MediLink/ammar/lib/core/functions/handlingdata_controler.dart';
 import 'package:MediLink/ammar/lib/data/data%20source/remote/aouth/login.dart';
+import 'package:MediLink/lojain/View/Home/HomePages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../../lojain/View/Home/Changeacount.dart';
 
 abstract class Logincontroller extends GetxController {
   login(BuildContext context);
@@ -32,7 +34,7 @@ class LogincontrollerImp extends Logincontroller {
   List data = [];
 
   @override
-  login(BuildContext context ) async {
+  login(BuildContext context) async {
     //var formdata = formKey.currentState;
     var formdata = formstate.currentState;
     if (formdata != null && formdata.validate()) {
@@ -49,16 +51,20 @@ class LogincontrollerImp extends Logincontroller {
           // تسجيل دخول ناجح
           // يمكنك تخزين التوكن هنا باستخدام shared_preferences مثلاً
           var token = response['token'];
-        print('token: $token');
-        SharedPreferences sharedPreferences =
-            await SharedPreferences.getInstance();
-        sharedPreferences.setString('token', token);
-        print('done');
+          print('token: $token');
+          SharedPreferences sharedPreferences =
+              await SharedPreferences.getInstance();
+          sharedPreferences.setString('token', token);
+          print('done');
           // Get.offNamed(Approut.testview, arguments: {
           //   "email": email.text,
           //   "token": response["token"],
           // });
-          Navigator.popUntil(context, (route) => route.isFirst,);
+
+          if (response["created_by_secretary"]) {
+            Get.offAll(Changeacount());
+          } else
+            Get.offAll(HomePages());
         } else if (response.containsKey("message")) {
           String message = response["message"];
           Get.defaultDialog(title: "تنبيه", middleText: message);

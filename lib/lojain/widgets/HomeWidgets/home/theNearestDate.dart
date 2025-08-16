@@ -5,6 +5,8 @@ import 'package:MediLink/lojain/models/Dates/getNearestdate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../Controllers/home/NavigationCubit.dart';
+
 class TheNearestDate extends StatelessWidget {
   final String Imagepath;
   final String namedoctor;
@@ -83,7 +85,7 @@ class TheNearestDate extends StatelessWidget {
                               child: Padding(
                             padding: const EdgeInsets.only(
                                 top: 3.0, left: 8, right: 8),
-                            child: Image.asset(
+                            child: Image.network(
                               Imagepath,
                               fit: BoxFit.fill,
                             ),
@@ -139,39 +141,49 @@ class TheNearestDate extends StatelessWidget {
                       ? BlocBuilder<DeleteDate, dynamic>(
                           builder: (context, state) {
                             return InkWell(
-                              onTap: () async{
-                              bool isSuccess=await  context.read<DeleteDate>().post(idApp: idApp);
-                               if(isSuccess){ ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            backgroundColor: Color.fromRGBO(20, 210, 23, 1),
-                            content: Text('success'),
-                          ),
-                        );
-                        context.read<GetNearestdateCubit>().fetchProfile();
-                        }
-                        else   ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            backgroundColor: Color.fromRGBO(210, 48, 20, 1),
-                            content: Text('error'),
-                          ),
-                        );
+                              onTap: () async {
+                                bool isSuccess = await context
+                                    .read<DeleteDate>()
+                                    .post(idApp: idApp);
+                                if (isSuccess) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      backgroundColor:
+                                          Color.fromRGBO(20, 210, 23, 1),
+                                      content: Text('success'),
+                                    ),
+                                  );
+                                  context
+                                      .read<GetNearestdateCubit>()
+                                      .fetchProfile();
+                                } else
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      backgroundColor:
+                                          Color.fromRGBO(210, 48, 20, 1),
+                                      content: Text('error'),
+                                    ),
+                                  );
                               },
-                              child: state==idApp?CircularProgressIndicator(): Column(
-                                children: [
-                                  Icon(
-                                    Icons.cancel_outlined,
-                                    size: 36,
-                                    color: Color.fromRGBO(168, 40, 48, 1),
-                                  ),
-                                  Text(
-                                    'Cancel',
-                                    style: TextStyle(
-                                        color: Color.fromRGBO(168, 40, 48, 1),
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 14),
-                                  )
-                                ],
-                              ),
+                              child: state == idApp
+                                  ? CircularProgressIndicator()
+                                  : Column(
+                                      children: [
+                                        Icon(
+                                          Icons.cancel_outlined,
+                                          size: 36,
+                                          color: Color.fromRGBO(168, 40, 48, 1),
+                                        ),
+                                        Text(
+                                          'Cancel',
+                                          style: TextStyle(
+                                              color: Color.fromRGBO(
+                                                  168, 40, 48, 1),
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 14),
+                                        )
+                                      ],
+                                    ),
                             );
                           },
                         )
@@ -255,30 +267,39 @@ class TheNearestDate extends StatelessWidget {
                   : Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        ElevatedButton(
-                            style: const ButtonStyle(
-                                overlayColor:
-                                    WidgetStatePropertyAll(Colors.white30),
-                                fixedSize:
-                                    WidgetStatePropertyAll(Size(123, 35)),
-                                backgroundColor: WidgetStatePropertyAll(
-                                    Color.fromRGBO(18, 18, 18, 1))),
-                            onPressed: () {},
-                            child: Row(
-                              children: [
-                                Image.asset('images/Vector11.png'),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                const Text(
-                                  'Details',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 14,
-                                      color: Color.fromRGBO(38, 115, 221, 1)),
-                                )
-                              ],
-                            )),
+                        
+                  
+                        BlocBuilder<NavigationCubit, int>(
+                          builder: (context, state) {
+                            return ElevatedButton(
+                                style: const ButtonStyle(
+                                    overlayColor:
+                                        WidgetStatePropertyAll(Colors.white30),
+                                    fixedSize:
+                                        WidgetStatePropertyAll(Size(123, 35)),
+                                    backgroundColor: WidgetStatePropertyAll(
+                                        Color.fromRGBO(18, 18, 18, 1))),
+                                onPressed: () {
+                                  context.read<NavigationCubit>().changePage(3);
+                                },
+                                child: Row(
+                                  children: [
+                                    Image.asset('images/Vector11.png'),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    const Text(
+                                      'Details',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 14,
+                                          color:
+                                              Color.fromRGBO(38, 115, 221, 1)),
+                                    )
+                                  ],
+                                ));
+                          },
+                        ),
                         const SizedBox(
                           width: 10,
                         ),
@@ -292,25 +313,31 @@ class TheNearestDate extends StatelessWidget {
                                         WidgetStatePropertyAll(Size(123, 35)),
                                     backgroundColor: WidgetStatePropertyAll(
                                         Color.fromRGBO(168, 40, 48, 1))),
-                                onPressed: () async{
-                                  bool isSuccess=await context.read<DeleteDate>().post(idApp: idApp);
-                                        if(isSuccess){ ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            backgroundColor: Color.fromRGBO(20, 210, 23, 1),
-                            content: Text('success'),
-                          ),
-                        );
-                        context.read<GetNearestdateCubit>().fetchProfile();
-                        }
-                        else   ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            backgroundColor: Color.fromRGBO(210, 48, 20, 1),
-                            content: Text('error'),
-                          ),
-                        );
-                             
+                                onPressed: () async {
+                                  bool isSuccess = await context
+                                      .read<DeleteDate>()
+                                      .post(idApp: idApp);
+                                  if (isSuccess) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        backgroundColor:
+                                            Color.fromRGBO(20, 210, 23, 1),
+                                        content: Text('success'),
+                                      ),
+                                    );
+                                    context
+                                        .read<GetNearestdateCubit>()
+                                        .fetchProfile();
+                                  } else
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        backgroundColor:
+                                            Color.fromRGBO(210, 48, 20, 1),
+                                        content: Text('error'),
+                                      ),
+                                    );
                                 },
-                                child: state==idApp
+                                child: state == idApp
                                     ? CircularProgressIndicator()
                                     : Row(
                                         children: [

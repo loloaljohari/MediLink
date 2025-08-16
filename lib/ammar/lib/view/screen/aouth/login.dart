@@ -87,7 +87,7 @@ final  BuildContext context1;
                                     ? Icons.visibility_off_outlined
                                     : Icons.visibility_outlined,
                                 leabeltext: "password",
-                                isnumber: true,
+                                isnumber: false,
                               ),
                             ),
                             const SizedBox(height: 30),

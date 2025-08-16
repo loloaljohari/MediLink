@@ -87,7 +87,7 @@ class Puplic extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        'Omar Abo howa',
+                                        '${state.public['data']['name']}',
                                         style: TextStyle(
                                             fontSize: 24,
                                             fontWeight: FontWeight.w400),

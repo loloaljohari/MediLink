@@ -1,5 +1,7 @@
 import 'package:MediLink/ammar/lib/view/screen/aouth/sinup.dart';
 import 'package:MediLink/lojain/Controllers/home/NavigationCubit.dart';
+import 'package:MediLink/lojain/Static/Static.dart';
+import 'package:MediLink/lojain/View/Home/viewAllNearestDate.dart';
 import 'package:MediLink/lojain/models/Doctors/getDoctors.dart';
 import 'package:MediLink/lojain/models/Proflie/getProfile.dart';
 import 'package:MediLink/lojain/widgets/HomeWidgets/Doctors/doctorWidget.dart';
@@ -16,85 +18,105 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     context.read<GetprofileCubit>().fetchProfile();
+    context.read<GetNearestdateCubit>().fetchProfile();
     context.read<GetDoctorsCubit>().fetchProfile();
-     context.read<GetNearestdateCubit>().fetchProfile();
+
     return Scaffold(
       appBar: AppBar(
         leading: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 14.0),
-          child: BlocBuilder<GetprofileCubit, GetProfileState>(
-              builder: (context, state) {
-            if (state is GetProfileLoading) {
-              return const Align(
-                alignment: Alignment.centerLeft,
-                child: CircularProgressIndicator(
-                  color: Colors.white,
-                ),
-              );
-            } else if (state is GetProfileLoaded) {
-              if (state.myprofile.containsKey('name')) {
-                return Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    CircleAvatar(
-                      radius: 20,
-                      backgroundImage: NetworkImage(state.myprofile['photo']),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              BlocBuilder<GetprofileCubit, GetProfileState>(
+                  builder: (context, state) {
+                if (state is GetProfileLoading) {
+                  return const Align(
+                    alignment: Alignment.centerLeft,
+                    child: CircularProgressIndicator(
+                      color: Colors.white,
                     ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
+                  );
+                } else if (state is GetProfileLoaded) {
+                  if (state.myprofile.containsKey('name')) {
+                    return Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const Text(
-                          'Good morning 🙋‍♂️',
-                          style: TextStyle(
-                              color: Color.fromRGBO(255, 255, 255, 0.6),
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700),
+                        CircleAvatar(
+                          radius: 20,
+                          backgroundImage: (state.myprofile['photo'] ==
+                                      '$Imagepathurl/storage/avatars/defaults.jpg' ||
+                                  state.myprofile['photo'] ==
+                                      '$Imagepathurl/storage/avatars/6681221.png')
+                              ? AssetImage(
+                                  'images/Group 1013.png',
+                                )
+                              : NetworkImage(state.myprofile['photo']),
                         ),
-                        Text(state.myprofile['name'],
-                            style: const TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.w700)),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Text(
+                              'Good morning 🙋‍♂️',
+                              style: TextStyle(
+                                  color: Color.fromRGBO(255, 255, 255, 0.6),
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w700),
+                            ),
+                            Text(state.myprofile['name'],
+                                style: const TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.w700)),
+                          ],
+                        )
                       ],
-                    )
-                  ],
-                );
-              } else {
-                return ElevatedButton(
-                    style: ButtonStyle(
-                        fixedSize: WidgetStatePropertyAll(Size(60, 20)),
-                        backgroundColor: WidgetStatePropertyAll(
-                            Color.fromRGBO(38, 115, 221, 1))),
-                    onPressed: () {
-                      Get.to(Sinup(
-                        conte: context,
-                      ));
-                    },
-                    child: const Text(
-                      'Register',
-                      style: TextStyle(color: Colors.white),
-                    ));
-              }
-            } else if (state is GetProfileError) {
-              return SizedBox(
-                child: Row(
-                  children: [
-                    const Text('Error'),
-                    ElevatedButton(
+                    );
+                  } else {
+                    return ElevatedButton(
+                        style: ButtonStyle(
+                            fixedSize: WidgetStatePropertyAll(Size(110, 20)),
+                            backgroundColor: WidgetStatePropertyAll(
+                                Color.fromRGBO(38, 115, 221, 1))),
                         onPressed: () {
-                          context.read<GetprofileCubit>().fetchProfile();
+                          Get.to(Sinup(
+                            conte: context,
+                          ));
                         },
-                        child: const Text('try again'))
-                  ],
-                ),
-              );
-            }
-            return const SizedBox();
-          }),
+                        child: const Text(
+                          'Register',
+                          style: TextStyle(color: Colors.white),
+                        ));
+                  }
+                } else if (state is GetProfileError) {
+                  return SizedBox(
+                    child: Row(
+                      children: [
+                        const Text('Error'),
+                        ElevatedButton(
+                            onPressed: () {
+                              context.read<GetprofileCubit>().fetchProfile();
+                            },
+                            child: const Text('try again'))
+                      ],
+                    ),
+                  );
+                }
+                return const SizedBox();
+              }),
+              IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.notifications_active_outlined,
+                    color: Color.fromRGBO(37, 111, 213, 0.964),
+                    size: 30,
+                  ))
+            ],
+          ),
         ),
-        leadingWidth: 200,
+        leadingWidth: MediaQuery.of(context).size.width,
         backgroundColor: Colors.black,
       ),
       backgroundColor: Colors.black,
@@ -152,67 +174,69 @@ class Home extends StatelessWidget {
             //     )
             //   ],
             // ),
-             BlocBuilder<GetNearestdateCubit, GetNearestdateState>(
+            BlocBuilder<GetNearestdateCubit, GetNearestdateState>(
               builder: (context, state) {
-                if(state is GetNearestdateLoading){
-                  return Center(child: CircularProgressIndicator());
-                }
-              else if(state is GetNearestdateLoaded){ return 
-             state.dates['appointment']==null?Text(''):  Column(
-               children: [
-                const SizedBox(
-              height: 15,
-            ),
-          
-                 Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 19.0),
-                  child: Image.asset('images/Vector4.png'),
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(left: 15.0),
-                  child: Text(
-                    'Upcoming Appointments',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 20),
-                  ),
-                ),
-                BlocBuilder<NavigationCubit, int>(
-                  builder: (context, state) {
-                    return TextButton(
-                        onPressed: () {
-                          context.read<NavigationCubit>().changePage(3);
-                        },
-                        child: const Text('view all',
-                            style: TextStyle(
-                                color: Color.fromRGBO(38, 115, 221, 1),
-                                fontWeight: FontWeight.w400,
-                                fontSize: 16)));
-                  },
-                )
-              ],
-            ),
-           
-                 TheNearestDate(
-                    idApp:state.dates['appointment']['id'] ,
-                      Dates: false,
-                      Imagepath: 'images/unsplash_7bMdiIqz_J4 (2).png',
-                      medSpecialty: 'Cardiomyopathy',
-                      namedoctor: 'Dr. Ali Kane',
-                      Date: '${state.dates['appointment']['date']} , ${state.dates['appointment']['day']}',
-                      Time: 
-                      '${state.dates['appointment']['start_time'].toString().substring(0, 5)}-${state.dates['appointment']['end_time'].toString().substring(0, 5)}',
-                 
-                    ),
-               ],
-             );
-             } 
-             else return SizedBox();
-             },
+                if (state is GetNearestdateLoading) {
+                  return Center(
+                      child: CircularProgressIndicator(
+                    color: Colors.white,
+                  ));
+                } else if (state is GetNearestdateLoaded) {
+                  return state.dates['appointment'] == null
+                      ? Text('')
+                      : Column(
+                          children: [
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 19.0),
+                                  child: Image.asset('images/Vector4.png'),
+                                ),
+                                const Padding(
+                                  padding: EdgeInsets.only(left: 15.0),
+                                  child: Text(
+                                    'Upcoming Appointments',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 20),
+                                  ),
+                                ),
+                                TextButton(
+                                    onPressed: () {
+                                      Get.to(ViewAllNearestDate());
+                                    },
+                                    child: const Text('view all',
+                                        style: TextStyle(
+                                            color:
+                                                Color.fromRGBO(38, 115, 221, 1),
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 16))),
+                              ],
+                            ),
+                            TheNearestDate(
+                              idApp: state.dates['appointment']['id'],
+                              Dates: false,
+                              Imagepath: state.dates['appointment']
+                                  ['doctor_photo'],
+                              medSpecialty: state.dates['appointment']
+                                  ['specialization'],
+                              namedoctor:
+                                  "Dr. ${state.dates['appointment']['doctor_name']}",
+                              Date:
+                                  '${state.dates['appointment']['date']} , ${state.dates['appointment']['day']}',
+                              Time:
+                                  '${state.dates['appointment']['start_time'].toString().substring(0, 5)}-${state.dates['appointment']['end_time'].toString().substring(0, 5)}',
+                            ),
+                          ],
+                        );
+                } else
+                  return SizedBox();
+              },
             ),
             const SizedBox(
               height: 10,

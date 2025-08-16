@@ -80,9 +80,9 @@ class Mydates extends StatelessWidget {
                   TheNearestDate(
                       Dates: true,
                         idApp:state.dates['appointment']['id'] ,
-                      Imagepath: 'images/unsplash_7bMdiIqz_J4 (2).png',
-                      medSpecialty: 'Cardiomyopathy',
-                      namedoctor: 'Dr. Ali Kane',
+                    Imagepath:state.dates['appointment']['doctor_photo'],
+                      medSpecialty: state.dates['appointment']['specialization'],
+                      namedoctor:"Dr. ${ state.dates['appointment']['doctor_name']}",
                       Date: '${state.dates['appointment']['date']} , ${state.dates['appointment']['day']}',
                       Time: 
                       '${state.dates['appointment']['start_time'].toString().substring(0, 5)}-${state.dates['appointment']['end_time'].toString().substring(0, 5)}',
@@ -181,7 +181,8 @@ class Mydates extends StatelessWidget {
                               );
                             }
                             if (state is GetDatesLoaded) {
-                              return state
+                             
+                        if(state.dates.containsKey('appointments'))  {    return   state
                                                 .dates['appointments']
                                                     ['confirmed']
                                                 .isEmpty? Text('no thing'): Column(
@@ -203,6 +204,8 @@ class Mydates extends StatelessWidget {
                                   );
                                 },
                               ));
+                           }
+                           else return Text(''); 
                             } else
                               return SizedBox();
                           },
@@ -216,7 +219,7 @@ class Mydates extends StatelessWidget {
                                   );
                                 }
                                 if (state is GetDatesLoaded) {
-                                  return state
+                               if(state.dates.containsKey('appointments')) {  return state
                                                 .dates['appointments']
                                                     ['pending']
                                                 .isEmpty? Text('no thing'): Column(
@@ -239,6 +242,8 @@ class Mydates extends StatelessWidget {
                                       );
                                     },
                                   ));
+                                }
+                                else return Text('');
                                 } else
                                   return SizedBox();
                               },
@@ -251,7 +256,7 @@ class Mydates extends StatelessWidget {
                                   );
                                 }
                                 if (state is GetDatesLoaded) {
-                                  return Container(
+                               if(state.dates.containsKey('appointments')){   return Container(
                                     width: double.infinity,
                                     child: Column(
                                       crossAxisAlignment:
@@ -387,7 +392,8 @@ class Mydates extends StatelessWidget {
                                               )),
                                       ],
                                     ),
-                                  );
+                                  );}
+                                  else return Text('');
                                 } else
                                   return SizedBox();
                               },
