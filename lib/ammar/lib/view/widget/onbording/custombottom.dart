@@ -37,7 +37,7 @@ class Custombuttenonbording extends GetView<OnbordingcontrolerImp> {
           child: Text(
             "Next >>",
             style: TextStyle(
-                color: Colors.white,
+         
                 fontFamily: "PlayfairDisplay",
                 fontSize: 25),
           ),

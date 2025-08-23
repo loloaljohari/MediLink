@@ -6,6 +6,9 @@ import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../Controllers/onboarding/SelectionLang.dart';
+import '../../../Controllers/onboarding/SelectionTheme.dart';
+
 class Filloutillness extends StatelessWidget {
   Filloutillness({Key? key}) : super(key: key);
   final type = DropgeneralCubit();
@@ -31,7 +34,7 @@ class Filloutillness extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Illness',
+              context.watch<Selection>().state == 1 ? 'الامراض' :  'Illness',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
               ),
               TextButton(
@@ -39,7 +42,7 @@ class Filloutillness extends StatelessWidget {
                     showModalBottomSheet(
                             sheetAnimationStyle: AnimationStyle( reverseCurve:Curves.easeIn,reverseDuration: Duration(seconds: 1) , curve: Curves.easeIn,duration: Duration(seconds: 2)),
                         isScrollControlled: true,
-                      backgroundColor: Color.fromRGBO(19, 57, 111, 1),
+                      backgroundColor:  context.read<SelectionTheme>().state == 4 ?Color.fromRGBO(   38, 115, 221, 1): Color.fromRGBO(19, 57, 111, 1),
                       context: context,
                       builder: (context) {
                         return Padding(
@@ -69,7 +72,7 @@ class Filloutillness extends StatelessWidget {
                                             EdgeInsets.symmetric(horizontal: 5),
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(16),
-                                          color: Color.fromRGBO(34, 34, 34, 1),
+                                          color:   context.read<SelectionTheme>().state == 4? Colors.white24 : Color.fromRGBO(15, 102, 222, 1)
                                         ),
                                         height: 52,
                                         width: MediaQuery.of(context).size.width,
@@ -132,7 +135,7 @@ class Filloutillness extends StatelessWidget {
                                                             fillColor: Colors
                                                                 .transparent),
                                                     items: list,
-                                                    hintText: 'State',
+                                                    hintText:context.watch<Selection>().state == 1 ? 'الحالة' : 'State',
                                                     onChanged: (value) {
                                                       print(type
                                                           .state.selectedValue);
@@ -152,7 +155,7 @@ class Filloutillness extends StatelessWidget {
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(16),
-                                            color: Color.fromRGBO(34, 34, 34, 1),
+                                            color:   context.read<SelectionTheme>().state == 4? Colors.white24 : Color.fromRGBO(15, 102, 222, 1)
                                           ),
                                           height: 52,
                                           width:
@@ -173,9 +176,9 @@ class Filloutillness extends StatelessWidget {
                                                               Colors.white)),
                                               child: TextFormField(
                                                 cursorColor: Colors.white,
-                                                decoration: const InputDecoration(
+                                                decoration:  InputDecoration(
                                                   fillColor: Colors.white,
-                                                  hintText: 'Enter Name illness',
+                                                  hintText: context.watch<Selection>().state == 1 ? 'ادخل اسم المرض' : 'Enter Name illness',
                                                   hintStyle: TextStyle(
                                                       color: Colors.white,
                                                       fontSize: 14,
@@ -200,7 +203,7 @@ class Filloutillness extends StatelessWidget {
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(16),
-                                            color: Color.fromRGBO(34, 34, 34, 1),
+                                            color:   context.read<SelectionTheme>().state == 4? Colors.white24 : Color.fromRGBO(15, 102, 222, 1)
                                           ),
                                           height: 52,
                                           width:
@@ -221,9 +224,9 @@ class Filloutillness extends StatelessWidget {
                                                               Colors.white)),
                                               child: TextFormField(
                                                 cursorColor: Colors.white,
-                                                decoration: const InputDecoration(
+                                                decoration:  InputDecoration(
                                                   fillColor: Colors.white,
-                                                  hintText: 'Enter Name Doctor',
+                                                  hintText: context.watch<Selection>().state == 1 ? 'ادخل اسم الطبيب' : 'Enter Name Doctor',
                                                   hintStyle: TextStyle(
                                                       color: Colors.white,
                                                       fontSize: 14,
@@ -257,7 +260,7 @@ class Filloutillness extends StatelessWidget {
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(16),
-                                            color: Color.fromRGBO(34, 34, 34, 1),
+                                            color:   context.read<SelectionTheme>().state == 4? Colors.white24 : Color.fromRGBO(15, 102, 222, 1)
                                           ),
                                           height: 52,
                                           width:
@@ -278,12 +281,12 @@ class Filloutillness extends StatelessWidget {
                                                               Colors.white)),
                                               child: TextFormField(
                                                 cursorColor: Colors.white,
-                                                decoration: const InputDecoration(
+                                                decoration:  InputDecoration(
                                                   fillColor: Colors.white,
-                                                  hintText: 'Advices',
+                                                  hintText:context.watch<Selection>().state == 1 ? 'النصائح' : 'Advices',
                                                   hintStyle: TextStyle(
-                                                      color: Color.fromRGBO(
-                                                          175, 11, 11, 1),
+                                                      color: Color.fromRGBO(15, 153, 10, 1),
+                                                      
                                                       fontSize: 14,
                                                       fontStyle: FontStyle.normal,
                                                       fontWeight:
@@ -306,7 +309,7 @@ class Filloutillness extends StatelessWidget {
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(16),
-                                            color: Color.fromRGBO(34, 34, 34, 1),
+                                            color:   context.read<SelectionTheme>().state == 4? Colors.white24 : Color.fromRGBO(15, 102, 222, 1)
                                           ),
                                           height: 52,
                                           width:
@@ -327,12 +330,12 @@ class Filloutillness extends StatelessWidget {
                                                               Colors.white)),
                                               child: TextFormField(
                                                 cursorColor: Colors.white,
-                                                decoration: const InputDecoration(
+                                                decoration:  InputDecoration(
                                                   fillColor: Colors.white,
-                                                  hintText: 'prohibitions',
+                                                  hintText: context.watch<Selection>().state == 1 ? 'محظورات' :'prohibitions',
                                                   hintStyle: TextStyle(
                                                       color: Color.fromRGBO(
-                                                          16, 175, 11, 1),
+                                                          175, 11, 11, 1),
                                                       fontSize: 14,
                                                       fontStyle: FontStyle.normal,
                                                       fontWeight:
@@ -356,7 +359,7 @@ class Filloutillness extends StatelessWidget {
                                     SizedBox(
                                       height: 15,
                                     ),
-                                    Text('date'),
+                                    Text(context.watch<Selection>().state == 1 ? 'التاريخ' : ' date'),
                                     SizedBox(
                                       height: 5,
                                     ),
@@ -368,7 +371,7 @@ class Filloutillness extends StatelessWidget {
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(16),
-                                            color: Color.fromRGBO(34, 34, 34, 1),
+                                            color:   context.read<SelectionTheme>().state == 4? Colors.white24 : Color.fromRGBO(15, 102, 222, 1)
                                           ),
                                           height: 52,
                                           width:
@@ -416,7 +419,7 @@ class Filloutillness extends StatelessWidget {
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(16),
-                                            color: Color.fromRGBO(34, 34, 34, 1),
+                                            color:   context.read<SelectionTheme>().state == 4? Colors.white24 : Color.fromRGBO(15, 102, 222, 1)
                                           ),
                                           height: 52,
                                           width:
@@ -464,7 +467,7 @@ class Filloutillness extends StatelessWidget {
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(16),
-                                            color: Color.fromRGBO(34, 34, 34, 1),
+                                            color:   context.read<SelectionTheme>().state == 4? Colors.white24 : Color.fromRGBO(15, 102, 222, 1)
                                           ),
                                           height: 52,
                                           width:
@@ -525,8 +528,7 @@ class Filloutillness extends StatelessWidget {
                                                           .circular(20))),
                                               backgroundColor:
                                                   WidgetStatePropertyAll(
-                                                      Color.fromRGBO(
-                                                          15, 102, 222, 1))),
+                                                     context.read<SelectionTheme>().state == 4? Colors.white24 : Color.fromRGBO(15, 102, 222, 1))),
                                           onPressed: () async {
                                             print('================');
                                             var isSuccess = await context
@@ -567,7 +569,7 @@ class Filloutillness extends StatelessWidget {
                                                   color: Colors.white,
                                                 )
                                               : Text(
-                                                  'save',
+                                               context.watch<Selection>().state == 1 ? 'حفظ' :   'save',
                                                   style: TextStyle(
                                                       color: Colors.white,
                                                       fontSize: 20,
@@ -585,7 +587,7 @@ class Filloutillness extends StatelessWidget {
                     );
                   },
                   child: Text(
-                    'Add+',
+                   context.watch<Selection>().state == 1 ? 'اضف+' : 'Add+',
                     style: TextStyle(
                         fontSize: 20,
                         color: Color.fromRGBO(64, 123, 255, 1),

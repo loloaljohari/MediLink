@@ -18,7 +18,7 @@ class Customtextsininandsinup extends StatelessWidget {
     return Row(mainAxisAlignment: MainAxisAlignment.start, children: [
       Text(
         textone,
-        style: TextStyle(color: AppColor.lightdark),
+        // style: TextStyle(color: AppColor.lightdark),
       ),
       InkWell(
         onTap: onTap,

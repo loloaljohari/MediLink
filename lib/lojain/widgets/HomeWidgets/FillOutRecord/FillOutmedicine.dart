@@ -6,6 +6,9 @@ import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../Controllers/onboarding/SelectionLang.dart';
+import '../../../Controllers/onboarding/SelectionTheme.dart';
+
 class FillOutmedicine extends StatelessWidget {
   FillOutmedicine({Key? key}) : super(key: key);
   var list = [
@@ -61,7 +64,7 @@ class FillOutmedicine extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Medicine',
+                context.watch<Selection>().state == 1 ? 'الادوية' : 'Medicine',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
               ),
               TextButton(
@@ -73,7 +76,9 @@ class FillOutmedicine extends StatelessWidget {
                           curve: Curves.easeIn,
                           duration: Duration(seconds: 1)),
                       isScrollControlled: true,
-                      backgroundColor: Color.fromRGBO(19, 57, 111, 1),
+                      backgroundColor: context.read<SelectionTheme>().state == 4
+                          ? Color.fromRGBO(38, 115, 221, 1)
+                          : Color.fromRGBO(19, 57, 111, 1),
                       context: context,
                       builder: (context) {
                         return Padding(
@@ -105,7 +110,12 @@ class FillOutmedicine extends StatelessWidget {
                                         decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(16),
-                                          color: Color.fromRGBO(34, 34, 34, 1),
+                                          color: context
+                                                      .read<SelectionTheme>()
+                                                      .state ==
+                                                  4
+                                              ? Colors.white24
+                                              : Color.fromRGBO(34, 34, 34, 1),
                                         ),
                                         height: 52,
                                         width: double.infinity,
@@ -124,10 +134,10 @@ class FillOutmedicine extends StatelessWidget {
                                                             Colors.white)),
                                             child: TextFormField(
                                               cursorColor: Colors.white,
-                                              decoration: const InputDecoration(
+                                              decoration:  InputDecoration(
                                                 fillColor: Colors.white,
                                                 labelText:
-                                                    'Enter Name Medicine',
+                                                    context.watch<Selection>().state == 1 ? 'ادخل اسم الدواء' : 'Enter Name Medicine',
                                                 labelStyle: TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 16,
@@ -161,8 +171,14 @@ class FillOutmedicine extends StatelessWidget {
                                               decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(16),
-                                                color: Color.fromRGBO(
-                                                    34, 34, 34, 1),
+                                                color: context
+                                                            .read<
+                                                                SelectionTheme>()
+                                                            .state ==
+                                                        4
+                                                    ? Colors.white24
+                                                    : Color.fromRGBO(
+                                                        34, 34, 34, 1),
                                               ),
                                               height: 52,
                                               width: MediaQuery.of(context)
@@ -242,7 +258,7 @@ class FillOutmedicine extends StatelessWidget {
                                                                   fillColor: Colors
                                                                       .transparent),
                                                           items: list,
-                                                          hintText: 'State',
+                                                          hintText:context.watch<Selection>().state == 1 ? 'الحالة' : 'State',
                                                           onChanged: (value) {
                                                             print(type.state
                                                                 .selectedValue);
@@ -257,8 +273,14 @@ class FillOutmedicine extends StatelessWidget {
                                               decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(16),
-                                                color: Color.fromRGBO(
-                                                    34, 34, 34, 1),
+                                                color: context
+                                                            .read<
+                                                                SelectionTheme>()
+                                                            .state ==
+                                                        4
+                                                    ? Colors.white24
+                                                    : Color.fromRGBO(
+                                                        34, 34, 34, 1),
                                               ),
                                               height: 52,
                                               width: MediaQuery.of(context)
@@ -339,7 +361,7 @@ class FillOutmedicine extends StatelessWidget {
                                                                   fillColor: Colors
                                                                       .transparent),
                                                           items: list1,
-                                                          hintText: 'frequency',
+                                                          hintText: context.watch<Selection>().state == 1 ? 'التكرار' :'frequency',
                                                           onChanged: (value) {
                                                             print(frequency
                                                                 .state
@@ -365,8 +387,14 @@ class FillOutmedicine extends StatelessWidget {
                                               decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(16),
-                                                color: Color.fromRGBO(
-                                                    34, 34, 34, 1),
+                                                color: context
+                                                            .read<
+                                                                SelectionTheme>()
+                                                            .state ==
+                                                        4
+                                                    ? Colors.white24
+                                                    : Color.fromRGBO(
+                                                        34, 34, 34, 1),
                                               ),
                                               height: 52,
                                               width: MediaQuery.of(context)
@@ -448,10 +476,9 @@ class FillOutmedicine extends StatelessWidget {
                                                                       .transparent),
                                                           items: list2,
                                                           hintText:
-                                                              'medicine timing',
+                                                            context.watch<Selection>().state == 1 ? 'وقت الدواء' :  'medicine timing',
                                                           onChanged: (value) {
-                                                            print(timing
-                                                                .state
+                                                            print(timing.state
                                                                 .selectedValue);
                                                             timing
                                                                 .setSelectedValue(
@@ -465,8 +492,14 @@ class FillOutmedicine extends StatelessWidget {
                                               decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(16),
-                                                color: Color.fromRGBO(
-                                                    34, 34, 34, 1),
+                                                color: context
+                                                            .read<
+                                                                SelectionTheme>()
+                                                            .state ==
+                                                        4
+                                                    ? Colors.white24
+                                                    : Color.fromRGBO(
+                                                        34, 34, 34, 1),
                                               ),
                                               height: 52,
                                               width: MediaQuery.of(context)
@@ -548,7 +581,7 @@ class FillOutmedicine extends StatelessWidget {
                                                                       .transparent),
                                                           items: list3,
                                                           hintText:
-                                                              'dosage form',
+                                                             context.watch<Selection>().state == 1 ? 'شكل الجرعة' : 'dosage form',
                                                           onChanged: (value) {
                                                             print(dosageform
                                                                 .state
@@ -572,13 +605,19 @@ class FillOutmedicine extends StatelessWidget {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              Text('medicine start date: '),
+                                              Text(context.watch<Selection>().state == 1 ? 'بداية اخذ الدواء' : 'medicine start date: '),
                                               Container(
                                                 decoration: BoxDecoration(
                                                   borderRadius:
                                                       BorderRadius.circular(16),
-                                                  color: Color.fromRGBO(
-                                                      34, 34, 34, 1),
+                                                  color: context
+                                                              .read<
+                                                                  SelectionTheme>()
+                                                              .state ==
+                                                          4
+                                                      ? Colors.white24
+                                                      : Color.fromRGBO(
+                                                          34, 34, 34, 1),
                                                 ),
                                                 height: 52,
                                                 width: MediaQuery.of(context)
@@ -607,7 +646,7 @@ class FillOutmedicine extends StatelessWidget {
                                                       decoration:
                                                           const InputDecoration(
                                                         fillColor: Colors.white,
-                                                        labelText: ' yy-mm-dd',
+                                                        labelText: ' yyyy-mm-dd',
                                                         labelStyle: TextStyle(
                                                             color: Colors.white,
                                                             fontSize: 14,
@@ -640,13 +679,19 @@ class FillOutmedicine extends StatelessWidget {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              Text('medicine end date:'),
+                                              Text( context.watch<Selection>().state == 1 ? 'نهاية اخذ الدواء اذا كان الدواء مؤقتاً' :'medicine end date:'),
                                               Container(
                                                 decoration: BoxDecoration(
                                                   borderRadius:
                                                       BorderRadius.circular(16),
-                                                  color: Color.fromRGBO(
-                                                      34, 34, 34, 1),
+                                                  color: context
+                                                              .read<
+                                                                  SelectionTheme>()
+                                                              .state ==
+                                                          4
+                                                      ? Colors.white24
+                                                      : Color.fromRGBO(
+                                                          34, 34, 34, 1),
                                                 ),
                                                 height: 52,
                                                 width: MediaQuery.of(context)
@@ -675,7 +720,7 @@ class FillOutmedicine extends StatelessWidget {
                                                       decoration:
                                                           const InputDecoration(
                                                         fillColor: Colors.white,
-                                                        labelText: ' yy-mm-dd',
+                                                        labelText: ' yyyy-mm-dd',
                                                         labelStyle: TextStyle(
                                                             color: Colors.white,
                                                             fontSize: 14,
@@ -720,8 +765,14 @@ class FillOutmedicine extends StatelessWidget {
                                                 decoration: BoxDecoration(
                                                   borderRadius:
                                                       BorderRadius.circular(16),
-                                                  color: Color.fromRGBO(
-                                                      34, 34, 34, 1),
+                                                  color: context
+                                                              .read<
+                                                                  SelectionTheme>()
+                                                              .state ==
+                                                          4
+                                                      ? Colors.white24
+                                                      : Color.fromRGBO(
+                                                          34, 34, 34, 1),
                                                 ),
                                                 height: 52,
                                                 width: MediaQuery.of(context)
@@ -748,10 +799,10 @@ class FillOutmedicine extends StatelessWidget {
                                                     child: TextFormField(
                                                       cursorColor: Colors.white,
                                                       decoration:
-                                                          const InputDecoration(
+                                                           InputDecoration(
                                                         fillColor: Colors.white,
                                                         labelText:
-                                                            ' medicine dose',
+                                                           context.watch<Selection>().state == 1 ? 'جرعة الدواء' : ' medicine dose',
                                                         labelStyle: TextStyle(
                                                             color: Colors.white,
                                                             fontSize: 14,
@@ -787,8 +838,14 @@ class FillOutmedicine extends StatelessWidget {
                                                 decoration: BoxDecoration(
                                                   borderRadius:
                                                       BorderRadius.circular(16),
-                                                  color: Color.fromRGBO(
-                                                      34, 34, 34, 1),
+                                                  color: context
+                                                              .read<
+                                                                  SelectionTheme>()
+                                                              .state ==
+                                                          4
+                                                      ? Colors.white24
+                                                      : Color.fromRGBO(
+                                                          34, 34, 34, 1),
                                                 ),
                                                 height: 52,
                                                 width: MediaQuery.of(context)
@@ -815,10 +872,10 @@ class FillOutmedicine extends StatelessWidget {
                                                     child: TextFormField(
                                                       cursorColor: Colors.white,
                                                       decoration:
-                                                          const InputDecoration(
+                                                           InputDecoration(
                                                         fillColor: Colors.white,
                                                         labelText:
-                                                            ' medicine prescribed by doctor',
+                                                           context.watch<Selection>().state == 1 ? 'الطبيب الذي وصفها ' : ' The doctor who prescribed it',
                                                         labelStyle: TextStyle(
                                                             color: Colors.white,
                                                             fontSize: 10,
@@ -865,8 +922,13 @@ class FillOutmedicine extends StatelessWidget {
                                                             BorderRadius
                                                                 .circular(20))),
                                                 backgroundColor:
-                                                    WidgetStatePropertyAll(
-                                                        Color.fromRGBO(
+                                                    WidgetStatePropertyAll(context
+                                                                .read<
+                                                                    SelectionTheme>()
+                                                                .state ==
+                                                            4
+                                                        ? Colors.white24
+                                                        : Color.fromRGBO(
                                                             15, 102, 222, 1))),
                                             onPressed: () async {
                                               print('================');
@@ -914,10 +976,17 @@ class FillOutmedicine extends StatelessWidget {
                                             },
                                             child: state
                                                 ? CircularProgressIndicator(
-                                                    color: Colors.white,
+                                                    color: context
+                                                                .read<
+                                                                    SelectionTheme>()
+                                                                .state ==
+                                                            3
+                                                        ? Colors.white24
+                                                        : Color.fromRGBO(
+                                                            34, 34, 34, 1),
                                                   )
                                                 : Text(
-                                                    'save',
+                                                   context.watch<Selection>().state == 1 ? 'حفظ' : 'save',
                                                     style: TextStyle(
                                                         color: Colors.white,
                                                         fontSize: 20,
@@ -936,7 +1005,7 @@ class FillOutmedicine extends StatelessWidget {
                     );
                   },
                   child: Text(
-                    'Add+',
+                    context.watch<Selection>().state == 1 ? 'اضف+' : 'Add+',
                     style: TextStyle(
                         fontSize: 20,
                         color: Color.fromRGBO(64, 123, 255, 1),

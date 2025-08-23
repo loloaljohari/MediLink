@@ -49,7 +49,7 @@ class DoctorWidget extends StatelessWidget {
                     Container(
                       width: 169,
                       height: 205,
-                      color: Colors.black,
+                    
                     ),
                     Container(
                       width: 169,
@@ -82,7 +82,7 @@ class DoctorWidget extends StatelessWidget {
                         Container(
                           width: 169,
                           height: 205,
-                          color: Colors.black,
+                         
                         ),
                         Container(
                           width: 169,
@@ -114,7 +114,7 @@ class DoctorWidget extends StatelessWidget {
                           Text(
                             star,
                             style: TextStyle(
-                                color: Colors.white,
+                                 
                                 fontWeight: FontWeight.w400,
                                 fontSize: 14),
                           ),
@@ -147,7 +147,7 @@ class DoctorWidget extends StatelessWidget {
                   Text(
                     namedoctor,
                     style: TextStyle(
-                        color: Colors.white,
+                         
                         fontWeight: FontWeight.w700,
                         fontSize: 14),
                   )
@@ -166,7 +166,7 @@ class DoctorWidget extends StatelessWidget {
                   Text(
                     medSpecialty,
                     style: TextStyle(
-                        color: Colors.white,
+                         
                         fontWeight: FontWeight.w700,
                         fontSize: 10),
                   )

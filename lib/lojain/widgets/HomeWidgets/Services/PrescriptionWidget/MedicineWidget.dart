@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../Controllers/onboarding/SelectionLang.dart';
 
 class Medicinewidget extends StatelessWidget {
  
@@ -22,7 +25,7 @@ class Medicinewidget extends StatelessWidget {
             Text(
               'Medicine_$id:',
               style: TextStyle(
-                  color: Colors.white,
+                  // color: Colors.white,
                   fontSize: 14,
                   fontWeight: FontWeight.w700),
             ),
@@ -37,16 +40,17 @@ class Medicinewidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Medical name',
+                  context.watch<Selection>().state == 1
+                                    ? 'الاسم الطبي':  'Medical name',
                   style: TextStyle(
-                      color: Color.fromRGBO(255, 255, 255, 0.38),
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400),
+                      // color: Color.fromRGBO(255, 255, 255, 0.38),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600),
                 ),
                 Text(
                  Medicalname,
                   style: TextStyle(
-                      color: Colors.white,
+                      // color: Colors.white,
                       fontSize: 12,
                       fontWeight: FontWeight.w400),
                 ),
@@ -57,16 +61,16 @@ class Medicinewidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Trade name',
+                  context.watch<Selection>().state == 1 ? 'اسم العلامة التجارية'   :   'Trade name',
                   style: TextStyle(
-                      color: Color.fromRGBO(255, 255, 255, 0.38),
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400),
+                      // color: Color.fromRGBO(255, 255, 255, 0.38),
+                  fontSize: 14,
+                      fontWeight: FontWeight.w600),
                 ),
                 Text(
                   Tradename,
                   style: TextStyle(
-                      color: Colors.white,
+                      // color: Colors.white,
                       fontSize: 12,
                       fontWeight: FontWeight.w400),
                 ),
@@ -77,16 +81,17 @@ class Medicinewidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'alternative',
+               context.watch<Selection>().state == 1
+                                    ? 'بديل':    'alternative',
                   style: TextStyle(
-                      color: Color.fromRGBO(255, 255, 255, 0.38),
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400),
+                      // color: Color.fromRGBO(255, 255, 255, 0.38),
+                     fontSize: 14,
+                      fontWeight: FontWeight.w600),
                 ),
                 Text(
                   alternative,
                   style: TextStyle(
-                      color: Colors.white,
+                      // color: Colors.white,
                       fontSize: 12,
                       fontWeight: FontWeight.w400),
                 ),

@@ -29,7 +29,7 @@ class Sinup extends StatelessWidget {
     return Directionality(
       textDirection:    lang== 'ar' ? TextDirection.rtl : TextDirection.ltr,
       child: Scaffold(
-          backgroundColor: AppColor.backgroundColor,
+          // backgroundColor: AppColor.backgroundColor,
           body:
       // ignore: deprecated_member_use
               Expanded(
@@ -196,7 +196,7 @@ class Sinup extends StatelessWidget {
                                                     "if you aleady have an account  ",
                                                 texttow: "Log in",
                                                 onTap: () {
-                                                 Get.to(login(context1: conte,));
+                                                 Get.to(login());
                                                 })
                                           ])
                                     ]),

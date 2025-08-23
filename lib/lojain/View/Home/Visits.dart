@@ -2,6 +2,8 @@ import 'package:MediLink/lojain/Controllers/record/SliderValueCubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../Controllers/onboarding/SelectionLang.dart';
+
 class Visits extends StatelessWidget {
   Visits({Key? key}) : super(key: key);
 
@@ -16,7 +18,7 @@ class Visits extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        
         leading: InkWell(
           onTap: () {
             Navigator.pop(context);
@@ -26,11 +28,11 @@ class Visits extends StatelessWidget {
             color: Color.fromRGBO(38, 115, 221, 1),
           ),
         ),
-        title: const Padding(
-          padding: EdgeInsets.only(left: 100),
+        title:  Padding(
+          padding: EdgeInsets.only(left: 100,right: 100),
           child: Text(
-            'Visits',
-            style: TextStyle(color: Colors.white),
+           context.watch<Selection>().state==1?'الزيارات': 'Visits',
+            // style: TextStyle(color: Colors.white),
           ),
         ),
       ),
@@ -58,18 +60,18 @@ class Visits extends StatelessWidget {
                         Column(
                           children: [
                             Text(
-                              'Preview history',
+                            context.watch<Selection>().state==1?'تاريخ المراجعة':  'Preview history',
                               style: TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
-                                  color: Color.fromRGBO(255, 255, 255, 0.6)),
+                                 ),
                             ),
                             Text(
                               '9 Nov , 2025',
                               style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w400,
-                                  color: Color.fromRGBO(255, 255, 255, 0.87)),
+                                ),
                             ),
                           ],
                         ),
@@ -83,11 +85,11 @@ class Visits extends StatelessWidget {
                               width: 10,
                             ),
                             Text(
-                              'Evaluate',
+                             context.watch<Selection>().state==1?'تقييم': 'Evaluate',
                               style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w400,
-                                  color: Color.fromRGBO(255, 255, 255, 0.78)),
+                                  ),
                             ),
                           ],
                         )
@@ -99,18 +101,18 @@ class Visits extends StatelessWidget {
                         Column(
                           children: [
                             Text(
-                              'Edited Sections',
+                          context.watch<Selection>().state==1?'الأقسام المعدلة':    'Edited Sections',
                               style: TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
-                                  color: Color.fromRGBO(255, 255, 255, 0.6)),
+                               ),
                             ),
                             Text(
                               '3 Sections',
                               style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w400,
-                                  color: Color.fromRGBO(255, 255, 255, 0.87)),
+                                  ),
                             ),
                           ],
                         ),
@@ -131,11 +133,11 @@ class Visits extends StatelessWidget {
                               width: 10,
                             ),
                             Text(
-                              'Dr.Ammar',
+                              context.watch<Selection>().state==1?'د.amaar':'Dr.Ammar',
                               style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w400,
-                                  color: Color.fromRGBO(255, 255, 255, 0.78)),
+                    ),
                             ),
                           ],
                         )
@@ -148,22 +150,22 @@ class Visits extends StatelessWidget {
                 ),
                 GradientSliderBar(
                   cubit: sliderCubit1,
-                  text: 'Treatment stage',
+                  text: context.watch<Selection>().state==1?'مرحلة العلاج':'Treatment stage',
                 ),
                 GradientSliderBar(
                   cubit: sliderCubit2,
-                  text: 'Treatment final',
+                  text: context.watch<Selection>().state==1?'العلاج النهائي': 'Treatment final',
                 ),
                 GradientSliderBar(
                   cubit: sliderCubit3,
-                  text: 'Handling',
+                  text: context.watch<Selection>().state==1?'المعاملة': 'Handling',
                 ),
                 GradientSliderBar(
                   cubit: sliderCubit4,
-                  text: 'Services',
+                  text:context.watch<Selection>().state==1?'الخدمات': 'Services',
                 ),
                 Divider(
-                  color: Colors.white,
+                  
                 ),
                 BlocBuilder<SliderValueCubit, double>(
                     bloc: sliderCubit1,
@@ -185,7 +187,8 @@ class Visits extends StatelessWidget {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Text('Final Evaluate',
+                                            Text(
+                                              context.watch<Selection>().state==1?'التقييم النهائي':'Final Evaluate',
                                                 style: TextStyle(
                                                   color: Color.fromRGBO(
                                                       37, 125, 248, 1),
@@ -287,30 +290,33 @@ class Visits extends StatelessWidget {
                                             SizedBox(
                                               height: 10,
                                             ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceAround,
-                                              children: [
-                                                Image.asset(
-                                                  'images/🦆 emoji _angry face_.png',
-                                                  filterQuality:
-                                                      FilterQuality.high,
-                                                ),
-                                                Image.asset(
-                                                  'images/🦆 emoji _white frowning face_.png',
-                                                  filterQuality:
-                                                      FilterQuality.high,
-                                                ),
-                                                Image.asset(
-                                                  'images/image 1778.png',
-                                                  filterQuality:
-                                                      FilterQuality.high,
-                                                ),
-                                                Image.asset(
-                                                    'images/image 27.png'),
-                                                Image.asset(
-                                                    'images/image 30.png'),
-                                              ],
+                                            Directionality(
+                                              textDirection: TextDirection.ltr,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.spaceAround,
+                                                children: [
+                                                  Image.asset(
+                                                    'images/🦆 emoji _angry face_.png',
+                                                    filterQuality:
+                                                        FilterQuality.high,
+                                                  ),
+                                                  Image.asset(
+                                                    'images/🦆 emoji _white frowning face_.png',
+                                                    filterQuality:
+                                                        FilterQuality.high,
+                                                  ),
+                                                  Image.asset(
+                                                    'images/image 1778.png',
+                                                    filterQuality:
+                                                        FilterQuality.high,
+                                                  ),
+                                                  Image.asset(
+                                                      'images/image 27.png'),
+                                                  Image.asset(
+                                                      'images/image 30.png'),
+                                                ],
+                                              ),
                                             )
                                           ],
                                         );
@@ -351,14 +357,14 @@ class GradientSliderBar extends StatelessWidget {
                     text,
                     style: TextStyle(
                       fontWeight: FontWeight.w400,
-                      color: Colors.white.withOpacity(0.4),
+                     
                       fontSize: 12,
                     ),
                   ),
                   Text(
                     '${value.toInt()} %',
                     style: const TextStyle(
-                      color: Colors.blue,
+                      color: Colors.white,
                       fontWeight: FontWeight.w400,
                       fontSize: 12,
                     ),
@@ -453,7 +459,7 @@ class GradientSliderBar extends StatelessWidget {
           children: [
             Container(height: 10, width: 1, color: Colors.white),
             Text(label,
-                style: const TextStyle(color: Colors.white, fontSize: 8)),
+                style: const TextStyle( fontSize: 8)),
           ],
         );
       }).toList(),

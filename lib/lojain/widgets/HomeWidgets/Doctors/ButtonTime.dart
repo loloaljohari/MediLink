@@ -1,4 +1,5 @@
 import 'package:MediLink/lojain/Controllers/doctors/SelectThetime.dart';
+import 'package:MediLink/lojain/Controllers/onboarding/SelectionTheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -10,6 +11,8 @@ class ButtonTime extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+     var mode = context.watch<SelectionTheme>().state;
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10),
       child: BlocBuilder<Selectthetime, String?>(builder: (context, i) {
@@ -29,7 +32,7 @@ class ButtonTime extends StatelessWidget {
            
             decoration: BoxDecoration(
                 color: (i == date && isfall == false)
-                    ? Color.fromRGBO(15, 102, 222, 1)
+                    ?  mode==4? Color.fromRGBO(38, 115, 221, 1):  Color.fromRGBO(116, 164, 232, 1)
                     : Colors.transparent,
                 border: (i != date)
                     ? Border.all(
@@ -43,8 +46,8 @@ class ButtonTime extends StatelessWidget {
               child: Text(
                 date.toString(),
                 style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
+                      color: mode==4? i==date ? Colors.white: Colors.black: i==date ? Colors.black: Colors.white  ,
+                    fontSize: 13,
                     fontWeight: FontWeight.w400),
               ),
             ),

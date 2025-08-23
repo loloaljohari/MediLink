@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../ammar/lib/view/screen/onboarding.dart';
+import '../../Controllers/onboarding/SelectionTheme.dart';
 
 class Choosethetheme extends StatelessWidget {
   const Choosethetheme({super.key});
@@ -29,15 +30,19 @@ class Choosethetheme extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    lang == 'en' ? 'Welcome to' : 'مرحباً بك في ',
+                    context.watch<Selection>().state == 2
+                        ? 'Welcome to'
+                        : 'مرحباً بك في ',
                     style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w700,
                         fontSize: 24),
                   ),
                   Text(
-                    lang == 'en' ? ' MediLink 👋' : 'ميديالينك 👋',
-                    style: TextStyle(
+                    context.watch<Selection>().state == 2
+                        ? ' MediLink 👋'
+                        : 'ميديالينك 👋',
+                    style: const TextStyle(
                         color: Color.fromRGBO(64, 123, 255, 1),
                         fontWeight: FontWeight.w700,
                         fontSize: 24),
@@ -52,37 +57,39 @@ class Choosethetheme extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 15),
           children: [
             Text(
-              lang == 'en'
+              context.watch<Selection>().state == 2
                   ? 'Before we begin, we/'
                       'd like to help you customize your experience to be convenient and easy to use.'
                   : "قبل أن نبدأ، نود مساعدتك في تخصيص تجربتك لتكون مريحة وسهلة الاستخدام.",
-              style: TextStyle(
+              style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.w400,
                   fontSize: 16),
               textAlign: TextAlign.right,
             ),
             Generaltext(
-              text: lang == 'en'
+              text: context.watch<Selection>().state == 2
                   ? ' Choose your preferred language :'
                   : "اختر لغتك المفضلة : ",
             ),
-            buildOptionButton(context, 1, " العربية", "images/Ellipse 8.png"),
+            buildOptionButton(),
             const SizedBox(height: 10),
-            buildOptionButton(
-                context, 2, " English", "images/Ellipse 8 (1).png"),
             const SizedBox(height: 10),
             Generaltext(
-              text: lang == 'en' ? ' Choose font size :' : "اختر حجم الخط : ",
+              text: context.watch<Selection>().state == 2
+                  ? ' Choose font size :'
+                  : "اختر حجم الخط : ",
             ),
             Expansionwidget(),
             Generaltext(
-              text: lang == 'en' ? ' Choose the mode : ' : 'اختر الوضع :',
+              text: context.watch<Selection>().state == 2
+                  ? ' Choose the mode : '
+                  : 'اختر الوضع :',
             ),
             const ThemeWidget(),
             Expanded(
                 child: Generaltext(
-                    text: lang == 'en'
+                    text: context.watch<Selection>().state == 2
                         ? 'Choose colors that look like they don\'t match their name:'
                         : 'اختر الالوان التي لا تتطابق رؤيتها مع اسمها :')),
             const ColorsButtons(),
@@ -102,17 +109,22 @@ class Choosethetheme extends StatelessWidget {
                     var lang = sharedPreferences.getString('lang').toString();
                     var theme = sharedPreferences.getString('theme').toString();
 
+                    print(lang);
+                    print(theme);
+
                     // ignore: unnecessary_null_comparison
                     if (lang == null && theme == null) {
                       // ignore: use_build_context_synchronously
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text(lang == 'en'
+                        content: Text(context.watch<Selection>().state == 2
                             ? 'You must choose the language, font size, mode, and color.'
                             : 'يجب اختيار اللغة وحجم الخط و الوضع واللون'),
                         backgroundColor: Colors.red,
-                        duration: Duration(seconds: 2),
+                        duration: const Duration(seconds: 2),
                       ));
                     } else {
+                      context.read<Selection>().loadLang();
+                      context.read<SelectionTheme>().loadTheme();
                       // ignore: use_build_context_synchronously
                       Navigator.of(context).pushAndRemoveUntil(
                           MaterialPageRoute(
@@ -121,8 +133,10 @@ class Choosethetheme extends StatelessWidget {
                     }
                   },
                   child: Text(
-                    lang == 'en' ? 'Start now' : 'ابدأ الآن',
-                    style: TextStyle(
+                    context.watch<Selection>().state == 2
+                        ? 'Start now'
+                        : 'ابدأ الآن',
+                    style: const TextStyle(
                         color: Colors.white,
                         fontSize: 20,
                         fontWeight: FontWeight.w700),
@@ -133,10 +147,10 @@ class Choosethetheme extends StatelessWidget {
               alignment: Alignment.center,
               child: Text(
                 textAlign: TextAlign.center,
-                lang == 'en'
+                context.watch<Selection>().state == 2
                     ? 'You can modify these settings at any time through the Settings menu.'
                     : 'يمكنك تعديل هذه الإعدادات في أي وقت من خلال قائمة الإعدادات.',
-                style: TextStyle(
+                style: const TextStyle(
                     color: Colors.white,
                     fontSize: 18,
                     fontWeight: FontWeight.w400),

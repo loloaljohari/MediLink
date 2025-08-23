@@ -22,7 +22,7 @@ List<GetPage<dynamic>>? routes = [
 
   GetPage(name: "/", page: () =>  onBording()),
 
-  GetPage(name: Approut.login, page: () => login(context1:context!,)),
+  GetPage(name: Approut.login, page: () => login()),
   GetPage(name: Approut.testview, page: () => const Testview()),
 
   GetPage(name: Approut.onboarding, page: () => const onBording()),

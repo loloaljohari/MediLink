@@ -5,6 +5,8 @@ import 'package:MediLink/lojain/widgets/HomeWidgets/Services/AlarmWidegt/addAlar
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../Controllers/onboarding/SelectionLang.dart';
+
 class AlarmMadicen extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffold = GlobalKey<ScaffoldState>();
 
@@ -15,9 +17,9 @@ class AlarmMadicen extends StatelessWidget {
     
     return Scaffold(
       key: scaffold,
-      backgroundColor: Colors.black,
+      // backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        // backgroundColor: Colors.black,
         leading: InkWell(
           onTap: () {
             Navigator.pop(context);
@@ -27,11 +29,12 @@ class AlarmMadicen extends StatelessWidget {
             color: Color.fromRGBO(38, 115, 221, 1),
           ),
         ),
-        title: const Padding(
+        title:  Padding(
           padding: EdgeInsets.only(left: 70),
           child: Text(
-            'My medication alarms',
-            style: TextStyle(color: Colors.white),
+            context.watch<Selection>().state == 1
+                                    ? 'منبهاتي الطبية' : 'My medication alarms',
+            // style: TextStyle(color: Colors.white),
           ),
         ),
       ),
@@ -78,7 +81,7 @@ class AlarmMadicen extends StatelessWidget {
                 onPressed: () {
                   // setAlarm(context);
                   scaffold.currentState!.showBottomSheet(
-                      backgroundColor: Colors.black,
+                      // backgroundColor: Colors.black,
                       (context) =>
                           BlocBuilder<GetmedicineCubit, GetmedicineState>(
                             builder: (context, state) {

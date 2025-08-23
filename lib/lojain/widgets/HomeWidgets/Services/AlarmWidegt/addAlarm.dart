@@ -1,10 +1,14 @@
 import 'dart:math';
 
 import 'package:MediLink/lojain/Class/Alarm.dart';
+import 'package:MediLink/lojain/Controllers/onboarding/SelectionTheme.dart';
 import 'package:MediLink/lojain/models/alarm/postalarm.dart';
 import 'package:alarm/alarm.dart';
 import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../Controllers/onboarding/SelectionLang.dart';
 
 class AddAlarm extends StatefulWidget {
   final med;
@@ -131,15 +135,15 @@ class _AddAlarmState extends State<AddAlarm> {
                       child: CustomDropdown<String>(
                         // hideSelectedFieldWhenExpanded: true,
                         decoration: CustomDropdownDecoration(
-                            closedFillColor:
-                                const Color.fromRGBO(34, 34, 34, 1),
-                            expandedFillColor: Colors.black,
+                            // closedFillColor:
+                                // const Color.fromRGBO(34, 34, 34, 1),
+                            // expandedFillColor: Colors.black,
                             headerStyle: const TextStyle(
-                                color: Colors.white,
+                                // color: Colors.white,
                                 fontWeight: FontWeight.w700,
                                 fontSize: 14),
                             listItemStyle: const TextStyle(
-                                color: Colors.white,
+                                // color: Colors.white,
                                 fontWeight: FontWeight.w700,
                                 fontSize: 14),
                             expandedBorder: Border.all(
@@ -152,7 +156,7 @@ class _AddAlarmState extends State<AddAlarm> {
                                   size: 20,
                                 )),
                             hintStyle: const TextStyle(
-                                color: Colors.white,
+                                // color: Colors.white,
                                 fontSize: 20,
                                 fontWeight: FontWeight.w400)),
 
@@ -162,7 +166,8 @@ class _AddAlarmState extends State<AddAlarm> {
                                 fillColor: Colors.transparent),
                         items: widget.listMedicine,
 
-                        hintText: 'Selection your Medicine',
+                        hintText:  context.watch<Selection>().state == 1
+                                    ? 'اختر دواءك' :'Selection your Medicine',
                         onChanged: (value) {
                           setState(() {
                             l = value;
@@ -182,15 +187,15 @@ class _AddAlarmState extends State<AddAlarm> {
                           child: CustomDropdown<dynamic>(
                             // hideSelectedFieldWhenExpanded: true,
                             decoration: CustomDropdownDecoration(
-                                closedFillColor:
-                                    const Color.fromRGBO(34, 34, 34, 1),
-                                expandedFillColor: Colors.black,
+                                // closedFillColor:
+                                //     const Color.fromRGBO(34, 34, 34, 1),
+                                // expandedFillColor: Colors.black,
                                 headerStyle: const TextStyle(
-                                    color: Colors.white,
+                                    // color: Colors.white,
                                     fontWeight: FontWeight.w700,
                                     fontSize: 14),
                                 listItemStyle: const TextStyle(
-                                    color: Colors.white,
+                                    // color: Colors.white,
                                     fontWeight: FontWeight.w700,
                                     fontSize: 14),
                                 expandedBorder: Border.all(
@@ -204,7 +209,7 @@ class _AddAlarmState extends State<AddAlarm> {
                                       size: 20,
                                     )),
                                 hintStyle: const TextStyle(
-                                    color: Colors.white,
+                                    // color: Colors.white,
                                     fontSize: 16,
                                     fontWeight: FontWeight.w400)),
 
@@ -221,7 +226,8 @@ class _AddAlarmState extends State<AddAlarm> {
                                 )
                                 .toList(),
 
-                            hintText: 'Redundancy',
+                            hintText:   context.watch<Selection>().state == 1
+                                    ? 'التكرار ':'Redundancy',
                             onChanged: (value) {},
                           ),
                         ),
@@ -231,15 +237,15 @@ class _AddAlarmState extends State<AddAlarm> {
                           child: CustomDropdown<dynamic>(
                             // hideSelectedFieldWhenExpanded: true,
                             decoration: CustomDropdownDecoration(
-                                closedFillColor:
-                                    const Color.fromRGBO(34, 34, 34, 1),
-                                expandedFillColor: Colors.black,
+                                // closedFillColor:
+                                //     const Color.fromRGBO(34, 34, 34, 1),
+                                // expandedFillColor: Colors.black,
                                 headerStyle: const TextStyle(
-                                    color: Colors.white,
+                                    // color: Colors.white,
                                     fontWeight: FontWeight.w700,
                                     fontSize: 14),
                                 listItemStyle: const TextStyle(
-                                    color: Colors.white,
+                                    // color: Colors.white,
                                     fontWeight: FontWeight.w700,
                                     fontSize: 14),
                                 expandedBorder: Border.all(
@@ -253,7 +259,7 @@ class _AddAlarmState extends State<AddAlarm> {
                                       size: 20,
                                     )),
                                 hintStyle: const TextStyle(
-                                    color: Colors.white,
+                                    // color: Colors.white,
                                     fontSize: 16,
                                     fontWeight: FontWeight.w400)),
 
@@ -270,7 +276,8 @@ class _AddAlarmState extends State<AddAlarm> {
                                 )
                                 .toList(),
 
-                            hintText: 'Quantity',
+                            hintText: context.watch<Selection>().state == 1
+                                    ? 'الكمية': 'Quantity',
                             onChanged: (value) {
                               setState(() {
                                 k = value;
@@ -283,20 +290,21 @@ class _AddAlarmState extends State<AddAlarm> {
                   ],
                 ),
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text('The Time:'),
+                    Text(context.watch<Selection>().state == 1
+                                    ? 'الوقت:':  'The Time:'),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16),
-                            color: Color.fromRGBO(34, 34, 34, 1),
+                            color:context.watch<SelectionTheme>().state==3? Color.fromRGBO(34, 34, 34, 1):Colors.white  ,
                           ),
                           height: 52,
                           width: 54,
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          padding: const EdgeInsets.symmetric(horizontal: 14),
                           child: Expanded(
                             child: Theme(
                               data: Theme.of(context).copyWith(
@@ -306,12 +314,12 @@ class _AddAlarmState extends State<AddAlarm> {
                                           selectionHandleColor: Colors.white,
                                           cursorColor: Colors.white)),
                               child: TextFormField(
-                                cursorColor: Colors.white,
+                                // cursorColor: Colors.white,
                                 decoration: const InputDecoration(
                                   fillColor: Colors.white,
                                   hintText: 'HH',
                                   hintStyle: TextStyle(
-                                      color: Colors.white,
+                                      // color: Colors.white,
                                       fontSize: 14,
                                       fontStyle: FontStyle.normal,
                                       fontWeight: FontWeight.w400),
@@ -321,7 +329,7 @@ class _AddAlarmState extends State<AddAlarm> {
                                 ),
                                 controller: hour,
                                 style: const TextStyle(
-                                    color: Colors.white,
+                                    // color: Colors.white,
                                     fontSize: 20,
                                     fontWeight: FontWeight.w400),
                               ),
@@ -335,11 +343,11 @@ class _AddAlarmState extends State<AddAlarm> {
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16),
-                            color: Color.fromRGBO(34, 34, 34, 1),
+                            color:context.watch<SelectionTheme>().state==3? Color.fromRGBO(34, 34, 34, 1):Colors.white  ,
                           ),
                           height: 52,
                           width: 54,
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          padding: const EdgeInsets.symmetric(horizontal: 14),
                           child: Expanded(
                             child: Theme(
                               data: Theme.of(context).copyWith(
@@ -349,12 +357,12 @@ class _AddAlarmState extends State<AddAlarm> {
                                           selectionHandleColor: Colors.white,
                                           cursorColor: Colors.white)),
                               child: TextFormField(
-                                cursorColor: Colors.white,
+                                // cursorColor: Colors.white,
                                 decoration: const InputDecoration(
                                   fillColor: Colors.white,
                                   hintText: 'MM',
                                   hintStyle: TextStyle(
-                                      color: Colors.white,
+                                      // color: Colors.white,
                                       fontSize: 14,
                                       fontStyle: FontStyle.normal,
                                       fontWeight: FontWeight.w400),
@@ -364,7 +372,7 @@ class _AddAlarmState extends State<AddAlarm> {
                                 ),
                                 controller: minuite,
                                 style: const TextStyle(
-                                    color: Colors.white,
+                                    // color: Colors.white,
                                     fontSize: 20,
                                     fontWeight: FontWeight.w400),
                               ),
@@ -400,8 +408,9 @@ class _AddAlarmState extends State<AddAlarm> {
                         } else
                           print('error');
                       },
-                      child: const Text(
-                        'Add Now',
+                      child:  Text(
+                      context.watch<Selection>().state == 1
+                                    ? 'اضف الآن':   'Add Now',
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w400,

@@ -1,4 +1,6 @@
+import 'package:MediLink/lojain/Controllers/onboarding/SelectionTheme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Lastvisit extends StatelessWidget {
   
@@ -12,12 +14,14 @@ final String medSpecialty;
 
   @override
   Widget build(BuildContext context) {
+     var mode = context.watch<SelectionTheme>().state;
+
     return Container(
       padding: EdgeInsets.all(10),
       width: double.infinity,
       height: 72,
       decoration: BoxDecoration(
-          color: Color.fromRGBO(38, 115, 221, 1),
+          color:mode==4? Color.fromRGBO(97, 155, 237, 0.73): Color.fromRGBO(38, 115, 221, 1),
           borderRadius: BorderRadius.circular(20)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,

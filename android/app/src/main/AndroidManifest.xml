@@ -12,7 +12,9 @@
         android:label="MediLink"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
-        android:requestLegacyExternalStorage="true">
+        android:requestLegacyExternalStorage="true"
+        android:usesCleartextTraffic="true">
+        
         
         <service android:name="flutter.alarm.AlarmService" android:foregroundServiceType="mediaPlayback" />
         <activity

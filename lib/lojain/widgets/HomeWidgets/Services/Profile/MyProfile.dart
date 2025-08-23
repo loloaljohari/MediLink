@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
+import '../../../../Controllers/onboarding/SelectionLang.dart';
+
 class MyProfile extends StatelessWidget {
   const MyProfile({Key? key}) : super(key: key);
 
@@ -24,10 +26,11 @@ class MyProfile extends StatelessWidget {
               Container(
                 alignment: Alignment.centerLeft,
                 width: MediaQuery.of(context).size.width,
-                child: const Text(
-                  'My Profile',
+                child:  Text(
+                context.watch<Selection>().state == 1
+                                    ? 'ملفي الشخصي':   'My Profile',
                   style: TextStyle(
-                      color: Colors.white,
+                      
                       fontWeight: FontWeight.w700,
                       fontSize: 14),
                 ),
@@ -73,7 +76,7 @@ class MyProfile extends StatelessWidget {
                               child: Text(
                                 state.myprofile['name'],
                                 style: TextStyle(
-                                    color: Colors.white,
+                                    
                                     fontWeight: FontWeight.w400,
                                     fontSize: 20),
                               )),
@@ -82,7 +85,7 @@ class MyProfile extends StatelessWidget {
                               child: Text(
                                 state.myprofile['email'],
                                 style: TextStyle(
-                                    color: Colors.white,
+                                    
                                     fontWeight: FontWeight.w400,
                                     fontSize: 12),
                               )),
@@ -107,7 +110,8 @@ class MyProfile extends StatelessWidget {
                     onPressed: () {
                       Get.to( Sinup(conte: context,));
                     },
-                    child: const Text('Register',style: TextStyle(color: Colors.white),));
+                    child:  Text(context.watch<Selection>().state == 1
+                                    ? ' اشترك':  'Register',style: TextStyle(color: Colors.white),));
            
       } else if (state is GetProfileError) {
         return Text(state.messageError);

@@ -3,6 +3,8 @@ import 'package:MediLink/lojain/widgets/HomeWidgets/Record/Medicine/Temporary%20
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../Controllers/onboarding/SelectionTheme.dart';
+
 class ArchiveMedicine extends StatelessWidget {
   const ArchiveMedicine({Key? key}) : super(key: key);
 
@@ -15,7 +17,8 @@ class ArchiveMedicine extends StatelessWidget {
         builder: (context, state) {
           if (state is GetmedicineLoading) {
             return Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+               color:  context.watch<SelectionTheme>().state==3?Colors.white :Colors.black),
             );
           } else if (state is GetmedicineLoaded) {
             return state.medicine['archive'].isEmpty

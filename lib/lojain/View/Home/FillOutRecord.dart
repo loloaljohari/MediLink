@@ -12,6 +12,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../Controllers/onboarding/SelectionLang.dart';
+
 class FillOutRecord extends StatelessWidget {
   final cont;
   FillOutRecord({Key? key, this.cont}) : super(key: key);
@@ -24,7 +26,7 @@ class FillOutRecord extends StatelessWidget {
         return AlertDialog(
           backgroundColor: const Color.fromARGB(255, 117, 174, 255),
           title: Text(
-            'Save Information',
+         context.watch<Selection>().state == 1 ? 'حفظ المعلومات' :   'Save Information',
             style: TextStyle(
                 color: const Color.fromRGBO(15, 102, 222, 1),
                 fontWeight: FontWeight.bold,
@@ -35,7 +37,7 @@ class FillOutRecord extends StatelessWidget {
               children: <Widget>[
                 Text(
                     style: TextStyle(color: Colors.white, fontSize: 12),
-                    'Are you sure you want to save the information because you will not be able to refill it or edit it and only the doctors you have booked with can edit it?'),
+               context.watch<Selection>().state == 1 ? 'هل أنت متأكد أنك تريد حفظ المعلومات لأنك لن تتمكن من تعبئتها مرة أخرى أو تعديلها، فقط الأطباء الذين حجزت معهم يمكنهم تعديلها؟' :     'Are you sure you want to save the information because you will not be able to refill it or edit it and only the doctors you have booked with can edit it?'),
               ],
             ),
           ),
@@ -50,7 +52,7 @@ class FillOutRecord extends StatelessWidget {
                       backgroundColor: WidgetStatePropertyAll(
                           Color.fromRGBO(15, 102, 222, 1))),
                   child: Text(
-                    'cancel',
+                   context.watch<Selection>().state == 1 ? 'الغاء' : 'cancel',
                     style: TextStyle(color: Colors.white),
                   ),
                   onPressed: () {
@@ -67,10 +69,10 @@ class FillOutRecord extends StatelessWidget {
                             Color.fromRGBO(15, 102, 222, 1))),
                     child: state
                         ? CircularProgressIndicator(
-                            color: Colors.white,
+                          
                           )
                         : Text(
-                            'save',
+                          context.watch<Selection>().state == 1 ? 'حفظ' :  'save',
                             style: TextStyle(color: Colors.white),
                           ),
                     onPressed: () async {
@@ -133,7 +135,7 @@ class FillOutRecord extends StatelessWidget {
                   width: 10,
                 ),
                 Text(
-                  'Please fill in the health crisis information',
+                 context.watch<Selection>().state == 1 ? 'رجاءاً قم بتعبئة معلوماتك الصحية' :  'Please fill in the health crisis information',
                   style: TextStyle(
                       fontSize: 16,
                       fontStyle: FontStyle.normal,
@@ -146,27 +148,27 @@ class FillOutRecord extends StatelessWidget {
             ),
             Filloutpublic(),
             Divider(
-              color: Colors.white,
+          
             ),
             FillOutSensitivity(),
             Divider(
-              color: Colors.white,
+            
             ),
             FillOutmedicine(),
             Divider(
-              color: Colors.white,
+            
             ),
             Filloutillness(),
             Divider(
-              color: Colors.white,
+            
             ),
             FilloutMedicalexaminations(),
             Divider(
-              color: Colors.white,
+            
             ),
             Filloutmedicalfile(),
             Divider(
-              color: Colors.white,
+            
             ),
             FilloutOperations(),
             SizedBox(
@@ -184,9 +186,9 @@ class FillOutRecord extends StatelessWidget {
                   showMyDialog(context);
                 },
                 child: Text(
-                  'save all information ',
+               context.watch<Selection>().state == 1 ? 'حفظ كل المعلومات' :   'save all information ',
                   style: TextStyle(
-                      color: Colors.white,
+                    color: Colors.white,
                       fontSize: 20,
                       fontWeight: FontWeight.w400),
                 ))

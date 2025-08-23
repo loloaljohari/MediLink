@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../Controllers/onboarding/SelectionLang.dart';
 
 class PermanentMedicines extends StatelessWidget {
   final String Permanentmedicinesname;
@@ -55,7 +58,7 @@ class PermanentMedicines extends StatelessWidget {
                               width: 7,
                             ),
                             Text(
-                              'Start taken',
+                            context.watch<Selection>().state==1?'بدء الأخذ':   'Start taken',
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.w400),
                             ),
@@ -79,7 +82,7 @@ class PermanentMedicines extends StatelessWidget {
                               width: 7,
                             ),
                             Text(
-                              'Amount taken',
+                               context.watch<Selection>().state==1?'الكمية المأخوذة':   'Amount taken',
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.w400),
                             ),
@@ -111,11 +114,11 @@ class PermanentMedicines extends StatelessWidget {
                               width: 7,
                             ),
                             Text(
-                              'Repeatability',
+                               context.watch<Selection>().state==1?'التكرار':   'Repeatability',
                               style: TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
-                                  color: Color.fromRGBO(255, 255, 255, 0.6)),
+                                 ),
                             ),
                           ],
                         ),
@@ -125,7 +128,7 @@ class PermanentMedicines extends StatelessWidget {
                               fontStyle: FontStyle.italic,
                               fontSize: 10,
                               fontWeight: FontWeight.w400,
-                              color: Color.fromRGBO(255, 255, 255, 0.87)),
+                              ),
                         ),
                       ],
                     ),
@@ -143,11 +146,11 @@ class PermanentMedicines extends StatelessWidget {
                               width: 7,
                             ),
                             Text(
-                              'Dosage',
+                               context.watch<Selection>().state==1?'الجرعة':   'Dosage',
                               style: TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
-                                  color: Color.fromRGBO(255, 255, 255, 0.6)),
+                             ),
                             ),
                           ],
                         ),
@@ -157,7 +160,7 @@ class PermanentMedicines extends StatelessWidget {
                               fontStyle: FontStyle.italic,
                               fontSize: 10,
                               fontWeight: FontWeight.w400,
-                              color: Color.fromRGBO(255, 255, 255, 0.87)),
+                             ),
                         ),
                       ],
                     ),
@@ -175,11 +178,11 @@ class PermanentMedicines extends StatelessWidget {
                               width: 7,
                             ),
                             Text(
-                              'Time dosage',
+                               context.watch<Selection>().state==1?'وقت الجرعة':   'Time dosage',
                               style: TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
-                                  color: Color.fromRGBO(255, 255, 255, 0.6)),
+                                 ),
                             ),
                           ],
                         ),
@@ -189,7 +192,7 @@ class PermanentMedicines extends StatelessWidget {
                               fontStyle: FontStyle.italic,
                               fontSize: 10,
                               fontWeight: FontWeight.w400,
-                              color: Color.fromRGBO(255, 255, 255, 0.87)),
+                             ),
                         ),
                       ],
                     ),

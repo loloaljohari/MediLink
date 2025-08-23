@@ -24,9 +24,9 @@ class Verfaicodesinup extends StatelessWidget {
     final TimerController timerController = Get.put(TimerController());
 
     return Scaffold(
-        backgroundColor: AppColor.backgroundColor,
+        // backgroundColor: AppColor.backgroundColor,
         appBar: AppBar(
-          backgroundColor: AppColor.backgroundColor,
+          // backgroundColor: AppColor.backgroundColor,
           elevation: 0.0,
           leading: IconButton(
             onPressed: () {
@@ -73,7 +73,7 @@ class Verfaicodesinup extends StatelessWidget {
 
                                   OtpTextField(
                                     textStyle: TextStyle(
-                                      color: AppColor.white_number,
+                                      // color: AppColor.white_number,
                                       fontSize: 24,
                                       fontWeight: FontWeight.w700,
                                       height: 0.8,
@@ -128,7 +128,7 @@ class Verfaicodesinup extends StatelessWidget {
                                           "Didn’t receive code ?",
                                           style: TextStyle(
                                             fontSize: 16,
-                                            color: Colors.black,
+                                            // color: Colors.black,
                                           ),
                                         ),
                                         const SizedBox(height: 8),
@@ -161,7 +161,7 @@ class Verfaicodesinup extends StatelessWidget {
                                                   text: "  -  $formattedTime",
                                                   style: const TextStyle(
                                                     fontSize: 16,
-                                                    color: Colors.black54,
+                                                    // color: Colors.black54,
                                                   ),
                                                 ),
                                               ],

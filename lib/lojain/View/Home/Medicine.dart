@@ -5,6 +5,9 @@ import 'package:MediLink/lojain/widgets/HomeWidgets/Record/Medicine/Temporary%20
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../Controllers/onboarding/SelectionLang.dart';
+import '../../Controllers/onboarding/SelectionTheme.dart';
+
 class Medicine extends StatelessWidget {
   const Medicine({Key? key}) : super(key: key);
 
@@ -12,7 +15,6 @@ class Medicine extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.black,
           leading: InkWell(
             onTap: () {
               Navigator.pop(context);
@@ -22,10 +24,10 @@ class Medicine extends StatelessWidget {
               color: Color.fromRGBO(38, 115, 221, 1),
             ),
           ),
-          title: const Padding(
-            padding: EdgeInsets.only(left: 30),
+          title: Padding(
+            padding: EdgeInsets.only(left: 70, right: 70),
             child: Text(
-              'Medicine',
+              context.watch<Selection>().state == 1 ? 'الأدوية' : 'Medicine',
               style: TextStyle(),
             ),
           ),
@@ -45,23 +47,26 @@ class Medicine extends StatelessWidget {
                           child: Container(
                             child: Center(
                                 child: Text(
-                              'Now',
+                              context.watch<Selection>().state == 1
+                                  ? 'الآن'
+                                  : 'Now',
                               style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w400,
                                   color: index == 0
                                       ? Color.fromRGBO(15, 102, 222, 1)
-                                      : Colors.white),
+                                      : context.watch<SelectionTheme>().state ==
+                                              3
+                                          ? Colors.white
+                                          : Colors.black),
                             )),
                             height: 35,
                             width: 178.2811279296875,
                             decoration: BoxDecoration(
-                                color: index == 0
-                                    ? Color.fromRGBO(38, 115, 221, 0.3)
-                                    : Color.fromRGBO(38, 115, 221, 0.1),
-                                borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(8),
-                                    topLeft: Radius.circular(8))),
+                              color: index == 0
+                                  ? Color.fromRGBO(38, 115, 221, 0.3)
+                                  : Color.fromRGBO(38, 115, 221, 0.1),
+                            ),
                           )),
                     ),
                     Expanded(
@@ -72,34 +77,35 @@ class Medicine extends StatelessWidget {
                           child: Container(
                               child: Center(
                                   child: Text(
-                                'Archive',
+                                context.watch<Selection>().state == 1
+                                    ? 'الأرشيف'
+                                    : 'Archive',
                                 style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w400,
                                     color: index == 1
                                         ? Color.fromRGBO(15, 102, 222, 1)
-                                        : Colors.white),
+                                        : context
+                                                    .watch<SelectionTheme>()
+                                                    .state ==
+                                                3
+                                            ? Colors.white
+                                            : Colors.black),
                               )),
                               height: 35,
                               width: 178.2811279296875,
                               decoration: BoxDecoration(
-                                  color: index == 1
-                                      ? Color.fromRGBO(38, 115, 221, 0.3)
-                                      : Color.fromRGBO(38, 115, 221, 0.1),
-                                  borderRadius: BorderRadius.only(
-                                      bottomRight: Radius.circular(8),
-                                      topRight: Radius.circular(8))))),
+                                color: index == 1
+                                    ? Color.fromRGBO(38, 115, 221, 0.3)
+                                    : Color.fromRGBO(38, 115, 221, 0.1),
+                              ))),
                     ),
                   ],
                 ),
               ),
               Expanded(
                 child: ListView(
-                  children: [
-                    index == 0
-                        ? NowMedicine()
-                        : ArchiveMedicine()  
-                         ],
+                  children: [index == 0 ? NowMedicine() : ArchiveMedicine()],
                 ),
               ),
             ],

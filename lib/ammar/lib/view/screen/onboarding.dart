@@ -21,7 +21,7 @@ class onBording extends StatelessWidget {
     Get.put(OnbordingcontrolerImp());
 
     return Scaffold(
-        backgroundColor: AppColor.backgroundColor,
+
         body: SafeArea(
           child: Stack(
             children: [

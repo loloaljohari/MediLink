@@ -19,9 +19,9 @@ class Sucssfolrestpassword extends StatelessWidget {
     return GetBuilder<SussfulcontrollerImp>(
       builder: (controller) {
         return Scaffold(
-          backgroundColor: AppColor.backgroundColor,
+          // backgroundColor: AppColor.backgroundColor,
           appBar: AppBar(
-            backgroundColor: AppColor.backgroundColor,
+            // backgroundColor: AppColor.backgroundColor,
             elevation: 0.0,
             leading: IconButton(
               onPressed: () {

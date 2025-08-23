@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
 import '../../../../../ammar/lib/view/screen/aouth/sinup.dart';
+import '../../../../Controllers/onboarding/SelectionLang.dart';
+import '../../../../Controllers/onboarding/SelectionTheme.dart';
 
 class ImageExarnination extends StatelessWidget {
   const ImageExarnination({Key? key}) : super(key: key);
@@ -20,7 +22,11 @@ class ImageExarnination extends StatelessWidget {
               builder: (context, state) {
             if (state is GetMedicalexaminationsLoading) {
               return Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(
+                  color: context.watch<SelectionTheme>().state == 3
+                      ? Colors.white
+                      : Colors.black,
+                ),
               );
             } else if (state is GetMedicalexaminationsLoaded) {
               if (state.Medicalexaminations.containsKey('data')) {
@@ -78,7 +84,10 @@ class ImageExarnination extends StatelessWidget {
                     },
                   ));
                 } else
-                  return Text('empty');
+                  return Center(
+                      child: Text(context.watch<Selection>().state == 1
+                          ? 'فارغ'
+                          : 'empty'));
               } else
                 return Center(
                     child: Padding(
@@ -104,7 +113,9 @@ class ImageExarnination extends StatelessWidget {
                         Text(
                             style: TextStyle(
                                 fontSize: 14, fontWeight: FontWeight.bold),
-                            '${state.Medicalexaminations['message']}: To view your medical record, you must have an account on the app. Sign up for our app to access our services.'),
+                            context.watch<Selection>().state == 1
+                                ? 'للاطلاع على سجلك الطبي، يجب أن يكون لديك حساب على التطبيق. سجل في تطبيقنا للوصول إلى خدماتنا.'
+                                : '${state.Medicalexaminations['message']}: To view your medical record, you must have an account on the app. Sign up for our app to access our services.'),
                         ElevatedButton(
                             style: ButtonStyle(
                                 fixedSize:
@@ -116,8 +127,10 @@ class ImageExarnination extends StatelessWidget {
                                 conte: context,
                               ));
                             },
-                            child: const Text(
-                              'Register',
+                            child: Text(
+                              context.watch<Selection>().state == 1
+                                  ? 'الاشتراك'
+                                  : 'Register',
                               style: TextStyle(color: Colors.white),
                             )),
                       ],
@@ -126,7 +139,7 @@ class ImageExarnination extends StatelessWidget {
                 ));
               ;
             } else if (state is GetMedicalexaminationsError) {
-              return Text(state.messageError.toString());
+              return Text('');
             } else
               return SizedBox();
           }),

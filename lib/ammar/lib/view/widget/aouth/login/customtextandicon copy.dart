@@ -1,6 +1,9 @@
 import 'package:MediLink/ammar/lib/core/constant/color.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../../../../../lojain/Controllers/onboarding/SelectionTheme.dart';
 
 class customtextandphotologin extends StatelessWidget {
   final String text;
@@ -16,14 +19,21 @@ class customtextandphotologin extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        SvgPicture.asset(photo1, height: 20, width: 20),
+        Container(
+          width: 20,
+          height: 20,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color:context.watch<SelectionTheme>().state==3? Colors.white: Colors.black
+          ),
+          child: SvgPicture.asset(photo1, height: 20, width: 20)),
 
 // SizedBox(width: 5,),
 
         Text(
           text,
           style: TextStyle(
-              fontSize: 16, color: AppColor.dark, fontWeight: FontWeight.w400),
+              fontSize: 16, fontWeight: FontWeight.w400),
         ),
       ],
     );

@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
+import '../../Controllers/onboarding/SelectionLang.dart';
+import '../../Controllers/onboarding/SelectionTheme.dart';
+
 class MedicalFile extends StatelessWidget {
   const MedicalFile({Key? key}) : super(key: key);
 
@@ -12,7 +15,7 @@ class MedicalFile extends StatelessWidget {
     context.read<GetmedicalfileCubit>().fetch();
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        // backgroundColor: Colors.black,
         leading: InkWell(
           onTap: () {
             Navigator.pop(context);
@@ -22,10 +25,10 @@ class MedicalFile extends StatelessWidget {
             color: Color.fromRGBO(38, 115, 221, 1),
           ),
         ),
-        title: const Padding(
-          padding: EdgeInsets.only(left: 50),
+        title:  Padding(
+          padding: EdgeInsets.only(left: 50,right: 50),
           child: Text(
-            'Medical file',
+            context.watch<Selection>().state==1?'الأشعة الطبية': 'Medical file',
             style: TextStyle(),
           ),
         ),
@@ -34,7 +37,9 @@ class MedicalFile extends StatelessWidget {
           builder: (context, state) {
         if (state is GetmedicalfileLoading) {
           return Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              color: context.watch<SelectionTheme>().state==3?Colors.white :Colors.black,
+            ),
           );
         } else if (state is GetmedicalfileLoaded) {
           if (state.medicalfile.containsKey('data')) {
@@ -133,7 +138,8 @@ class MedicalFile extends StatelessWidget {
                 ),
               );
             } else
-              return Text('empty');
+              return Text( 
+                context.watch<Selection>().state==1?'فارغ': 'empty');
           } else
             return Center(
                 child: Padding(
@@ -159,8 +165,10 @@ class MedicalFile extends StatelessWidget {
                     Text(
                         style: TextStyle(
                             fontSize: 14, fontWeight: FontWeight.bold),
-                        '${state.medicalfile['message']}: To view your medical record, you must have an account on the app. Sign up for our app to access our services.'),
-                    ElevatedButton(
+                       context.watch<Selection>().state == 1
+                            ? 'للاطلاع على سجلك الطبي، يجب أن يكون لديك حساب على التطبيق. سجل في تطبيقنا للوصول إلى خدماتنا.'
+                            : '${state.medicalfile['message']}: To view your medical record, you must have an account on the app. Sign up for our app to access our services.'),
+                  ElevatedButton(
                         style: ButtonStyle(
                             fixedSize: WidgetStatePropertyAll(Size(120, 20)),
                             backgroundColor: WidgetStatePropertyAll(
@@ -170,8 +178,8 @@ class MedicalFile extends StatelessWidget {
                             conte: context,
                           ));
                         },
-                        child: const Text(
-                          'Register',
+                        child:  Text(
+                        context.watch<Selection>().state==1?'اشتراك':   'Register',
                           style: TextStyle(color: Colors.white),
                         )),
                   ],
@@ -179,7 +187,10 @@ class MedicalFile extends StatelessWidget {
               ),
             ));
         } else if (state is GetmedicalfileError) {
-          return Text(state.messageError.toString());
+          return Center(
+            child: Text(
+            context.watch<Selection>().state==1?'خطأ':   'error'),
+          );
         } else
           return SizedBox();
       }),

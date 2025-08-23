@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "704118377628",
+    "project_id": "tactile-carver-434717-g1",
+    "storage_bucket": "tactile-carver-434717-g1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:704118377628:android:b597fdb512635da945b159",
+        "android_client_info": {
+          "package_name": "com.example.MediLink"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0ScHGn9clNp3W59jZSrLigiRWYtr8t4Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

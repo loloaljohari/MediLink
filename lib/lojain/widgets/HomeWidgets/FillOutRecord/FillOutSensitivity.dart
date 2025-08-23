@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:MediLink/lojain/Controllers/onboarding/SelectionTheme.dart';
 import 'package:MediLink/lojain/Controllers/record/dropgeneral.dart';
 import 'package:MediLink/lojain/models/record/FillOutRecord/postsensitivity.dart';
 import 'package:MediLink/lojain/models/record/Getpatientrecord/Sensitivitymodel.dart';
@@ -7,6 +8,8 @@ import 'package:MediLink/lojain/widgets/HomeWidgets/Record/SensitivityWidget.dar
 import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../Controllers/onboarding/SelectionLang.dart';
 
 class FillOutSensitivity extends StatelessWidget {
   FillOutSensitivity({Key? key}) : super(key: key);
@@ -42,7 +45,7 @@ class FillOutSensitivity extends StatelessWidget {
   void showCustomBottomSheet(BuildContext context) {
     showModalBottomSheet(
       sheetAnimationStyle: AnimationStyle( reverseCurve:Curves.easeIn,reverseDuration: Duration(seconds: 1) , curve: Curves.easeIn,duration: Duration(seconds: 2)),
-      backgroundColor: Color.fromRGBO(19, 57, 111, 1),
+      backgroundColor:  context.read<SelectionTheme>().state == 4 ?Color.fromRGBO(   38, 115, 221, 1): Color.fromRGBO(19, 57, 111, 1),
       context: context,
       isScrollControlled: true,
       builder: (context) {
@@ -72,7 +75,7 @@ class FillOutSensitivity extends StatelessWidget {
                       Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16),
-                          color: Color.fromRGBO(34, 34, 34, 1),
+                          color:  context.read<SelectionTheme>().state == 4? Colors.white24 :Color.fromRGBO(34, 34, 34, 1),
                         ),
                         height: 52,
                         width: double.infinity,
@@ -87,9 +90,9 @@ class FillOutSensitivity extends StatelessWidget {
                                         cursorColor: Colors.white)),
                             child: TextFormField(
                               cursorColor: Colors.white,
-                              decoration: const InputDecoration(
+                              decoration:  InputDecoration(
                                 fillColor: Colors.white,
-                                hintText: 'Enter Name Sensitivity',
+                                hintText:  context.watch<Selection>().state == 1 ? 'ادخل اسم الحساسية' :'Enter Name Sensitivity',
                                 hintStyle: TextStyle(
                                     color: Colors.white,
                                     fontSize: 16,
@@ -118,7 +121,7 @@ class FillOutSensitivity extends StatelessWidget {
                               padding: EdgeInsets.symmetric(horizontal: 5),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(16),
-                                color: Color.fromRGBO(34, 34, 34, 1),
+                            color:   context.read<SelectionTheme>().state == 4? Colors.white24 :Color.fromRGBO(34, 34, 34, 1),
                               ),
                               height: 52,
                               width: MediaQuery.of(context).size.width / 2.3,
@@ -137,6 +140,7 @@ class FillOutSensitivity extends StatelessWidget {
                                           hideSelectedFieldWhenExpanded: true,
                                           decoration: CustomDropdownDecoration(
                                             hintStyle: TextStyle(
+                                              color: Colors.white,
                                                 fontWeight: FontWeight.w400,
                                                 fontSize: 16),
                                             closedFillColor: Colors.transparent,
@@ -161,10 +165,11 @@ class FillOutSensitivity extends StatelessWidget {
                                               const EdgeInsets.all(9),
                                           disabledDecoration:
                                               const CustomDropdownDisabledDecoration(
+                                               
                                                   fillColor:
                                                       Colors.transparent),
                                           items: list,
-                                          hintText: 'Severity',
+                                          hintText:  context.watch<Selection>().state == 1 ? 'القوة' :'Severity',
                                           onChanged: (value) {
                                             print(power.state.selectedValue);
                                             power.setSelectedValue(value!);
@@ -175,7 +180,7 @@ class FillOutSensitivity extends StatelessWidget {
                               padding: EdgeInsets.symmetric(horizontal: 5),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(16),
-                                color: Color.fromRGBO(34, 34, 34, 1),
+                                color:context.read<SelectionTheme>().state == 4? Colors.white24 :Color.fromRGBO(34, 34, 34, 1), 
                               ),
                               height: 52,
                               width: MediaQuery.of(context).size.width / 2.3,
@@ -194,6 +199,7 @@ class FillOutSensitivity extends StatelessWidget {
                                           hideSelectedFieldWhenExpanded: true,
                                           decoration: CustomDropdownDecoration(
                                             hintStyle: TextStyle(
+                                              color: Colors.white,
                                                 fontWeight: FontWeight.w400,
                                                 fontSize: 16),
                                             closedFillColor: Colors.transparent,
@@ -221,7 +227,7 @@ class FillOutSensitivity extends StatelessWidget {
                                                   fillColor:
                                                       Colors.transparent),
                                           items: list1,
-                                          hintText: 'Type',
+                                          hintText:  context.watch<Selection>().state == 1 ? 'النوع' :'Type',
                                           onChanged: (value) {
                                             print(type.state.selectedValue);
                                             type.setSelectedValue(value!);
@@ -239,7 +245,7 @@ class FillOutSensitivity extends StatelessWidget {
                           Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(16),
-                              color: Color.fromRGBO(34, 34, 34, 1),
+                              color: context.read<SelectionTheme>().state == 4? Colors.white24 :Color.fromRGBO(34, 34, 34, 1),
                             ),
                             height: 52,
                             width: MediaQuery.of(context).size.width / 2.3,
@@ -254,9 +260,9 @@ class FillOutSensitivity extends StatelessWidget {
                                             cursorColor: Colors.white)),
                                 child: TextFormField(
                                   cursorColor: Colors.white,
-                                  decoration: const InputDecoration(
+                                  decoration:  InputDecoration(
                                     fillColor: Colors.white,
-                                    hintText: 'Enter Due to',
+                                    hintText:  context.watch<Selection>().state == 1 ? 'أدخل بسبب' :'Enter Due to',
                                     hintStyle: TextStyle(
                                         color: Colors.white,
                                         fontSize: 14,
@@ -278,7 +284,7 @@ class FillOutSensitivity extends StatelessWidget {
                           Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(16),
-                              color: Color.fromRGBO(34, 34, 34, 1),
+                              color: context.read<SelectionTheme>().state == 4? Colors.white24 :Color.fromRGBO(34, 34, 34, 1),
                             ),
                             height: 52,
                             width: MediaQuery.of(context).size.width / 2.3,
@@ -293,9 +299,9 @@ class FillOutSensitivity extends StatelessWidget {
                                             cursorColor: Colors.white)),
                                 child: TextFormField(
                                   cursorColor: Colors.white,
-                                  decoration: const InputDecoration(
+                                  decoration:  InputDecoration(
                                     fillColor: Colors.white,
-                                    hintText: 'Enter Termmenet',
+                                    hintText:  context.watch<Selection>().state == 1 ? 'ادخل العلاج' : 'Enter Treatment',
                                     hintStyle: TextStyle(
                                         color: Colors.white,
                                         fontSize: 14,
@@ -325,7 +331,7 @@ class FillOutSensitivity extends StatelessWidget {
                           Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(16),
-                              color: Color.fromRGBO(34, 34, 34, 1),
+                              color: context.read<SelectionTheme>().state == 4? Colors.white24 :Color.fromRGBO(34, 34, 34, 1),
                             ),
                             height: 52,
                             width: MediaQuery.of(context).size.width / 2.3,
@@ -339,12 +345,12 @@ class FillOutSensitivity extends StatelessWidget {
                                             selectionHandleColor: Colors.white,
                                             cursorColor: Colors.white)),
                                 child: TextFormField(
-                                  cursorColor: Colors.white,
-                                  decoration: const InputDecoration(
+                                  cursorColor: const Color.fromRGBO(255, 255, 255, 1),
+                                  decoration:  InputDecoration(
                                     fillColor: Colors.white,
-                                    hintText: 'Reasons',
+                                    hintText:  context.watch<Selection>().state == 1 ? 'الاسباب' :'Reasons',
                                     hintStyle: TextStyle(
-                                        color: Color.fromRGBO(175, 11, 11, 1),
+                                        color: Color.fromRGBO(137, 9, 9, 1),
                                         fontSize: 14,
                                         fontStyle: FontStyle.normal,
                                         fontWeight: FontWeight.w400),
@@ -364,7 +370,7 @@ class FillOutSensitivity extends StatelessWidget {
                           Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(16),
-                              color: Color.fromRGBO(34, 34, 34, 1),
+                              color: context.read<SelectionTheme>().state == 4? Colors.white24 :Color.fromRGBO(34, 34, 34, 1),
                             ),
                             height: 52,
                             width: MediaQuery.of(context).size.width / 2.3,
@@ -379,11 +385,11 @@ class FillOutSensitivity extends StatelessWidget {
                                             cursorColor: Colors.white)),
                                 child: TextFormField(
                                   cursorColor: Colors.white,
-                                  decoration: const InputDecoration(
+                                  decoration:  InputDecoration(
                                     fillColor: Colors.white,
-                                    hintText: 'Prevention',
+                                    hintText:  context.watch<Selection>().state == 1 ? 'الوقاية' :'Prevention',
                                     hintStyle: TextStyle(
-                                        color: Color.fromRGBO(16, 175, 11, 1),
+                                        color: Color.fromRGBO(8, 93, 5, 1),
                                         fontSize: 14,
                                         fontStyle: FontStyle.normal,
                                         fontWeight: FontWeight.w400),
@@ -416,7 +422,7 @@ class FillOutSensitivity extends StatelessWidget {
                                         borderRadius:
                                             BorderRadius.circular(20))),
                                 backgroundColor: WidgetStatePropertyAll(
-                                    Color.fromRGBO(15, 102, 222, 1))),
+                                   context.read<SelectionTheme>().state == 4? Colors.white24 : Color.fromRGBO(15, 102, 222, 1))),
                             onPressed: () async {
                               print('================');
                               var isSuccess = await context
@@ -437,9 +443,10 @@ class FillOutSensitivity extends StatelessWidget {
                                   backgroundColor: Colors.green,
                                   duration: Duration(seconds: 2),
                                 ));
+                               context.read<GetSensitivityCubit>().fetch();
                                 Navigator.of(context).pop();
 
-                                context.read<GetSensitivityCubit>().fetch();
+                                
                               } else {
                                 // ignore: use_build_context_synchronously
                                 ScaffoldMessenger.of(context)
@@ -452,10 +459,10 @@ class FillOutSensitivity extends StatelessWidget {
                             },
                             child: state
                                 ? CircularProgressIndicator(
-                                    color: Colors.white,
+                               color:    context.read<SelectionTheme>().state == 4?  Color.fromRGBO(34, 34, 34, 1):Colors.white24,
                                   )
                                 : Text(
-                                    'save',
+                                    context.watch<Selection>().state == 1 ? 'حفظ' : 'save',
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 20,
@@ -484,7 +491,7 @@ class FillOutSensitivity extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Sensitivity',
+               context.watch<Selection>().state == 1 ? 'الحساسيات' :  'Sensitivity',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
               ),
               TextButton(
@@ -492,7 +499,7 @@ class FillOutSensitivity extends StatelessWidget {
                     showCustomBottomSheet(context);
                   },
                   child: Text(
-                    'Add+',
+                   context.watch<Selection>().state == 1 ? 'اضف+' :  'Add+',
                     style: TextStyle(
                         fontSize: 20,
                         color: Color.fromRGBO(64, 123, 255, 1),

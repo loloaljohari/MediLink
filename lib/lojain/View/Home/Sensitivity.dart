@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
+import '../../Controllers/onboarding/SelectionLang.dart';
+
 class Sensitivity extends StatelessWidget {
   Sensitivity({Key? key}) : super(key: key);
   List list = [
@@ -28,7 +30,7 @@ class Sensitivity extends StatelessWidget {
     context.read<GetSensitivityCubit>().fetch();
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        
         leading: InkWell(
           onTap: () {
             Navigator.pop(context);
@@ -38,10 +40,10 @@ class Sensitivity extends StatelessWidget {
             color: Color.fromRGBO(38, 115, 221, 1),
           ),
         ),
-        title: const Padding(
-          padding: EdgeInsets.only(left: 70),
+        title:  Padding(
+          padding: EdgeInsets.only(left: 70,right: 70),
           child: Text(
-            'Sensitivity',
+             context.watch<Selection>().state==1?'الحساسية':   'Sensitivity',
             style: TextStyle(),
           ),
         ),
@@ -65,8 +67,8 @@ class Sensitivity extends StatelessWidget {
                         const SizedBox(
                           width: 10,
                         ),
-                        const Text(
-                          'Strong Sensitivity',
+                         Text(
+                          context.watch<Selection>().state==1?'الحساسية القوية':    'Strong Sensitivity',
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.w700),
                         )
@@ -105,8 +107,8 @@ class Sensitivity extends StatelessWidget {
                         const SizedBox(
                           width: 10,
                         ),
-                        const Text(
-                          'Medium Sensitivity',
+                         Text(
+                        context.watch<Selection>().state==1?'الحساسية المعتدلة':   'Medium Sensitivity',
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.w700),
                         )
@@ -145,8 +147,8 @@ class Sensitivity extends StatelessWidget {
                         const SizedBox(
                           width: 10,
                         ),
-                        const Text(
-                          'Weak Sensitivity',
+                         Text(
+                        context.watch<Selection>().state==1?'الحساسية الخفيفة':   'Weak Sensitivity',
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.w700),
                         )
@@ -177,8 +179,8 @@ class Sensitivity extends StatelessWidget {
                           )
                         : Center(
                             child: Text(
-                            'no thing',
-                            style: TextStyle(color: Colors.white),
+                          context.watch<Selection>().state==1?'لا شيء':   'no thing',
+                            style: TextStyle(),
                           )),
                     SizedBox(
                       height: 20,
@@ -187,7 +189,7 @@ class Sensitivity extends StatelessWidget {
                 ),
               );
             } else
-              return Text('empty');
+              return Text( context.watch<Selection>().state==1?'فارغ':  'empty');
           } else
             return Center(
                 child: Padding(
@@ -211,8 +213,10 @@ class Sensitivity extends StatelessWidget {
                                   children: [
                     Text(
                       style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),
-                        '${state.Sensitivity['message']}: To view your medical record, you must have an account on the app. Sign up for our app to access our services.'),
-                    ElevatedButton(
+                       context.watch<Selection>().state == 1
+                            ? 'للاطلاع على سجلك الطبي، يجب أن يكون لديك حساب على التطبيق. سجل في تطبيقنا للوصول إلى خدماتنا.'
+                            : '${state.Sensitivity['message']}: To view your medical record, you must have an account on the app. Sign up for our app to access our services.'),
+                  ElevatedButton(
                         style: ButtonStyle(
                             fixedSize: WidgetStatePropertyAll(Size(120, 20)),
                             backgroundColor: WidgetStatePropertyAll(
@@ -222,8 +226,8 @@ class Sensitivity extends StatelessWidget {
                             conte: context,
                           ));
                         },
-                        child: const Text(
-                          'Register',
+                        child:  Text(
+                         context.watch<Selection>().state==1?'اشتراك':  'Register',
                           style: TextStyle(color: Colors.white),
                         )),
                                   ],

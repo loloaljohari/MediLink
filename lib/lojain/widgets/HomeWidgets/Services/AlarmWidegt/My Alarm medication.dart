@@ -3,6 +3,8 @@ import 'package:MediLink/lojain/widgets/HomeWidgets/Services/AlarmWidegt/alarmMa
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../Controllers/onboarding/SelectionLang.dart';
+
 class MyAlarmMedication extends StatelessWidget {
   const MyAlarmMedication({Key? key}) : super(key: key);
 
@@ -14,10 +16,11 @@ class MyAlarmMedication extends StatelessWidget {
         Container(
           alignment: Alignment.centerLeft,
           width: MediaQuery.of(context).size.width,
-          child: const Text(
-            'My Alarm medication',
+          child:  Text(
+          context.watch<Selection>().state == 1
+                                    ? 'منبهاتي الطبية':   'My Alarm medication',
             style: TextStyle(
-                color: Colors.white, fontWeight: FontWeight.w700, fontSize: 14),
+                 fontWeight: FontWeight.w700, fontSize: 14),
           ),
         ),
         InkWell(
@@ -53,27 +56,29 @@ class MyAlarmMedication extends StatelessWidget {
                         child: BlocBuilder<GetAlarmsCubit, GetAlarmsState>(
                             builder: (context, state) {
                           if (state is GetAlarmsLoaded) {
-                         if(state.alarms.containsKey('data'))  { return Text(
-                              '${state.alarms['data'].length} Alarm',
+                         if(state.alarms.containsKey('data')&& state.alarms['data'].length!=0)  { return Text(
+                              context.watch<Selection>().state == 1
+                                    ? ' منبه ${state.alarms['data'].length}': '${state.alarms['data'].length} Alarm',
                               style: TextStyle(
-                                  color: Colors.white,
+                                  
                                   fontWeight: FontWeight.w400,
                                   fontSize: 20),
                             );
                          } 
                          else return Text(
-                              'no Alarm',
+                              context.watch<Selection>().state == 1 ? 'اضفط لاضافة منبه \nلاجل تذكيرك بادويتك '   :   'click to add alarm \nfor remember your madicine',
                               style: TextStyle(
-                                  color: Colors.white,
+                                  
                                   fontWeight: FontWeight.w400,
-                                  fontSize: 20),
+                                  fontSize: 15),
                             );
 
                          } else
                             return Text(
-                              'many Alarm',
+                           context.watch<Selection>().state == 1
+                                    ? 'عدة منبهات':    'many Alarm',
                               style: TextStyle(
-                                  color: Colors.white,
+                                  
                                   fontWeight: FontWeight.w400,
                                   fontSize: 20),
                             );
@@ -100,6 +105,6 @@ class MyAlarmMedication extends StatelessWidget {
         ),
       ],
     );
-    ;
+    
   }
 }

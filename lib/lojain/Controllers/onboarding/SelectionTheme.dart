@@ -1,16 +1,31 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/material.dart';
 
 class SelectionTheme extends Cubit<int?> {
-  SelectionTheme() : super(0);
-  void selecttheme(int option) async{
-    SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
-    var l;
-   if(option==4) sharedPreferences.setString("theme","light");
-   else sharedPreferences.setString("theme","naight");
-   l=sharedPreferences.getString("theme");
-    print(l);
-    emit(option);
+  SelectionTheme() : super(null) {
+    loadTheme();
   }
-  
+
+  Future<void> loadTheme() async {
+    final prefs = await SharedPreferences.getInstance();
+    final savedTheme = prefs.getString('theme');
+
+    if (savedTheme != null) {
+      emit(savedTheme == "dark" ? 3 : 4);
+    } else {
+      // ثيم النظام
+      final brightness = WidgetsBinding.instance.platformDispatcher.platformBrightness;
+      emit(brightness == Brightness.dark ? 3 : 4);
+    }
+  }
+
+  Future<void> selecttheme(int option) async {
+   
+    final prefs = await SharedPreferences.getInstance();
+    final theme = option == 3 ? "dark" : "light";
+    await prefs.setString('theme', theme);
+    print(theme); emit(option);
+    
+  }
 }

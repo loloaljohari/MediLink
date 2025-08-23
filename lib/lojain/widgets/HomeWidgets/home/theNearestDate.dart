@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../Controllers/home/NavigationCubit.dart';
+import '../../../Controllers/onboarding/SelectionLang.dart';
+import '../../../Controllers/onboarding/SelectionTheme.dart';
 
 class TheNearestDate extends StatelessWidget {
   final String Imagepath;
@@ -28,6 +30,8 @@ class TheNearestDate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var mode = context.watch<SelectionTheme>().state;
+
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
@@ -43,7 +47,9 @@ class TheNearestDate extends StatelessWidget {
           width: 358,
           height: Dates ? 175 : 219,
           decoration: BoxDecoration(
-              color: const Color.fromRGBO(38, 115, 221, 1),
+              color: mode == 4
+                  ? Color.fromRGBO(35, 103, 198, 0.742)
+                  : const Color.fromRGBO(38, 115, 221, 1),
               borderRadius: BorderRadius.circular(20)),
           child: Column(
             children: [
@@ -57,10 +63,12 @@ class TheNearestDate extends StatelessWidget {
                         borderRadius: BorderRadius.circular(50),
                         border: Border.all(
                             width: 2,
-                            color: const Color.fromRGBO(38, 115, 221, 1)),
+                            color: mode == 4
+                                ? Color.fromRGBO(35, 103, 198, 0.742)
+                                : const Color.fromRGBO(38, 115, 221, 1)),
                         boxShadow: const [
                           BoxShadow(
-                              color: Color.fromRGBO(0, 0, 0, 0.25),
+                              color: Color.fromRGBO(0, 0, 0, 0.881),
                               blurRadius: 2,
                               offset: Offset(0, 2),
                               spreadRadius: 0)
@@ -72,11 +80,13 @@ class TheNearestDate extends StatelessWidget {
                           width: 62,
                           height: 62,
                           decoration: BoxDecoration(
-                              color: const Color.fromRGBO(38, 115, 221, 1),
+                              color: mode == 4
+                                  ? Color.fromRGBO(35, 103, 198, 0.742)
+                                  : const Color.fromRGBO(38, 115, 221, 1),
                               borderRadius: BorderRadius.circular(50),
                               boxShadow: const [
                                 BoxShadow(
-                                    color: Color.fromRGBO(0, 0, 0, 0.1),
+                                    color: Color.fromRGBO(0, 0, 0, 1),
                                     blurRadius: 2,
                                     offset: Offset(0, -290),
                                     spreadRadius: 9)
@@ -175,7 +185,9 @@ class TheNearestDate extends StatelessWidget {
                                           color: Color.fromRGBO(168, 40, 48, 1),
                                         ),
                                         Text(
-                                          'Cancel',
+                                          context.watch<Selection>().state == 1
+                                              ? 'الغاء'
+                                              : 'Cancel',
                                           style: TextStyle(
                                               color: Color.fromRGBO(
                                                   168, 40, 48, 1),
@@ -208,12 +220,14 @@ class TheNearestDate extends StatelessWidget {
                   ),
                   Column(
                     children: [
-                      const SizedBox(
+                      SizedBox(
                         width: 80,
                         child: Text(
                           textAlign: TextAlign.left,
-                          'Date',
-                          style: TextStyle(
+                          context.watch<Selection>().state == 1
+                              ? 'التاريخ'
+                              : 'Date',
+                          style: const TextStyle(
                               color: Color.fromRGBO(0, 0, 0, 0.6),
                               fontWeight: FontWeight.w700,
                               fontSize: 10),
@@ -237,11 +251,13 @@ class TheNearestDate extends StatelessWidget {
                   ),
                   Column(
                     children: [
-                      const SizedBox(
+                      SizedBox(
                         width: 70,
                         child: Text(
                           textAlign: TextAlign.left,
-                          'Time',
+                          context.watch<Selection>().state == 1
+                              ? 'الوقت'
+                              : 'Time',
                           style: TextStyle(
                               color: Color.fromRGBO(0, 0, 0, 0.6),
                               fontWeight: FontWeight.w700,
@@ -267,18 +283,19 @@ class TheNearestDate extends StatelessWidget {
                   : Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        
-                  
                         BlocBuilder<NavigationCubit, int>(
                           builder: (context, state) {
                             return ElevatedButton(
-                                style: const ButtonStyle(
+                                style: ButtonStyle(
                                     overlayColor:
                                         WidgetStatePropertyAll(Colors.white30),
                                     fixedSize:
                                         WidgetStatePropertyAll(Size(123, 35)),
                                     backgroundColor: WidgetStatePropertyAll(
-                                        Color.fromRGBO(18, 18, 18, 1))),
+                                        mode == 4
+                                            ? Color.fromRGBO(
+                                                221, 220, 220, 0.785)
+                                            : Color.fromRGBO(18, 18, 18, 1))),
                                 onPressed: () {
                                   context.read<NavigationCubit>().changePage(3);
                                 },
@@ -288,13 +305,15 @@ class TheNearestDate extends StatelessWidget {
                                     const SizedBox(
                                       width: 10,
                                     ),
-                                    const Text(
-                                      'Details',
+                                    Text(
+                                      context.watch<Selection>().state==1?'التفاصيل': 'Details',
                                       style: TextStyle(
                                           fontWeight: FontWeight.w400,
                                           fontSize: 14,
-                                          color:
-                                              Color.fromRGBO(38, 115, 221, 1)),
+                                          color: mode == 4
+                                              ? Colors.black
+                                              : Color.fromRGBO(
+                                                  38, 115, 221, 1)),
                                     )
                                   ],
                                 ));
@@ -345,8 +364,11 @@ class TheNearestDate extends StatelessWidget {
                                           const SizedBox(
                                             width: 10,
                                           ),
-                                          const Text(
-                                            'Cancel',
+                                          Text(
+                                            context.watch<Selection>().state ==
+                                                    1
+                                                ? 'الغاء'
+                                                : 'Cancel',
                                             style: TextStyle(
                                               color: Colors.black,
                                               fontWeight: FontWeight.w400,

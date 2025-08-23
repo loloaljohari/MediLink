@@ -4,6 +4,8 @@ import 'package:MediLink/lojain/widgets/HomeWidgets/Doctors/doctorWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../Controllers/onboarding/SelectionLang.dart';
+
 class AllDoctors extends StatelessWidget {
   const AllDoctors({Key? key}) : super(key: key);
 
@@ -11,13 +13,15 @@ class AllDoctors extends StatelessWidget {
   Widget build(BuildContext context) {
     context.read<GetDoctorsCubit>().fetchProfile();
     return Scaffold(
-      backgroundColor: Colors.black,
+      // backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        // backgroundColor: Colors.black,
         title: Center(
             child: const Text(
           'All Doctors',
-          style: TextStyle(color: Colors.white),
+          // style: TextStyle(color: Colors.white),
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+
         )),
       ),
       body: Padding(
@@ -33,9 +37,10 @@ class AllDoctors extends StatelessWidget {
                       SizedBox(
                         width: 10,
                       ),
-                      Text('Last Visit',
+                      Text(
+                        context.watch<Selection>().state==1 ?'آخر زيارة':  'Last Visit',
                           style: TextStyle(
-                              color: Colors.white,
+                              // color: Colors.white,
                               fontWeight: FontWeight.w700,
                               fontSize: 16))
                     ],
@@ -59,9 +64,10 @@ class AllDoctors extends StatelessWidget {
                       SizedBox(
                         width: 10,
                       ),
-                      Text('Available Doctor',
+                      Text(
+                         context.watch<Selection>().state==1 ?'الأطباء المتاحين':  'Available Doctor',
                           style: TextStyle(
-                              color: Colors.white,
+                              // color: Colors.white,
                               fontWeight: FontWeight.w700,
                               fontSize: 16))
                     ],
@@ -94,7 +100,7 @@ class AllDoctors extends StatelessWidget {
                             medSpecialty:
                                 '${state.doctors['data'][index]['specialization']}',
                             namedoctor:
-                                'Dr. ${state.doctors['data'][index]['name']}',
+                                context.watch<Selection>().state==1? 'د. ${state.doctors['data'][index]['name']}':     'Dr. ${state.doctors['data'][index]['name']}',
                             star: '  ${state.doctors['data'][index]['rating']}',
                           );
                         },

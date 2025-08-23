@@ -1,5 +1,8 @@
 import 'package:MediLink/lojain/widgets/HomeWidgets/Services/PrescriptionWidget/prescription.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../Controllers/onboarding/SelectionLang.dart';
     
 class MyMedicalprescription extends StatelessWidget {
 
@@ -13,10 +16,11 @@ class MyMedicalprescription extends StatelessWidget {
          Container(
           alignment: Alignment.centerLeft,
           width: MediaQuery.of(context).size.width,
-           child: const Text(
-                'My Medical prescription',
+           child:  Text(
+               context.watch<Selection>().state == 1
+                                    ? 'وصفاتي الطبية':  'My Medical prescription',
                 style: TextStyle(
-                    color: Colors.white,
+                    
                     fontWeight: FontWeight.w700,
                     fontSize: 14),
               ),
@@ -53,7 +57,7 @@ class MyMedicalprescription extends StatelessWidget {
                             child: Text(
                               '3 Item',
                               style: TextStyle(
-                                  color: Colors.white,
+                                  
                                   fontWeight: FontWeight.w400,
                                   fontSize: 20),
                             )),
@@ -62,7 +66,7 @@ class MyMedicalprescription extends StatelessWidget {
                             child: Text(
                               '1 prescription is new',
                               style: TextStyle(
-                                  color: Colors.white,
+                                  
                                   fontWeight: FontWeight.w400,
                                   fontSize: 12),
                             )),

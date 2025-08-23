@@ -23,9 +23,9 @@ class Forgetpassword extends StatelessWidget {
     ForgetpasswordcontrolarImp controlle =
         Get.put(ForgetpasswordcontrolarImp());
     return Scaffold(
-        backgroundColor: AppColor.backgroundColor,
+        // backgroundColor: AppColor.backgroundColor,
         appBar: AppBar(
-          backgroundColor: AppColor.backgroundColor,
+          // backgroundColor: AppColor.backgroundColor,
           elevation: 0.0,
           leading: IconButton(
             onPressed: () {

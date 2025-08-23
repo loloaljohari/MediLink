@@ -10,7 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../lojain/View/Home/Changeacount.dart';
 
 abstract class Logincontroller extends GetxController {
-  login(BuildContext context);
+  login();
   gotosinup();
   gotofrgetpassword();
 }
@@ -34,7 +34,7 @@ class LogincontrollerImp extends Logincontroller {
   List data = [];
 
   @override
-  login(BuildContext context) async {
+  login() async {
     //var formdata = formKey.currentState;
     var formdata = formstate.currentState;
     if (formdata != null && formdata.validate()) {

@@ -33,7 +33,7 @@ class ThemeWidget extends StatelessWidget {
                                   width: 30,
                                 ),
                                 Text(
-                                  lang=='en'?'light' :  'نهاري',
+                                         (context.read<Selection>().state == 2 ? "Light" : "نهاري"),
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 20,
@@ -63,7 +63,7 @@ class ThemeWidget extends StatelessWidget {
                                   width: 30,
                                 ),
                                 Text(
-                                  lang=='en'?'dark' :  'ليلي',
+                                      (context.read<Selection>().state == 2 ? "Dark" : "ليلي"),
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 20,

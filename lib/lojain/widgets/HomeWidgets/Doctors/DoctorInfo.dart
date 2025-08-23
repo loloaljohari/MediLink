@@ -3,12 +3,14 @@ import 'package:MediLink/lojain/Controllers/doctors/Month.dart';
 import 'package:MediLink/lojain/Controllers/doctors/SelectThetime.dart';
 import 'package:MediLink/lojain/Controllers/doctors/Selecttheday.dart';
 import 'package:MediLink/lojain/Controllers/onboarding/SelectionLang.dart';
+import 'package:MediLink/lojain/Controllers/onboarding/SelectionTheme.dart';
 import 'package:MediLink/lojain/View/Home/FillOutRecord.dart';
 import 'package:MediLink/lojain/models/Doctors/getDaysForDoctor.dart';
 import 'package:MediLink/lojain/models/Doctors/getDoctorinfo.dart';
 import 'package:MediLink/lojain/models/Doctors/getTimes.dart';
 import 'package:MediLink/lojain/models/Doctors/postArriveClinic.dart';
 import 'package:MediLink/lojain/models/Doctors/postBook.dart';
+import 'package:MediLink/lojain/models/record/Getpatientrecord/pulbicmodel.dart';
 import 'package:MediLink/main.dart';
 import 'package:MediLink/lojain/widgets/HomeWidgets/Doctors/ButtonDay.dart';
 import 'package:MediLink/lojain/widgets/HomeWidgets/Doctors/ButtonTime.dart';
@@ -46,7 +48,7 @@ class DoctorInfo extends StatelessWidget {
                 height: 370,
                 width: 310,
                 decoration: BoxDecoration(
-                    border: Border.all(color: Colors.white, width: 1),
+                    border: Border.all(width: 1),
                     borderRadius: BorderRadius.circular(10)),
                 child: Center(
                   child: Stack(
@@ -114,7 +116,6 @@ class DoctorInfo extends StatelessWidget {
                                                         23, 54, 97, 1),
                                                     offset: Offset(0, 4))
                                               ],
-                                              color: Colors.white,
                                               borderRadius:
                                                   BorderRadius.circular(20),
                                             ),
@@ -158,114 +159,82 @@ class DoctorInfo extends StatelessWidget {
                             Container(
                               height: 20,
                               width: 8,
-                              decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                        blurRadius: 0.3,
-                                        color:
-                                            const Color.fromARGB(214, 0, 0, 0),
-                                        offset: Offset(0, 4))
-                                  ],
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(3)),
+                              decoration: BoxDecoration(boxShadow: [
+                                BoxShadow(
+                                    blurRadius: 0.3,
+                                    color: const Color.fromARGB(214, 0, 0, 0),
+                                    offset: Offset(0, 4))
+                              ], borderRadius: BorderRadius.circular(3)),
                             ),
                             Container(
                               height: 20,
                               width: 8,
-                              decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                        blurRadius: 0.3,
-                                        color:
-                                            const Color.fromARGB(214, 0, 0, 0),
-                                        offset: Offset(0, 4))
-                                  ],
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(3)),
+                              decoration: BoxDecoration(boxShadow: [
+                                BoxShadow(
+                                    blurRadius: 0.3,
+                                    color: const Color.fromARGB(214, 0, 0, 0),
+                                    offset: Offset(0, 4))
+                              ], borderRadius: BorderRadius.circular(3)),
                             ),
                             Container(
                               height: 20,
                               width: 8,
-                              decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                        blurRadius: 0.3,
-                                        color:
-                                            const Color.fromARGB(214, 0, 0, 0),
-                                        offset: Offset(0, 4))
-                                  ],
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(3)),
+                              decoration: BoxDecoration(boxShadow: [
+                                BoxShadow(
+                                    blurRadius: 0.3,
+                                    color: const Color.fromARGB(214, 0, 0, 0),
+                                    offset: Offset(0, 4))
+                              ], borderRadius: BorderRadius.circular(3)),
                             ),
                             Container(
                               height: 20,
                               width: 8,
-                              decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                        blurRadius: 0.3,
-                                        color:
-                                            const Color.fromARGB(214, 0, 0, 0),
-                                        offset: Offset(0, 4))
-                                  ],
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(3)),
+                              decoration: BoxDecoration(boxShadow: [
+                                BoxShadow(
+                                    blurRadius: 0.3,
+                                    color: const Color.fromARGB(214, 0, 0, 0),
+                                    offset: Offset(0, 4))
+                              ], borderRadius: BorderRadius.circular(3)),
                             ),
                             Container(
                               height: 20,
                               width: 8,
-                              decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                        blurRadius: 0.3,
-                                        color:
-                                            const Color.fromARGB(214, 0, 0, 0),
-                                        offset: Offset(0, 4))
-                                  ],
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(3)),
+                              decoration: BoxDecoration(boxShadow: [
+                                BoxShadow(
+                                    blurRadius: 0.3,
+                                    color: const Color.fromARGB(214, 0, 0, 0),
+                                    offset: Offset(0, 4))
+                              ], borderRadius: BorderRadius.circular(3)),
                             ),
                             Container(
                               height: 20,
                               width: 8,
-                              decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                        blurRadius: 0.3,
-                                        color:
-                                            const Color.fromARGB(214, 0, 0, 0),
-                                        offset: Offset(0, 4))
-                                  ],
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(3)),
+                              decoration: BoxDecoration(boxShadow: [
+                                BoxShadow(
+                                    blurRadius: 0.3,
+                                    color: const Color.fromARGB(214, 0, 0, 0),
+                                    offset: Offset(0, 4))
+                              ], borderRadius: BorderRadius.circular(3)),
                             ),
                             Container(
                               height: 20,
                               width: 8,
-                              decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                        blurRadius: 0.3,
-                                        color:
-                                            const Color.fromARGB(214, 0, 0, 0),
-                                        offset: Offset(0, 4))
-                                  ],
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(3)),
+                              decoration: BoxDecoration(boxShadow: [
+                                BoxShadow(
+                                    blurRadius: 0.3,
+                                    color: const Color.fromARGB(214, 0, 0, 0),
+                                    offset: Offset(0, 4))
+                              ], borderRadius: BorderRadius.circular(3)),
                             ),
                             Container(
                               height: 20,
                               width: 8,
-                              decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                        blurRadius: 0.3,
-                                        color:
-                                            const Color.fromARGB(214, 0, 0, 0),
-                                        offset: Offset(0, 4))
-                                  ],
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(3)),
+                              decoration: BoxDecoration(boxShadow: [
+                                BoxShadow(
+                                    blurRadius: 0.3,
+                                    color: const Color.fromARGB(214, 0, 0, 0),
+                                    offset: Offset(0, 4))
+                              ], borderRadius: BorderRadius.circular(3)),
                             ),
                           ],
                         ),
@@ -282,6 +251,8 @@ class DoctorInfo extends StatelessWidget {
   }
 
   void showBookedDialog(BuildContext context, BuildContext scaffold, id) {
+    var mode = context.read<SelectionTheme>().state;
+
     TextEditingController controller = TextEditingController();
     showDialog(
       useSafeArea: false,
@@ -294,7 +265,10 @@ class DoctorInfo extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                    'The reservation has been made , but we need to know how long it will take you to arrive at the clinic!'),
+                  style: TextStyle(color: mode == 4 ? Colors.white : Colors.black),
+                      context.read<Selection>().state == 1
+                                  ? 'تمت حجز الموعد، ولكننا بحاجة إلى معرفة كم من الوقت سيستغرق وصولك إلى العيادة!'
+                                  :   'The reservation has been made , but we need to know how long it will take you to arrive at the clinic!'),
                 SizedBox(
                   height: 20,
                 ),
@@ -302,16 +276,23 @@ class DoctorInfo extends StatelessWidget {
                   cursorColor: Colors.white,
                   controller: controller,
                   decoration: InputDecoration(
+                    hintStyle: TextStyle(fontSize: 18,color:mode == 4 ? Colors.white : Colors.black ),
                       focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white)),
+                          borderSide: BorderSide(
+                              color: mode == 4 ? Colors.white : Colors.black)),
                       enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white)),
+                          borderSide: BorderSide(
+                              color: mode == 4 ? Colors.white : Colors.black)),
                       disabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white)),
+                          borderSide: BorderSide(
+                              color: mode == 4 ? Colors.white : Colors.black)),
                       border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white)),
-                      labelStyle: TextStyle(color: Colors.white, fontSize: 18),
-                      labelText: 'enter the time in minute'),
+                          borderSide: BorderSide(
+                              color: mode == 4 ? Colors.white : Colors.black)),
+                      labelStyle: TextStyle(fontSize: 18,color:mode == 4 ? Colors.white : Colors.black ),
+                      labelText:     context.read<Selection>().state == 1
+                                  ? ' ادخل الوقت (دقيقة)'
+                                  :  'enter the time  (minute)'),
                 )
               ],
             ),
@@ -321,7 +302,9 @@ class DoctorInfo extends StatelessWidget {
               builder: (context, state) {
                 return ElevatedButton(
                     style: ButtonStyle(
-                        backgroundColor: WidgetStatePropertyAll(Colors.white)),
+                        backgroundColor: WidgetStatePropertyAll(
+                      mode == 4 ? Colors.white : Colors.black,
+                    )),
                     onPressed: () async {
                       bool isSuccess = await context
                           .read<PostArriveClinic>()
@@ -347,7 +330,9 @@ class DoctorInfo extends StatelessWidget {
                             color: Color.fromRGBO(31, 90, 172, 0.961),
                           )
                         : Text(
-                            'save',
+                           context.watch<Selection>().state == 1
+                                  ? 'حفظ'
+                                  :   'save',
                             style: TextStyle(
                                 color: Color.fromRGBO(31, 90, 172, 0.961),
                                 fontSize: 18),
@@ -362,6 +347,8 @@ class DoctorInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var mode = context.watch<SelectionTheme>().state;
+
     var date = context.read<MonthCubit>().state;
     context
         .read<GetDaysForDoctorCubit>()
@@ -371,9 +358,9 @@ class DoctorInfo extends StatelessWidget {
     context.read<GetTimesCubit>().fetchProfile(id: id, date: day);
 
     return Scaffold(
-      backgroundColor: Colors.black,
+      // background ,
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        // backgroundColor: Colors.black,
         leading: InkWell(
           onTap: () {
             Navigator.pop(context);
@@ -383,11 +370,13 @@ class DoctorInfo extends StatelessWidget {
             color: Color.fromRGBO(38, 115, 221, 1),
           ),
         ),
-        title: const Padding(
-          padding: EdgeInsets.only(left: 70),
+        title: Padding(
+          padding: EdgeInsets.only(left: 70, right: 70),
           child: Text(
-            'Doctor’s info',
-            style: TextStyle(color: Colors.white),
+            context.watch<Selection>().state == 1
+                ? 'معلومات الطبيب'
+                : 'Doctor’s info',
+            // style: TextStyle(color: Colors.white),
           ),
         ),
       ),
@@ -396,7 +385,7 @@ class DoctorInfo extends StatelessWidget {
           if (state is GetDoctorinfoLoading) {
             return Center(
               child: CircularProgressIndicator(
-                color: Colors.white,
+                color: mode == 4 ? Colors.black : Colors.white,
               ),
             );
           } else if (state is GetDoctorinfoLoaded) {
@@ -432,18 +421,17 @@ class DoctorInfo extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "Dr. ${state.info['data']['name']}",
+                                context.watch<Selection>().state == 1
+                                    ? 'د. ${state.info['data']['name']}'
+                                    : "Dr. ${state.info['data']['name']}",
                                 style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 24),
+                                    fontWeight: FontWeight.w700, fontSize: 24),
                               ),
                               Row(
                                 children: [
                                   Text(
                                     "${state.info['data']['rating']}",
                                     style: const TextStyle(
-                                        color: Colors.white,
                                         fontWeight: FontWeight.w700,
                                         fontSize: 24),
                                   ),
@@ -478,8 +466,10 @@ class DoctorInfo extends StatelessWidget {
                                       const SizedBox(
                                         width: 5,
                                       ),
-                                      const Text(
-                                        'Assignment',
+                                      Text(
+                                        context.watch<Selection>().state == 1
+                                            ? 'الأختصاص'
+                                            : 'Assignment',
                                         style: TextStyle(
                                             color: Color.fromRGBO(
                                                 125, 138, 149, 1),
@@ -510,8 +500,10 @@ class DoctorInfo extends StatelessWidget {
                                       const SizedBox(
                                         width: 5,
                                       ),
-                                      const Text(
-                                        'Experience',
+                                      Text(
+                                        context.watch<Selection>().state == 1
+                                            ? 'الخبرة'
+                                            : 'Experience',
                                         style: TextStyle(
                                             color: Color.fromRGBO(
                                                 125, 138, 149, 1),
@@ -542,8 +534,10 @@ class DoctorInfo extends StatelessWidget {
                                       const SizedBox(
                                         width: 5,
                                       ),
-                                      const Text(
-                                        'Time',
+                                      Text(
+                                        context.watch<Selection>().state == 1
+                                            ? 'الوقت'
+                                            : 'Time',
                                         style: TextStyle(
                                             color: Color.fromRGBO(
                                                 125, 138, 149, 1),
@@ -569,12 +563,12 @@ class DoctorInfo extends StatelessWidget {
                           const SizedBox(
                             height: 30,
                           ),
-                          const Text(
-                            'About me',
+                          Text(
+                            context.watch<Selection>().state == 1
+                                ? 'نبذة عني'
+                                : 'About me',
                             style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w400,
-                                fontSize: 20),
+                                fontWeight: FontWeight.w400, fontSize: 20),
                           ),
                           Expanded(
                               child: RichText(
@@ -582,7 +576,10 @@ class DoctorInfo extends StatelessWidget {
                             children: [
                               TextSpan(
                                   style: TextStyle(
-                                      color: Color.fromRGBO(255, 255, 255, 0.6),
+                                      color: mode == 4
+                                          ? const Color.fromARGB(
+                                              255, 117, 117, 117)
+                                          : Color.fromRGBO(255, 255, 255, 0.6),
                                       fontWeight: FontWeight.w400,
                                       fontSize: 12),
                                   text: state.info['data']['biography']),
@@ -605,18 +602,21 @@ class DoctorInfo extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Text(
-                                'Day',
+                              Text(
+                                context.watch<Selection>().state == 1
+                                    ? 'اليوم'
+                                    : 'Day',
                                 style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 20),
+                                    fontWeight: FontWeight.w400, fontSize: 20),
                               ),
                               BlocBuilder<MonthCubit, DateTime>(
                                   builder: (context, selectedMonth) {
                                 String monthName = DateFormat(
-                                  'MMMM yyyy',
-                                ).format(selectedMonth);
+                                        'MMMM yyyy',
+                                        context.watch<Selection>().state == 1
+                                            ? 'ar'
+                                            : 'en')
+                                    .format(selectedMonth);
 
                                 return InkWell(
                                     onTap: () {
@@ -657,7 +657,13 @@ class DoctorInfo extends StatelessWidget {
                             builder: (context, state) {
                               if (state is GetDaysForDoctorLoading) {
                                 return Center(
-                                  child: CircularProgressIndicator(),
+                                  child: CircularProgressIndicator(
+                                      color: context
+                                                  .watch<SelectionTheme>()
+                                                  .state ==
+                                              3
+                                          ? Colors.white
+                                          : Colors.black),
                                 );
                               } else if (state is GetDaysForDoctorLoaded) {
                                 return SingleChildScrollView(
@@ -672,6 +678,7 @@ class DoctorInfo extends StatelessWidget {
                                             ['isfull'],
                                         date: state.days['data'][index]['date'],
                                         day: state.days['data'][index]
+                                                ['day_name']=='Wednesday' ?'Wednes' : state.days['data'][index]
                                                 ['day_name']
                                             .toString()
                                             .split('')
@@ -690,18 +697,21 @@ class DoctorInfo extends StatelessWidget {
                           const SizedBox(
                             height: 19,
                           ),
-                          const Text(
-                            'Time',
+                           Text(
+ context.watch<Selection>().state == 1
+                                  ? 'الوقت'
+                                  : 'Time',
                             style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w400,
-                                fontSize: 20),
+                                fontWeight: FontWeight.w400, fontSize: 20),
                           ),
                           BlocBuilder<GetTimesCubit, GetTimesState>(
                             builder: (context, state) {
                               if (state is GetTimesLoading) {
                                 return Center(
-                                  child: CircularProgressIndicator(color: Colors.white,),
+                                  child: CircularProgressIndicator(
+                                    color:
+                                        mode == 4 ? Colors.black : Colors.white,
+                                  ),
                                 );
                               } else if (state is GetTimesLoaded) {
                                 if (state.times.containsKey('data')) {
@@ -732,9 +742,18 @@ class DoctorInfo extends StatelessWidget {
                                         )),
                                   ));
                                 } else
-                                   return SizedBox(child: Text('you should choice the day! '),);
+                                  return SizedBox(
+                                    child: Text(
+                                      context.watch<Selection>().state == 1
+                                  ? 'عليك اختيار اليوم اولا!'
+                                  :  'you should choice the day! '),
+                                  );
                               } else
-                                return SizedBox(child: Text('you should choice the day! '),);
+                                return SizedBox(
+                                  child: Text(   context.watch<Selection>().state == 1
+                                  ? 'عليك اختيار اليوم اولا!'
+                                  :  'you should choice the day! '),
+                                );
                             },
                           ),
                           const SizedBox(
@@ -750,16 +769,21 @@ class DoctorInfo extends StatelessWidget {
                                                 BorderRadius.circular(16))),
                                     fixedSize: const WidgetStatePropertyAll(
                                         Size(double.infinity, 42)),
-                                    backgroundColor:
-                                        const WidgetStatePropertyAll(
-                                            Color.fromRGBO(38, 115, 221, 1))),
+                                    backgroundColor: WidgetStatePropertyAll(
+                                        mode == 4
+                                            ? Color.fromRGBO(38, 115, 221, 1)
+                                            : Color.fromRGBO(
+                                                116, 164, 232, 1))),
                                 onPressed: () async {
-                                  SharedPreferences sharedPreferences =
-                                      await SharedPreferences.getInstance();
-                                  var saveInfoRecord = sharedPreferences
-                                      .getBool('saveInfoRecord');
-                                  if (saveInfoRecord != null) {
-                                    var time =
+                                  Map data= await context.read<GetPublicCubit>().fetch();
+                                  print(data);
+                                  if (data.containsKey('message')&& data['message']== "Data has not been entered yet") {
+                                  Get.to(FillOutRecord(
+                                      cont: context,
+                                    ));
+                                    
+                                  } else if(data.containsKey('data')){
+                                  var time =
                                         context.read<Selectthetime>().state;
                                     var day =
                                         context.read<Selecttheday>().state;
@@ -771,7 +795,24 @@ class DoctorInfo extends StatelessWidget {
                                       showBookedDialog(context, context,
                                           isSuccess['appointment']['id']);
                                     } else {
-                                      ScaffoldMessenger.of(context)
+                                         ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                            backgroundColor:
+                                                Color.fromRGBO(179, 38, 38, 1),
+                                            content: Row(
+                                              children: [
+                                                Text(
+                                                    'error'),
+                                              
+                                              ],
+                                            )),
+                                      );
+                                     
+                                    }
+                                  }
+                                  else{
+                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
                                         SnackBar(
                                             backgroundColor:
@@ -789,30 +830,22 @@ class DoctorInfo extends StatelessWidget {
                                               ],
                                             )),
                                       );
-
-                                      // ScaffoldMessenger.of(context).showSnackBar(
-                                      //   SnackBar(
-                                      //       backgroundColor:
-                                      //           Color.fromRGBO(65, 206, 33, 1),
-                                      //       content:
-                                      //           Text('success , but you should '),
-
-                                      //       ),
-                                      // );
-                                    }
-                                  } else
-                                    Get.to(FillOutRecord(
-                                      cont: context,
-                                    ));
+                                     
+                                  }
+                                    
                                 },
                                 child: state
                                     ? Center(
                                         child: CircularProgressIndicator(),
                                       )
                                     : Text(
-                                        'Book Now',
+                                           context.watch<Selection>().state == 1
+                                  ? 'احجز الآن'
+                                  :  'Book Now',
                                         style: TextStyle(
-                                            color: Colors.white,
+                                            color: mode == 4
+                                                ? Colors.white
+                                                : Colors.black,
                                             fontWeight: FontWeight.w700,
                                             fontSize: 16),
                                       ),

@@ -1,7 +1,10 @@
+import 'package:MediLink/lojain/Controllers/onboarding/SelectionTheme.dart';
 import 'package:MediLink/lojain/models/Dates/deleteDate.dart';
 import 'package:MediLink/lojain/models/Dates/getDates.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../Controllers/onboarding/SelectionLang.dart';
 
 class DateWidget extends StatelessWidget {
   final String Imagepath;
@@ -21,6 +24,8 @@ class DateWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+         var mode = context.watch<SelectionTheme>().state;
+
     return Container(
         margin: EdgeInsets.symmetric(vertical: 10),
         padding: EdgeInsets.symmetric(vertical: 10),
@@ -28,7 +33,7 @@ class DateWidget extends StatelessWidget {
         height: 110,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: Color.fromRGBO(34, 34, 34, 1)),
+            color:mode==4? Color.fromRGBO(38, 115, 221, 1).withOpacity(0.20): Color.fromRGBO(34, 34, 34, 1)),
         child: Row(
           children: [
             Container(
@@ -68,9 +73,9 @@ class DateWidget extends StatelessWidget {
                           width: 10,
                         ),
                         Text(
-                          'Dr. $namedoctor',
+                        context.watch<Selection>().state == 1 ? 'د. $namedoctor'  :     'Dr. $namedoctor',
                           style: TextStyle(
-                              color: Colors.white,
+                              
                               fontWeight: FontWeight.w700,
                               fontSize: 14),
                         )
@@ -93,7 +98,7 @@ class DateWidget extends StatelessWidget {
                         Text(
                           date,
                           style: TextStyle(
-                              color: Colors.white,
+                              
                               fontWeight: FontWeight.w700,
                               fontSize: 14),
                         ),
@@ -141,7 +146,8 @@ class DateWidget extends StatelessWidget {
                               width: 5,
                             ),
                              Text(
-                              'Cancel',
+                             context.watch<Selection>().state == 1
+                                    ? 'الغاء':   'Cancel',
                               style: TextStyle(
                                   color: Color.fromRGBO(168, 40, 48, 1),
                                   fontWeight: FontWeight.w700,
@@ -162,7 +168,7 @@ class DateWidget extends StatelessWidget {
                       Text(
                         '   $time',
                         style: TextStyle(
-                            color: Colors.white,
+                            
                             fontWeight: FontWeight.w700,
                             fontSize: 14),
                       ),

@@ -1,5 +1,9 @@
 import 'package:MediLink/lojain/widgets/HomeWidgets/Record/enumeration.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../Controllers/onboarding/SelectionLang.dart';
+import '../../../Controllers/onboarding/SelectionTheme.dart';
 
 class SensitivityWidget extends StatelessWidget {
   final String senstype;
@@ -30,8 +34,7 @@ class SensitivityWidget extends StatelessWidget {
             senstype,
             style: TextStyle(
                 fontSize: 16,
-                fontWeight: FontWeight.w400,
-                color: Color.fromRGBO(255, 255, 255, 0.87)),
+                fontWeight: FontWeight.w400,),
           ),
           const SizedBox(
             height: 10,
@@ -56,18 +59,16 @@ class SensitivityWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Type',
+                           context.watch<Selection>().state==1?'النوع':  'Type',
                             style: TextStyle(
                                 fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                                color: Color.fromRGBO(255, 255, 255, 0.38)),
+                                fontWeight: FontWeight.w400,),
                           ),
                           Text(
                             type,
                             style: TextStyle(
                                 fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                                color: Color.fromRGBO(255, 255, 255, 1)),
+                                fontWeight: FontWeight.w400,),
                           ),
                         ],
                       ),
@@ -75,18 +76,16 @@ class SensitivityWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Reasons',
+                           context.watch<Selection>().state==1?'الاسباب':  'Reasons',
                             style: TextStyle(
                                 fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                                color: Color.fromRGBO(255, 255, 255, 0.38)),
+                                fontWeight: FontWeight.w400,),
                           ),
                           Text(
                             reason,
                             style: TextStyle(
                                 fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                                color: Color.fromRGBO(255, 255, 255, 1)),
+                                fontWeight: FontWeight.w400,),
                           ),
                         ],
                       ),
@@ -94,25 +93,24 @@ class SensitivityWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Treatment',
+                          context.watch<Selection>().state==1?'العلاج':   'Treatment',
                             style: TextStyle(
                                 fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                                color: Color.fromRGBO(255, 255, 255, 0.38)),
+                                fontWeight: FontWeight.w400,),
                           ),
                           Text(
                             treatment,
                             style: TextStyle(
                                 fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                                color: Color.fromRGBO(255, 255, 255, 1)),
+                                fontWeight: FontWeight.w400,),
                           ),
                         ],
                       ),
                     ],
                   ),
-                  const Divider(
-                    color: Color.fromRGBO(255, 255, 255, 0.38),
+                   Divider(
+            color: context.watch<SelectionTheme>().state==3? Color.fromRGBO(255, 255, 255, 0.38):Colors.black ,
+
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -121,8 +119,8 @@ class SensitivityWidget extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            'Prevention',
+                           Text(
+                         context.watch<Selection>().state==1?'الوقاية':    'Prevention',
                             style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,
@@ -134,13 +132,13 @@ class SensitivityWidget extends StatelessWidget {
                       Container(
                         width: 1,
                         height: 66,
-                        color: Color.fromRGBO(255, 255, 255, 0.38),
+                        color: context.watch<SelectionTheme>().state==3? Color.fromRGBO(255, 255, 255, 0.38):Colors.black ,
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Reasons',
+                        context.watch<Selection>().state==1?'الأسباب':     'Reasons',
                             style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,

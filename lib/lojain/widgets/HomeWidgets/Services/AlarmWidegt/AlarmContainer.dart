@@ -51,14 +51,14 @@ class AlarmContainer extends StatelessWidget {
                     Text(
                       '$alarm_time '.substring(0, 5),
                       style: TextStyle(
-                          color: Colors.white,
+                          // color: Colors.white,
                           fontSize: 20,
                           fontWeight: FontWeight.w700),
                     ),
                     Text(
                       alarm_timing == "morinng" ? 'AM' : "PM",
                       style: TextStyle(
-                          color: Colors.white,
+                          // color: Colors.white,
                           fontSize: 20,
                           fontWeight: FontWeight.w700),
                     ),
@@ -66,7 +66,7 @@ class AlarmContainer extends StatelessWidget {
                 ),
                 Text(alarm_frequency,
                     style: TextStyle(
-                        color: Colors.white,
+                        // color: Colors.white,
                         fontSize: 12,
                         fontWeight: FontWeight.w400)),
               ],

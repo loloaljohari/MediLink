@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:MediLink/lojain/Controllers/onboarding/SelectionTheme.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -12,6 +14,8 @@ import 'package:permission_handler/permission_handler.dart';
 import 'dart:ui' as ui;
 import 'dart:typed_data';
 import 'package:image_gallery_saver_plus/image_gallery_saver_plus.dart';
+
+import '../../../../Controllers/onboarding/SelectionLang.dart';
 
 class Exportprescription extends StatelessWidget {
   final String date;
@@ -283,7 +287,9 @@ class Exportprescription extends StatelessWidget {
         RepaintBoundary(
           key: _globalKey,
           child: Container(
-            color: Colors.black,
+            // color: Colors.black,   
+             color:context.watch<SelectionTheme>().state==3? Color.fromRGBO(34, 34, 34, 1):Colors.white  ,
+
             child: Container(
               padding: const EdgeInsets.all(10),
               width: double.infinity,
@@ -302,14 +308,14 @@ class Exportprescription extends StatelessWidget {
                             const Text(
                               'MedaiLink',
                               style: TextStyle(
-                                  color: Color.fromRGBO(255, 255, 255, 0.87),
+                                  // color: Color.fromRGBO(255, 255, 255, 0.87),
                                   fontSize: 24,
                                   fontWeight: FontWeight.w400),
                             ),
                             Text(
                               date,
                               style: const TextStyle(
-                                  color: Color.fromRGBO(255, 255, 255, 0.87),
+                                  // color: Color.fromRGBO(255, 255, 255, 0.87),
                                   fontSize: 16,
                                   fontWeight: FontWeight.w400),
                             ),
@@ -350,10 +356,10 @@ class Exportprescription extends StatelessWidget {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Text(
-                                  'Patient Name',
+                                 Text(
+                                     context.watch<Selection>().state == 1 ? 'اسم المريض'   :'Patient Name',
                                   style: TextStyle(
-                                      color: Colors.white,
+                                      // color: Colors.white,
                                       fontSize: 14,
                                       fontWeight: FontWeight.w700),
                                 ),
@@ -377,10 +383,10 @@ class Exportprescription extends StatelessWidget {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Text(
-                                  'Doctor Name :',
+                                 Text(
+                                   context.watch<Selection>().state == 1 ? 'اسم الطبيب'   :  'Doctor Name :',
                                   style: TextStyle(
-                                      color: Colors.white,
+                                      // color: Colors.white,
                                       fontSize: 14,
                                       fontWeight: FontWeight.w700),
                                 ),
@@ -406,12 +412,12 @@ class Exportprescription extends StatelessWidget {
         const SizedBox(
           height: 10,
         ),
-        const Padding(
+         Padding(
           padding: EdgeInsets.all(8.0),
           child: Text(
-            'Export as',
+             context.watch<Selection>().state == 1 ? 'تصدير الى'   :  'Export as',
             style: TextStyle(
-                color: Colors.white, fontSize: 14, fontWeight: FontWeight.w700),
+               fontSize: 14, fontWeight: FontWeight.w700),
           ),
         ),
         Row(
@@ -442,8 +448,8 @@ class Exportprescription extends StatelessWidget {
                 onPressed: () {
                   saveContainerAsImage(context);
                 },
-                child: const Text(
-                  'Image',
+                child:  Text(
+                 context.watch<Selection>().state == 1 ? 'صورة'   :    'Image',
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 14,
@@ -452,12 +458,13 @@ class Exportprescription extends StatelessWidget {
           ],
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 28),
+          padding: const EdgeInsets.symmetric(vertical: 10),
           child: Center(
               child: Container(
-            width: 267,
+            width: MediaQuery.of(context).size.width-30,
             height: 2,
-            color: Colors.white,
+               color:context.watch<SelectionTheme>().state==3? Colors.white :Color.fromRGBO(34, 34, 34, 1) ,
+
           )),
         )
       ],

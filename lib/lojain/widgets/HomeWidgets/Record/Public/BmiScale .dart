@@ -1,4 +1,6 @@
+import 'package:MediLink/lojain/Controllers/onboarding/SelectionLang.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DashedGradientBar extends StatelessWidget {
   final int segments;
@@ -34,56 +36,59 @@ class DashedGradientBar extends StatelessWidget {
             ],
           ),
         ),
-        Row(
-          
-          children: [
-            SizedBox(width: 20,)
-            ,Text(
-              'very skinny',
-              style: TextStyle(fontSize: 8, fontWeight: FontWeight.w400),
-            ),
-            SizedBox(
-              width: 40,
-            ),
-            Column(
-              children: [
-                Container(
-                  height: 17,
-                  width: 1,
-                  color: Colors.white,
-                ),
-                Text(
-                  '18.5',
-                  style: TextStyle(fontSize: 8, fontWeight: FontWeight.w400),
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 7.0),
-              child: Text(
-                'Normal',
+        Directionality(
+          textDirection: TextDirection.ltr,
+          child: Row(
+            
+            children: [
+              SizedBox(width: 30,)
+              ,Text(
+               context.watch<Selection>().state==1?'نحيف جداً': 'very skinny',
                 style: TextStyle(fontSize: 8, fontWeight: FontWeight.w400),
               ),
-            ),
-            Column(
-              children: [
-                Container(
-                  height: 17,
-                  width: 1,
-                  color: Colors.white,
-                ),
-                Text(
-                  '25.5',
+              SizedBox(
+                width: 40,
+              ),
+              Column(
+                children: [
+                  Container(
+                    height: 17,
+                    width: 1,
+                    color: Colors.white,
+                  ),
+                  Text(
+                    '18.5',
+                    style: TextStyle(fontSize: 8, fontWeight: FontWeight.w400),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 7.0),
+                child: Text(
+                  context.watch<Selection>().state==1?'طبيعي':'Normal',
                   style: TextStyle(fontSize: 8, fontWeight: FontWeight.w400),
                 ),
-              ],
-            ),
-            SizedBox(width: 80,),
-            Text(
-              'very fat',
-              style: TextStyle(fontSize: 8, fontWeight: FontWeight.w400),
-            ),
-          ],
+              ),
+              Column(
+                children: [
+                  Container(
+                    height: 17,
+                    width: 1,
+                    color: Colors.white,
+                  ),
+                  Text(
+                    '25.5',
+                    style: TextStyle(fontSize: 8, fontWeight: FontWeight.w400),
+                  ),
+                ],
+              ),
+              SizedBox(width: 80,),
+              Text(
+              context.watch<Selection>().state==1?'سمين جداً':   'very fat',
+                style: TextStyle(fontSize: 8, fontWeight: FontWeight.w400),
+              ),
+            ],
+          ),
         )
       ],
     );

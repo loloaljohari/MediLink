@@ -18,8 +18,8 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
 class login extends StatelessWidget {
-final  BuildContext context1;
-  const login({super.key, required this.context1});
+  // BuildContext context1;
+   login({super.key,  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ final  BuildContext context1;
     Get.lazyPut(() => LogincontrollerImp(), fenix: true);
 
     return Scaffold(
-      backgroundColor: AppColor.backgroundColor,
+      // backgroundColor: AppColor.backgroundColor,
       body: WillPopScope(
         onWillPop: alertExitApp,
         child: GetBuilder<LogincontrollerImp>(
@@ -95,7 +95,7 @@ final  BuildContext context1;
                                 photo: AppImageAsset.login_icon,
                                 text: "Log in",
                                 onPressed: () {
-                                  controller.login(context1);
+                                  controller.login();
                                 }),
                             const SizedBox(height: 30),
                             Row(

@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
 import '../../../../../ammar/lib/view/screen/aouth/sinup.dart';
+import '../../../../Controllers/onboarding/SelectionLang.dart';
 
 class PdfExarninatin extends StatelessWidget {
   PdfExarninatin({Key? key}) : super(key: key);
@@ -80,7 +81,10 @@ class PdfExarninatin extends StatelessWidget {
                 },
               ));
             } else
-              return const Text('empty');
+              return Center(
+                      child: Text(context.watch<Selection>().state == 1
+                          ? 'فارغ'
+                          : 'empty'));
           } else {
             return Center(
                 child: Padding(
@@ -106,8 +110,10 @@ class PdfExarninatin extends StatelessWidget {
                     Text(
                         style: const TextStyle(
                             fontSize: 14, fontWeight: FontWeight.bold),
-                        '${state.Medicalexaminations['message']}: To view your medical record, you must have an account on the app. Sign up for our app to access our services.'),
-                    ElevatedButton(
+                     context.watch<Selection>().state == 1
+                            ? 'للاطلاع على سجلك الطبي، يجب أن يكون لديك حساب على التطبيق. سجل في تطبيقنا للوصول إلى خدماتنا.'
+                            : '${state.Medicalexaminations['message']}: To view your medical record, you must have an account on the app. Sign up for our app to access our services.'),
+                  ElevatedButton(
                         style: const ButtonStyle(
                             fixedSize: WidgetStatePropertyAll(Size(120, 20)),
                             backgroundColor: WidgetStatePropertyAll(
@@ -117,8 +123,10 @@ class PdfExarninatin extends StatelessWidget {
                             conte: context,
                           ));
                         },
-                        child: const Text(
-                          'Register',
+                        child:  Text(
+                          context.watch<Selection>().state == 1
+                                  ? 'الاشتراك'
+                                  :  'Register',
                           style: TextStyle(color: Colors.white),
                         )),
                   ],

@@ -4,30 +4,33 @@ import 'package:MediLink/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../Controllers/onboarding/SelectionLang.dart';
+
 // ignore: must_be_immutable
 class Expansionwidget extends StatelessWidget {
-  List<Widget> list = [
-    Text(
-      lang=='en'?'larg' :  'كبير',
-      style: TextStyle(
-          color: Colors.white, fontSize: 24, fontWeight: FontWeight.w700),
-    ),
-    Text(
-      lang=='en'?'medium' :  'متوسط',
-      style: TextStyle(
-          color: Colors.white, fontSize: 16, fontWeight: FontWeight.w700),
-    ),
-    Text(
-    lang=='en'?'small' :    'صغير',
-      style: TextStyle(
-          color: Colors.white, fontSize: 14, fontWeight: FontWeight.w700),
-    ),
-  ];
 
   Expansionwidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+      List<Widget> list = [
+    Text(
+      context.watch<Selection>().state == 2?'larg' :  'كبير',
+      style: TextStyle(
+          color: Colors.white, fontSize: 24, fontWeight: FontWeight.w700),
+    ),
+    Text(
+      context.watch<Selection>().state == 2?'medium' :  'متوسط',
+      style: TextStyle(
+          color: Colors.white, fontSize: 16, fontWeight: FontWeight.w700),
+    ),
+    Text(
+    context.watch<Selection>().state == 2?'small' :    'صغير',
+      style: TextStyle(
+          color: Colors.white, fontSize: 14, fontWeight: FontWeight.w700),
+    ),
+  ];
+
     return MultiBlocProvider(
         providers: [
           BlocProvider(create: (context) => ExpansionCubit()),
@@ -45,7 +48,7 @@ class Expansionwidget extends StatelessWidget {
               context.read<ExpansionCubit>().changestate();
             },
             leading: Text(
-              lang=='en'?'Choose the font that suits you' :  'اختر الخط المناسب لك',
+              context.watch<Selection>().state == 2?'Choose the font that suits you' :  'اختر الخط المناسب لك',
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 20,

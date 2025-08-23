@@ -21,13 +21,13 @@ final  BuildContext context1;
     return GetBuilder<SussfulcontrollerImp>(
       builder: (controller) {
         return Scaffold(
-          backgroundColor: AppColor.backgroundColor,
+          // backgroundColor: AppColor.backgroundColor,
           appBar: AppBar(
-            backgroundColor: AppColor.backgroundColor,
+            // backgroundColor: AppColor.backgroundColor,
             elevation: 0.0,
             leading: IconButton(
               onPressed: () {
-                controller.back1();
+                Navigator.of(context).pop();
               },
               icon: Icon(Icons.arrow_back_ios, color: AppColor.lightblue),
             ),
@@ -48,7 +48,7 @@ final  BuildContext context1;
                     text: "Continue",
                     photo: AppImageAsset.sucssful_icon,
                     onPressed: () {
-                      Get.offAll(login(context1:context1 ));
+                      Get.offAll(login());
                     }),
               ],
             ),

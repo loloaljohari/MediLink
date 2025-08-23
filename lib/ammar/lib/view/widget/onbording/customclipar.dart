@@ -38,7 +38,7 @@ class Slidercustomonbording extends GetView<OnbordingcontrolerImp> {
               fontSize: 20,
               fontWeight: FontWeight.bold,
               fontFamily: "PlayfairDisplay",
-              color: AppColor.dark),
+             ),
         ),
         const SizedBox(
           height: 20,
@@ -49,7 +49,7 @@ class Slidercustomonbording extends GetView<OnbordingcontrolerImp> {
           child: Text(
             onBordinglist[i].body!,
             textAlign: TextAlign.center,
-            style: TextStyle(height: 2, color: AppColor.dark, fontSize: 16),
+            style: TextStyle(height: 2, fontSize: 16),
           ),
         )
       ]),

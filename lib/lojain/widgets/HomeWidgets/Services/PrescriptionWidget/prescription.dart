@@ -1,5 +1,8 @@
 import 'package:MediLink/lojain/widgets/HomeWidgets/Services/PrescriptionWidget/Exportprescription.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../Controllers/onboarding/SelectionLang.dart';
 
 class Prescription extends StatelessWidget {
   Prescription({Key? key}) : super(key: key);
@@ -45,9 +48,9 @@ class Prescription extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      // backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        // backgroundColor: Colors.black,
         leading: InkWell(
           onTap: () {
             Navigator.pop(context);
@@ -57,10 +60,10 @@ class Prescription extends StatelessWidget {
             color: Color.fromRGBO(38, 115, 221, 1),
           ),
         ),
-        title: const Center(
+        title:  Center(
           child: Text(
-            'Medical prescription',
-            style: TextStyle(color: Colors.white),
+             context.watch<Selection>().state == 1 ? 'الوصفة الطبية'   :  'Medical prescription',
+            // style: TextStyle(color: Colors.white),
           ),
         ),
       ),

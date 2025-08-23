@@ -4,6 +4,8 @@ import 'package:MediLink/lojain/widgets/HomeWidgets/home/theNearestDate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../Controllers/onboarding/SelectionLang.dart';
+
 class ViewAllNearestDate extends StatelessWidget {
   const ViewAllNearestDate({Key? key}) : super(key: key);
 
@@ -25,7 +27,8 @@ class ViewAllNearestDate extends StatelessWidget {
           ),
         ),
         title: Text(
-          'Nearest Appointments to all days',
+       context.watch<Selection>().state == 1
+                                    ? 'أقرب المواعيد لجميع الأيام':    'Nearest Appointments to all days',
           style: TextStyle(
               color: mode == 4 ? Colors.black : Colors.white, fontSize: 18),
         ),

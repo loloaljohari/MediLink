@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../Controllers/onboarding/SelectionLang.dart';
 
 class TemporaryMedicines extends StatelessWidget {
   final String temporarymedicinesname;
@@ -77,11 +80,11 @@ class TemporaryMedicines extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Start taken',
+                             context.watch<Selection>().state==1?'بدء الأخذ':     'Start taken',
                               style: TextStyle(
                                   fontSize: 10,
                                   fontWeight: FontWeight.w400,
-                                  color: Color.fromRGBO(255, 255, 255, 0.6)),
+                              ),
                             ),
                             SizedBox(
                               width: 7,
@@ -91,7 +94,7 @@ class TemporaryMedicines extends StatelessWidget {
                               style: TextStyle(
                                   fontSize: 10,
                                   fontWeight: FontWeight.w400,
-                                  color: Color.fromRGBO(255, 255, 255, 0.87)),
+                                  ),
                             ),
                           ],
                         ),
@@ -113,16 +116,16 @@ class TemporaryMedicines extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'End taken',
+                               context.watch<Selection>().state==1?'نهاية الأخذ':   'End taken',
                               style: TextStyle(
                                   fontSize: 10,
                                   fontWeight: FontWeight.w400,
-                                  color: Color.fromRGBO(255, 255, 255, 0.6)),
+                               ),
                             ),
                             Text(
                               enddate,
                               style: TextStyle(
-                                color: Color.fromRGBO(255, 255, 255, 0.87),
+                                // color: Color.fromRGBO(255, 255, 255, 0.87),
                                 fontSize: 10,
                                 fontWeight: FontWeight.w400,
                               ),
@@ -144,9 +147,9 @@ class TemporaryMedicines extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Doctor',
+                               context.watch<Selection>().state==1?'الطبيب':   'Doctor',
                               style: TextStyle(
-                                  color: Color.fromRGBO(255, 255, 255, 0.6),
+                                 
                                   fontSize: 10,
                                   fontWeight: FontWeight.w400),
                             ),
@@ -156,7 +159,7 @@ class TemporaryMedicines extends StatelessWidget {
                             Text(
                               doctorname,
                               style: TextStyle(
-                                color: Color.fromRGBO(255, 255, 255, 0.87),
+                              
                                 fontSize: 10,
                                 fontWeight: FontWeight.w400,
                               ),
@@ -283,11 +286,11 @@ class TemporaryMedicines extends StatelessWidget {
                               width: 7,
                             ),
                             Text(
-                              'Repeatability',
+                               context.watch<Selection>().state==1?'التكرار':   'Repeatability',
                               style: TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
-                                  color: Color.fromRGBO(255, 255, 255, 0.6)),
+                                  ),
                             ),
                           ],
                         ),
@@ -297,7 +300,7 @@ class TemporaryMedicines extends StatelessWidget {
                               fontStyle: FontStyle.italic,
                               fontSize: 10,
                               fontWeight: FontWeight.w400,
-                              color: Color.fromRGBO(255, 255, 255, 0.87)),
+                              ),
                         ),
                       ],
                     ),
@@ -315,11 +318,10 @@ class TemporaryMedicines extends StatelessWidget {
                               width: 7,
                             ),
                             Text(
-                              'Dosage',
+                              context.watch<Selection>().state==1?'الجرعة':    'Dosage',
                               style: TextStyle(
                                   fontSize: 12,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color.fromRGBO(255, 255, 255, 0.6)),
+                                  fontWeight: FontWeight.w400,),
                             ),
                           ],
                         ),
@@ -328,8 +330,7 @@ class TemporaryMedicines extends StatelessWidget {
                           style: TextStyle(
                               fontStyle: FontStyle.italic,
                               fontSize: 10,
-                              fontWeight: FontWeight.w400,
-                              color: Color.fromRGBO(255, 255, 255, 0.87)),
+                              fontWeight: FontWeight.w400,),
                         ),
                       ],
                     ),
@@ -347,11 +348,10 @@ class TemporaryMedicines extends StatelessWidget {
                               width: 7,
                             ),
                             Text(
-                              'Time dosage',
+                              context.watch<Selection>().state==1?'وقت الجرعة':    'Time dosage',
                               style: TextStyle(
                                   fontSize: 12,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color.fromRGBO(255, 255, 255, 0.6)),
+                                  fontWeight: FontWeight.w400,),
                             ),
                           ],
                         ),
@@ -360,8 +360,7 @@ class TemporaryMedicines extends StatelessWidget {
                           style: TextStyle(
                               fontStyle: FontStyle.italic,
                               fontSize: 10,
-                              fontWeight: FontWeight.w400,
-                              color: Color.fromRGBO(255, 255, 255, 0.87)),
+                              fontWeight: FontWeight.w400,),
                         ),
                       ],
                     ),

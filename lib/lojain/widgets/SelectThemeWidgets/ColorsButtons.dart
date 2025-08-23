@@ -3,6 +3,8 @@ import 'package:MediLink/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../Controllers/onboarding/SelectionLang.dart';
+
 class ColorsButtons extends StatelessWidget {
   const ColorsButtons({Key? key}) : super(key: key);
 
@@ -19,7 +21,7 @@ class ColorsButtons extends StatelessWidget {
                 context.read<SelectionColors>().selectcolor(5);
               },
               child: Text(
-               lang=='en'?'red' :   'احمر',
+              context.watch<Selection>().state == 2?'red' :   'احمر',
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
@@ -45,7 +47,7 @@ class ColorsButtons extends StatelessWidget {
                   context.read<SelectionColors>().selectcolor(6);
                 },
                 child: Text(
-                   lang=='en'?'green' : 'اخضر',
+                  context.watch<Selection>().state == 2?'green' : 'اخضر',
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 20,
@@ -69,7 +71,7 @@ class ColorsButtons extends StatelessWidget {
                   context.read<SelectionColors>().selectcolor(7);
                 },
                 child: Text(
-                 lang=='en'?'yellow' :   'اصفر',
+                context.watch<Selection>().state == 2?'yellow' :   'اصفر',
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 20,

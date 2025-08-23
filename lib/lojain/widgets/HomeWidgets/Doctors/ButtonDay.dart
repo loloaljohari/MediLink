@@ -1,4 +1,5 @@
 import 'package:MediLink/lojain/Controllers/doctors/Selecttheday.dart';
+import 'package:MediLink/lojain/Controllers/onboarding/SelectionTheme.dart';
 import 'package:MediLink/lojain/models/Doctors/getTimes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,6 +21,8 @@ class ButtonDay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+     var mode = context.watch<SelectionTheme>().state;
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10),
       child: BlocBuilder<Selecttheday, dynamic>(builder: (context, i) {
@@ -54,7 +57,7 @@ class ButtonDay extends StatelessWidget {
             height: 40,
             decoration: BoxDecoration(
                 color: (i == date && isfall == false)
-                    ? Color.fromRGBO(15, 102, 222, 1)
+                    ? mode==4? Color.fromRGBO(38, 115, 221, 1):  Color.fromRGBO(116, 164, 232, 1)
                     : Colors.transparent,
                 border: (i != date)
                     ? Border.all(
@@ -74,14 +77,14 @@ class ButtonDay extends StatelessWidget {
                 Text(
                   date.substring(date.toString().length - 2),
                   style: TextStyle(
-                      color: Colors.white,
+                      color: mode==4? i==date ? Colors.white: Colors.black: i==date ? Colors.black: Colors.white  ,
                       fontSize: 10,
                       fontWeight: FontWeight.w400),
                 ),
                 Text(
                   day,
                   style: TextStyle(
-                      color: Colors.white,
+                      color: mode==4? i==date ? Colors.white: Colors.black: i==date ? Colors.black: Colors.white  ,
                       fontSize: 10,
                       fontWeight: FontWeight.w400),
                 )

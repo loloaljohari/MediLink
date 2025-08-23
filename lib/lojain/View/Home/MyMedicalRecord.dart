@@ -5,67 +5,69 @@ import 'package:MediLink/lojain/widgets/HomeWidgets/Record/recordsection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../Controllers/onboarding/SelectionLang.dart';
+
 // ignore: must_be_immutable
 class MyMedicalRecord extends StatelessWidget {
    MyMedicalRecord({Key? key}) : super(key: key);
   
+
+  
+  @override
+  Widget build(BuildContext context) {
   List list=[
 
     {
       'id':'1',
       'image':'images/Group 942.png',
-      'text':'Public',
+      'text': context.watch<Selection>().state==1? 'العامة': 'Public',
        
     },
     {
       'id':'2',
       'image':'images/Group 978.png',
-      'text':'Visits',
+      'text': context.watch<Selection>().state==1?'الزيارات': 'Visits',
        
     },
     {
       'id':'3',
       'image':'images/Group 957.png',
-      'text':'Medicine',
+      'text': context.watch<Selection>().state==1?'الأدوية': 'Medicine',
        
     },
      {
       'id':'4',
       'image':'images/Group 953 (2).png',
-      'text':'Illness',
+      'text': context.watch<Selection>().state==1?'الأمراض': 'Illness',
        
     },
      {
       'id':'5',
       'image':'images/Group 950.png',
-      'text':'Sensitivity',
+      'text':  context.watch<Selection>().state==1?'الحساسية':'Sensitivity',
        
     },
      {
       'id':'6',
       'image':'images/Group 964.png',
-      'text':'Surgical operations',
+      'text': context.watch<Selection>().state==1 ? 'العمليات الجراحية':'Surgical operations',
        
     },
      {
       'id':'7',
       'image':'images/Group 968.png',
-      'text':'Medical examinations',
+      'text': context.watch<Selection>().state==1?'التحاليل الطبية': 'Medical examinations',
        
     },
      {
       'id':'8',
       'image':'images/Group 973.png',
-      'text':'Medical file',
+      'text': context.watch<Selection>().state==1?'الأشعة الطبية': 'Medical file',
        
     },
    
   ];
 
-
-  
-  @override
-  Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers:[
         BlocProvider(create:  (context) => Buttonsdates())
@@ -74,8 +76,8 @@ class MyMedicalRecord extends StatelessWidget {
         appBar: AppBar(
         
           title: Center(
-              child: const Text(
-            'My Medical Record',
+              child:  Text(
+           context.watch<Selection>().state==1?" السجل الصحي":   'My Medical Record',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
           )),
         ),
@@ -91,7 +93,7 @@ class MyMedicalRecord extends StatelessWidget {
                     width: 7,
                   ),
                   Text(
-                    'Last Update',
+                    context.watch<Selection>().state==1?'اخر تحديث': 'Last Update',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
                   ),
                 ],
@@ -115,7 +117,7 @@ class MyMedicalRecord extends StatelessWidget {
                     width: 7,
                   ),
                   Text(
-                    'Record Section',
+                    context.watch<Selection>().state==1? 'قسم السجل':  'Record Section',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
                   ),
                 ],

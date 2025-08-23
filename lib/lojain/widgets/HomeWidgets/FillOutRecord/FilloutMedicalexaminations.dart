@@ -6,6 +6,9 @@ import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../Controllers/onboarding/SelectionLang.dart';
+import '../../../Controllers/onboarding/SelectionTheme.dart';
+
 class FilloutMedicalexaminations extends StatefulWidget {
   FilloutMedicalexaminations({Key? key}) : super(key: key);
 
@@ -45,7 +48,7 @@ class _FilloutMedicalexaminationsState extends State<FilloutMedicalexaminations>
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Medical Examinations',
+            context.watch<Selection>().state == 1 ? 'التحاليل الطبية' :    'Medical Examinations',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
               ),
               TextButton(
@@ -57,7 +60,7 @@ class _FilloutMedicalexaminationsState extends State<FilloutMedicalexaminations>
                           curve: Curves.easeIn,
                           duration: Duration(seconds: 1)),
                       isScrollControlled: true,
-                      backgroundColor: Color.fromRGBO(19, 57, 111, 1),
+                      backgroundColor:   context.read<SelectionTheme>().state == 4 ?Color.fromRGBO(   38, 115, 221, 1): Color.fromRGBO(19, 57, 111, 1),
                       context: context,
                       builder: (context) {
                         return Padding(
@@ -89,7 +92,7 @@ class _FilloutMedicalexaminationsState extends State<FilloutMedicalexaminations>
                                         decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(16),
-                                          color: Color.fromRGBO(34, 34, 34, 1),
+                                          color:  context.read<SelectionTheme>().state == 4? Colors.white24 : Color.fromRGBO(0, 0, 0, 1)
                                         ),
                                         height: 52,
                                         width: double.infinity,
@@ -108,9 +111,9 @@ class _FilloutMedicalexaminationsState extends State<FilloutMedicalexaminations>
                                                             Colors.white)),
                                             child: TextFormField(
                                               cursorColor: Colors.white,
-                                              decoration: const InputDecoration(
+                                              decoration:  InputDecoration(
                                                 fillColor: Colors.white,
-                                                labelText: 'Enter Test name',
+                                                labelText: context.watch<Selection>().state == 1 ? 'ادخل اسم التحليل' :'Enter Test name',
                                                 labelStyle: TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 16,
@@ -147,8 +150,7 @@ class _FilloutMedicalexaminationsState extends State<FilloutMedicalexaminations>
                                                 decoration: BoxDecoration(
                                                   borderRadius:
                                                       BorderRadius.circular(16),
-                                                  color: Color.fromRGBO(
-                                                      34, 34, 34, 1),
+                                                  color: context.read<SelectionTheme>().state == 4? Colors.white24 : Color.fromRGBO(0, 0, 0, 1)
                                                 ),
                                                 height: 52,
                                                 width: MediaQuery.of(context)
@@ -175,10 +177,10 @@ class _FilloutMedicalexaminationsState extends State<FilloutMedicalexaminations>
                                                     child: TextFormField(
                                                       cursorColor: Colors.white,
                                                       decoration:
-                                                          const InputDecoration(
+                                                           InputDecoration(
                                                         fillColor: Colors.white,
                                                         labelText:
-                                                            'enter test laboratory',
+                                                         context.watch<Selection>().state == 1 ? 'ادخل اسم المختبر' :   'enter test laboratory',
                                                         labelStyle: TextStyle(
                                                             color: Colors.white,
                                                             fontSize: 14,
@@ -215,8 +217,7 @@ class _FilloutMedicalexaminationsState extends State<FilloutMedicalexaminations>
                                                 decoration: BoxDecoration(
                                                   borderRadius:
                                                       BorderRadius.circular(16),
-                                                  color: Color.fromRGBO(
-                                                      34, 34, 34, 1),
+                                                  color: context.read<SelectionTheme>().state == 4? Colors.white24 : Color.fromRGBO(0, 0, 0, 1)
                                                 ),
                                                 height: 52,
                                                 width: MediaQuery.of(context)
@@ -243,10 +244,10 @@ class _FilloutMedicalexaminationsState extends State<FilloutMedicalexaminations>
                                                     child: TextFormField(
                                                       cursorColor: Colors.white,
                                                       decoration:
-                                                          const InputDecoration(
+                                                           InputDecoration(
                                                         fillColor: Colors.white,
                                                         labelText:
-                                                            'test date yy-mm-dd',
+                                                        context.watch<Selection>().state == 1 ? 'تاريخ التحليل yyyy-mm-dd' :    'test date yy-mm-dd',
                                                         labelStyle: TextStyle(
                                                             color: Colors.white,
                                                             fontSize: 14,
@@ -287,7 +288,7 @@ class _FilloutMedicalexaminationsState extends State<FilloutMedicalexaminations>
                                         decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(20),
-                                          color: Color.fromRGBO(34, 34, 34, 1),
+                                          color:  context.read<SelectionTheme>().state == 4? Colors.white24 : Color.fromRGBO(0, 0, 0, 1)
                                         ),
                                         child: Row(
                                           children: [
@@ -296,7 +297,7 @@ class _FilloutMedicalexaminationsState extends State<FilloutMedicalexaminations>
                                                   MainAxisAlignment.center,
                                               children: [
                                                 Text(
-                                                  'add image or pdf to test  ',
+                                                 context.watch<Selection>().state == 1 ? 'اضف صورة او pdf للتحليل' : 'add image or pdf to test  ',
                                                   style: TextStyle(
                                                       fontSize: 17,
                                                       fontWeight:
@@ -315,7 +316,7 @@ class _FilloutMedicalexaminationsState extends State<FilloutMedicalexaminations>
                                                       getPDF_Image();
                                                     },
                                                     child: Text(
-                                                      'add',
+                                                    context.watch<Selection>().state == 1 ? 'اضف' :  'add',
                                                       style: TextStyle(
                                                           color: Colors.white),
                                                     )),
@@ -376,8 +377,7 @@ class _FilloutMedicalexaminationsState extends State<FilloutMedicalexaminations>
                                                                 .circular(20))),
                                                 backgroundColor:
                                                     WidgetStatePropertyAll(
-                                                        Color.fromRGBO(
-                                                            15, 102, 222, 1))),
+                                                       context.read<SelectionTheme>().state == 4? Colors.white24 : Color.fromRGBO(15, 102, 222, 1))),
                                             onPressed: () async {
                                               print('================');
                                               var isSuccess = await context
@@ -410,7 +410,7 @@ class _FilloutMedicalexaminationsState extends State<FilloutMedicalexaminations>
                                                     color: Colors.white,
                                                   )
                                                 : Text(
-                                                    'save',
+                                                   context.watch<Selection>().state == 1 ? 'حفظ' : 'save',
                                                     style: TextStyle(
                                                         color: Colors.white,
                                                         fontSize: 20,
@@ -429,7 +429,7 @@ class _FilloutMedicalexaminationsState extends State<FilloutMedicalexaminations>
                     );
                   },
                   child: Text(
-                    'Add+',
+                  context.watch<Selection>().state == 1 ? 'اضف+' :  'Add+',
                     style: TextStyle(
                         fontSize: 20,
                         color: Color.fromRGBO(64, 123, 255, 1),

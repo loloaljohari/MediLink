@@ -35,7 +35,7 @@ class Customforfildsinup extends StatelessWidget {
             ),
             boxShadow: [
               BoxShadow(
-                  color: AppColor.dark,
+                  // color: AppColor.dark,
                   offset: Offset(0, -1),
                   blurStyle: BlurStyle.outer,
                   spreadRadius: -2,

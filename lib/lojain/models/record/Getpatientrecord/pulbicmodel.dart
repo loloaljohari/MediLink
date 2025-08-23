@@ -26,7 +26,7 @@ class GetPublicError extends GetPublicState {
 class GetPublicCubit extends Cubit<GetPublicState> {
   GetPublicCubit() : super(GetPublicLoading());
 
-  Future fetch() async {
+  Future<Map> fetch() async {
     emit(GetPublicLoading());
     try {
       SharedPreferences sharedPreferences =
@@ -44,20 +44,22 @@ class GetPublicCubit extends Cubit<GetPublicState> {
       };
       final response = await http.get(Uri.parse('$url/patient-record/profile'),
           headers: headers);
-var public = json.decode(response.body);
+Map public = json.decode(response.body);
 
       if (response.statusCode == 200) {
         print(await response.body);
         
-        emit(GetPublicLoaded(public: public));
+        emit(GetPublicLoaded(public: public));return public;
       } else {
          print(await response.body);
         emit(GetPublicLoaded(public: public));
         print(response.reasonPhrase);
+        return public;
       }
     } catch (e) {
       print(e.toString());
       emit(GetPublicError(messageError: e.toString()));
+      return {};
     }
   }
 }

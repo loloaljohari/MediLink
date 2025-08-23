@@ -6,6 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
 import '../../../../../ammar/lib/view/screen/aouth/sinup.dart';
+import '../../../../Controllers/onboarding/SelectionLang.dart';
+import '../../../../Controllers/onboarding/SelectionTheme.dart';
 
 class NowMedicine extends StatelessWidget {
   const NowMedicine({Key? key}) : super(key: key);
@@ -17,7 +19,10 @@ class NowMedicine extends StatelessWidget {
         builder: (context, state) {
       if (state is GetmedicineLoading) {
         return Center(
-          child: CircularProgressIndicator(),
+          child: CircularProgressIndicator(
+              color: context.watch<SelectionTheme>().state == 3
+                  ? Colors.white
+                  : Colors.black),
         );
       } else if (state is GetmedicineLoaded) {
         if (state.medicine.containsKey('now')) {
@@ -28,7 +33,9 @@ class NowMedicine extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Permanent medicines',
+                    context.watch<Selection>().state == 1
+                        ? 'الأدوية الدائمة'
+                        : 'Permanent medicines',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                   ),
                   Column(
@@ -66,7 +73,9 @@ class NowMedicine extends StatelessWidget {
                     height: 30,
                   ),
                   Text(
-                    'Temporary medicines',
+                    context.watch<Selection>().state == 1
+                        ? 'الأدوية المؤقتة'
+                        : 'Temporary medicines',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                   ),
                   Column(
@@ -93,7 +102,8 @@ class NowMedicine extends StatelessWidget {
                                       '${state.medicine['now'][index]['dose']}',
                                   repeat:
                                       '${state.medicine['now'][index]['frequency']}',
-                                  per: state.medicine['now'][index]['taken_till_now'],
+                                  per: state.medicine['now'][index]
+                                      ['taken_till_now'],
                                   max: state.medicine['now'][index]
                                       ['med_total_quantity'],
                                 )
@@ -109,7 +119,9 @@ class NowMedicine extends StatelessWidget {
               ),
             );
           } else
-            return Text('empty');
+            return Center(
+                child: Text(
+                    context.watch<Selection>().state == 1 ? 'فارغ' : 'empty'));
         } else {
           return Center(
               child: Padding(
@@ -135,7 +147,9 @@ class NowMedicine extends StatelessWidget {
                   Text(
                       style:
                           TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                      '${state.medicine['message']}: To view your medical record, you must have an account on the app. Sign up for our app to access our services.'),
+                      context.watch<Selection>().state == 1
+                          ? 'للاطلاع على سجلك الطبي، يجب أن يكون لديك حساب على التطبيق. سجل في تطبيقنا للوصول إلى خدماتنا.'
+                          : '${state.medicine['message']}: To view your medical record, you must have an account on the app. Sign up for our app to access our services.'),
                   ElevatedButton(
                       style: ButtonStyle(
                           fixedSize: WidgetStatePropertyAll(Size(120, 20)),
@@ -146,8 +160,10 @@ class NowMedicine extends StatelessWidget {
                           conte: context,
                         ));
                       },
-                      child: const Text(
-                        'Register',
+                      child: Text(
+                        context.watch<Selection>().state == 1
+                            ? 'اشتراك'
+                            : 'Register',
                         style: TextStyle(color: Colors.white),
                       )),
                 ],

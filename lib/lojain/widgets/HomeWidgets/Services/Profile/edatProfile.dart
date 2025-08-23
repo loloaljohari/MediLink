@@ -5,6 +5,8 @@ import 'package:MediLink/lojain/models/Proflie/updateProfile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../Controllers/onboarding/SelectionLang.dart';
+
 class EdatProfile extends StatelessWidget {
   EdatProfile({Key? key}) : super(key: key);
   FocusNode focusNode = FocusNode();
@@ -34,9 +36,9 @@ class EdatProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      // backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        // backgroundColor: Colors.black,
         leading: InkWell(
           onTap: () {
             Navigator.pop(context);
@@ -46,11 +48,12 @@ class EdatProfile extends StatelessWidget {
             color: Color.fromRGBO(38, 115, 221, 1),
           ),
         ),
-        title: const Align(
+        title:  Align(
           alignment: Alignment.center,
           child: Text(
-            'My Profile',
-            style: TextStyle(color: Colors.white),
+         context.watch<Selection>().state == 1
+                                    ? 'ملفي الشحصي':    'My Profile',
+            // style: TextStyle(color: Colors.white),
           ),
         ),
       ),
@@ -100,6 +103,11 @@ class EdatProfile extends StatelessWidget {
                                         width: 185,
                                         height: 185,
                                         decoration: const BoxDecoration(
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.black,
+                                            )
+                                          ],
                                             shape: BoxShape.circle),
                                         child: ClipOval(
                                           child:(state.myprofile['photo'] ==
@@ -161,9 +169,10 @@ class EdatProfile extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'User Name',
+                       context.watch<Selection>().state == 1
+                                    ? 'اسم المستخدم':    'User Name',
                           style: TextStyle(
-                              color: Colors.white,
+                              
                               fontSize: 14,
                               fontWeight: FontWeight.w700),
                         ),
@@ -224,7 +233,7 @@ class EdatProfile extends StatelessWidget {
                                       ),
                                       controller: name,
                                       style: TextStyle(
-                                          color: Colors.white,
+                                          // color: Colors.white,
                                           fontSize: 20,
                                           fontWeight: FontWeight.w400),
                                     ),
@@ -253,9 +262,10 @@ class EdatProfile extends StatelessWidget {
                           height: 20,
                         ),
                         Text(
-                          'Email Adrees',
+                        context.watch<Selection>().state == 1
+                                    ? 'حساب الأميل':   'Email Adrees',
                           style: TextStyle(
-                              color: Colors.white,
+                              
                               fontSize: 14,
                               fontWeight: FontWeight.w700),
                         ),
@@ -317,7 +327,7 @@ class EdatProfile extends StatelessWidget {
                                         disabledBorder: InputBorder.none,
                                       ),
                                       style: TextStyle(
-                                          color: Colors.white,
+                                          // color: Colors.white,
                                           fontSize: 15,
                                           fontWeight: FontWeight.w400),
                                     ),
@@ -346,9 +356,10 @@ class EdatProfile extends StatelessWidget {
                           height: 20,
                         ),
                         Text(
-                          'Phone Number',
+                         context.watch<Selection>().state == 1
+                                    ? 'رقم الجوال':  'Phone Number',
                           style: TextStyle(
-                              color: Colors.white,
+                              
                               fontSize: 14,
                               fontWeight: FontWeight.w700),
                         ),
@@ -410,7 +421,7 @@ class EdatProfile extends StatelessWidget {
                                         }
                                       },
                                       style: TextStyle(
-                                          color: Colors.white,
+                                          
                                           fontSize: 15,
                                           fontWeight: FontWeight.w400),
                                     ),

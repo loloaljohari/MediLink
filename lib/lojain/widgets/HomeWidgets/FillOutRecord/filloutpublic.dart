@@ -7,6 +7,8 @@ import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../Controllers/onboarding/SelectionLang.dart';
+
 // ignore: must_be_immutable
 class Filloutpublic extends StatelessWidget {
   Filloutpublic({Key? key}) : super(key: key);
@@ -42,7 +44,7 @@ class Filloutpublic extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Public',
+         context.watch<Selection>().state == 1 ? 'العامة' :  'Public',
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
         ),
         const SizedBox(
@@ -59,11 +61,11 @@ class Filloutpublic extends StatelessWidget {
                     const SizedBox(
                       width: 7,
                     ),
-                    const Text(
-                      'Your Weight',
+                     Text(
+                      context.watch<Selection>().state == 1 ? 'وزنك' : 'Your Weight',
                       style: TextStyle(
                           fontSize: 12,
-                          color: Color.fromRGBO(255, 255, 255, 0.6),
+                       
                           fontStyle: FontStyle.normal,
                           fontWeight: FontWeight.w400),
                     )
@@ -90,11 +92,10 @@ class Filloutpublic extends StatelessWidget {
                               cursorColor: Colors.white)),
                       child: TextFormField(
                         cursorColor: Colors.white,
-                        decoration: const InputDecoration(
-                          fillColor: Colors.white,
-                          hintText: 'Enter Your Weight',
+                        decoration:  InputDecoration(
+                         
+                          hintText: context.watch<Selection>().state == 1 ? 'ادخل وزنك' : 'Enter Your Weight',
                           hintStyle: TextStyle(
-                              color: Colors.white,
                               fontSize: 10,
                               fontStyle: FontStyle.normal,
                               fontWeight: FontWeight.w400),
@@ -104,7 +105,6 @@ class Filloutpublic extends StatelessWidget {
                         ),
                         controller: weight,
                         style: const TextStyle(
-                            color: Colors.white,
                             fontSize: 20,
                             fontWeight: FontWeight.w400),
                       ),
@@ -121,11 +121,11 @@ class Filloutpublic extends StatelessWidget {
                     const SizedBox(
                       width: 7,
                     ),
-                    const Text(
-                      'Your Height',
+                     Text(
+                     context.watch<Selection>().state == 1 ? 'طولك' :  'Your Height',
                       style: TextStyle(
                           fontSize: 12,
-                          color: Color.fromRGBO(255, 255, 255, 0.6),
+                          // color: Color.fromRGBO(255, 255, 255, 0.6),
                           fontStyle: FontStyle.normal,
                           fontWeight: FontWeight.w400),
                     )
@@ -152,11 +152,11 @@ class Filloutpublic extends StatelessWidget {
                               cursorColor: Colors.white)),
                       child: TextFormField(
                         cursorColor: Colors.white,
-                        decoration: const InputDecoration(
-                          fillColor: Colors.white,
-                          hintText: 'Enter Your Height',
+                        decoration:  InputDecoration(
+                          // fillColor: Colors.white,
+                          hintText:  context.watch<Selection>().state == 1 ? 'ادخل طولك' :'Enter Your Height',
                           hintStyle: TextStyle(
-                              color: Colors.white,
+                              // color: Colors.white,
                               fontSize: 10,
                               fontStyle: FontStyle.normal,
                               fontWeight: FontWeight.w400),
@@ -166,7 +166,7 @@ class Filloutpublic extends StatelessWidget {
                         ),
                         controller: height,
                         style: const TextStyle(
-                            color: Colors.white,
+                            // color: Colors.white,
                             fontSize: 20,
                             fontWeight: FontWeight.w400),
                       ),
@@ -177,13 +177,13 @@ class Filloutpublic extends StatelessWidget {
             ),
             Column(
               children: [
-                const Row(
+                 Row(
                   children: [
                     Text(
-                      'Your Birthday',
+                     context.watch<Selection>().state == 1 ? 'تاريخ ميلادك' :  'Your Birthday',
                       style: TextStyle(
                           fontSize: 12,
-                          color: Color.fromRGBO(255, 255, 255, 0.6),
+                          // color: Color.fromRGBO(255, 255, 255, 0.6),
                           fontStyle: FontStyle.normal,
                           fontWeight: FontWeight.w400),
                     )
@@ -212,10 +212,10 @@ class Filloutpublic extends StatelessWidget {
                         keyboardAppearance: Brightness.dark,
                         cursorColor: Colors.white,
                         decoration: const InputDecoration(
-                          fillColor: Colors.white,
-                          hintText: 'dd-mm-yy',
+                          // fillColor: Colors.white,
+                          hintText: 'yyyy-mm-dd',
                           hintStyle: TextStyle(
-                              color: Colors.white,
+                              // color: Colors.white,
                               fontSize: 15,
                               fontStyle: FontStyle.normal,
                               fontWeight: FontWeight.w400),
@@ -225,7 +225,7 @@ class Filloutpublic extends StatelessWidget {
                         ),
                         controller: birthday,
                         style: const TextStyle(
-                            color: Colors.white,
+                            // color: Colors.white,
                             fontSize: 20,
                             fontWeight: FontWeight.w400),
                       ),
@@ -244,11 +244,11 @@ class Filloutpublic extends StatelessWidget {
           children: [
             Column(
               children: [
-                const Text(
-                  'Social Status',
+                 Text(
+                  context.watch<Selection>().state == 1 ? 'الحالة الاجتماعية' : 'Social Status',
                   style: TextStyle(
                       fontSize: 12,
-                      color: Color.fromRGBO(255, 255, 255, 0.6),
+                      // color: Color.fromRGBO(255, 255, 255, 0.6),
                       fontStyle: FontStyle.normal,
                       fontWeight: FontWeight.w400),
                 ),
@@ -311,11 +311,11 @@ class Filloutpublic extends StatelessWidget {
             ),
             Column(
               children: [
-                const Text(
-                  'Your Gender',
+                 Text(
+                 context.watch<Selection>().state == 1 ? 'جنسك' :  'Your Gender',
                   style: TextStyle(
                       fontSize: 12,
-                      color: Color.fromRGBO(255, 255, 255, 0.6),
+                      // color: Color.fromRGBO(255, 255, 255, 0.6),
                       fontStyle: FontStyle.normal,
                       fontWeight: FontWeight.w400),
                 ),
@@ -400,11 +400,11 @@ class Filloutpublic extends StatelessWidget {
             ),
             Column(
               children: [
-                const Text(
-                  'Your Blood clique',
+                 Text(
+              context.watch<Selection>().state == 1 ? 'زمرة دمك' :     'Your Blood clique',
                   style: TextStyle(
                       fontSize: 12,
-                      color: Color.fromRGBO(255, 255, 255, 0.6),
+                      // color: Color.fromRGBO(255, 255, 255, 0.6),
                       fontStyle: FontStyle.normal,
                       fontWeight: FontWeight.w400),
                 ),
@@ -470,10 +470,10 @@ class Filloutpublic extends StatelessWidget {
         const SizedBox(
           height: 20,
         ),
-        const Text(
-          'Your Addictions',
+         Text(
+         context.watch<Selection>().state == 1 ? 'ادماناتك' :  'Your Addictions',
           style: TextStyle(
-              color: Color.fromRGBO(255, 255, 255, 0.6),
+              // color: Color.fromRGBO(255, 255, 255, 0.6),
               fontSize: 12,
               fontWeight: FontWeight.w400),
         ),
@@ -484,7 +484,7 @@ class Filloutpublic extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Text('Smoking'),
+                    Text(  context.watch<Selection>().state == 1 ? 'التدخين' :'Smoking'),
                     BlocBuilder<CheckAddictions, bool>(
                         bloc: smoking,
                         builder: (context, state) {
@@ -503,7 +503,7 @@ class Filloutpublic extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Text('Alcohol'),
+                    Text(  context.watch<Selection>().state == 1 ? 'الكحول' :'Alcohol'),
                     BlocBuilder<CheckAddictions, bool>(
                         bloc: alcohol,
                         builder: (context, state) {
@@ -522,7 +522,7 @@ class Filloutpublic extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Text('Drugs'),
+                    Text( context.watch<Selection>().state == 1 ? 'المخدرات' : 'Drugs'),
                     BlocBuilder<CheckAddictions, bool>(
                         bloc: drugs,
                         builder: (context, state) {
@@ -574,7 +574,7 @@ class Filloutpublic extends StatelessWidget {
                     }
                   },
                   child:state? CircularProgressIndicator(color: Colors.white,): Text(
-                    'Save',
+                  context.watch<Selection>().state == 1 ? 'حفظ' :   'Save',
                     style: TextStyle(
                         fontSize: 16,
                         color: Color.fromRGBO(64, 123, 255, 1),

@@ -5,6 +5,8 @@ import 'package:MediLink/lojain/widgets/HomeWidgets/Record/Exarnination/PdfExarn
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../Controllers/onboarding/SelectionLang.dart';
+import '../../Controllers/onboarding/SelectionTheme.dart';
 import '../../widgets/HomeWidgets/Record/Exarnination/ImageExarnination.dart';
 
 class Medicalexaminations extends StatelessWidget {
@@ -14,7 +16,7 @@ class Medicalexaminations extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.black,
+          
           leading: InkWell(
             onTap: () {
               Navigator.pop(context);
@@ -24,10 +26,10 @@ class Medicalexaminations extends StatelessWidget {
               color: Color.fromRGBO(38, 115, 221, 1),
             ),
           ),
-          title: const Padding(
-            padding: EdgeInsets.only(left: 30),
+          title:  Padding(
+            padding: EdgeInsets.only(left: 30,right: 30),
             child: Text(
-              'Medical examinations',
+            context.watch<Selection>().state==1?'التحاليل الطبية':   'Medical examinations',
               style: TextStyle(),
             ),
           ),
@@ -47,13 +49,13 @@ class Medicalexaminations extends StatelessWidget {
                           child: Container(
                             child: Center(
                                 child: Text(
-                              'Image',
+                            context.watch<Selection>().state==1?'صورة':   'Image',
                               style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w400,
                                   color: index == 0
                                       ? Color.fromRGBO(15, 102, 222, 1)
-                                      : Colors.white),
+                                      : context.watch<SelectionTheme>().state==3?Colors.white :Colors.black),
                             )),
                             height: 35,
                             width: 178.2811279296875,
@@ -61,9 +63,7 @@ class Medicalexaminations extends StatelessWidget {
                                 color: index == 0
                                     ? Color.fromRGBO(38, 115, 221, 0.3)
                                     : Color.fromRGBO(38, 115, 221, 0.1),
-                                borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(8),
-                                    topLeft: Radius.circular(8))),
+                                ),
                           )),
                     ),
                     Expanded(
@@ -80,7 +80,7 @@ class Medicalexaminations extends StatelessWidget {
                                     fontWeight: FontWeight.w400,
                                     color: index == 1
                                         ? Color.fromRGBO(15, 102, 222, 1)
-                                        : Colors.white),
+                                      : context.watch<SelectionTheme>().state==3?Colors.white :Colors.black),
                               )),
                               height: 35,
                               width: 178.2811279296875,
@@ -88,9 +88,7 @@ class Medicalexaminations extends StatelessWidget {
                                   color: index == 1
                                       ? Color.fromRGBO(38, 115, 221, 0.3)
                                       : Color.fromRGBO(38, 115, 221, 0.1),
-                                  borderRadius: BorderRadius.only(
-                                      bottomRight: Radius.circular(8),
-                                      topRight: Radius.circular(8))))),
+                                ))),
                     ),
                   ],
                 ),
