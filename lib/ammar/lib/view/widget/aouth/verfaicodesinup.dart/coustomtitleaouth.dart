@@ -13,10 +13,10 @@ class Coustomtitleaouthverfaicode extends StatelessWidget {
         text,
         textAlign: TextAlign.center,
         style: TextStyle(
-          fontSize: 24,
+
           // fontFamily: "PlayfairDisplay",
           fontWeight: FontWeight.bold,
-          color: AppColor.dark,
+          // color: AppColor.dark,
         ),
       ),
     );

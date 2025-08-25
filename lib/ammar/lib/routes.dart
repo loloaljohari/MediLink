@@ -27,12 +27,12 @@ List<GetPage<dynamic>>? routes = [
 
   GetPage(name: Approut.onboarding, page: () => const onBording()),
 
-  GetPage(name: Approut.Sinup, page: () =>  Sinup(conte:context!)),
+  GetPage(name: Approut.Sinup, page: () =>  Sinup()),
 
-  GetPage(name: Approut.verifcode, page: () => const verfaicode()),
+  GetPage(name: Approut.verifcode, page: () =>  verfaicode()),
 
-  GetPage(name: Approut.verfaicodesinup, page: () =>  Verfaicodesinup(context1: context!,)),
-  GetPage(name: Approut.Sucssfolsinup, page: () =>  Sucssfolsinup(context1: context!,)),
+  GetPage(name: Approut.verfaicodesinup, page: () =>  Verfaicodesinup()),
+  GetPage(name: Approut.Sucssfolsinup, page: () =>  Sucssfolsinup()),
   GetPage(name: Approut.forgetpassword, page: () => const Forgetpassword()),
 
   GetPage(name: Approut.Restpassword, page: () => const Restpassword()),

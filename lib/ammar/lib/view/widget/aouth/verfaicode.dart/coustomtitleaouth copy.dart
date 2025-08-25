@@ -22,7 +22,7 @@ class Coustomtitleverfaicode extends StatelessWidget {
             text,
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: 32,
+
               // fontFamily: "PlayfairDisplay",
               fontWeight: FontWeight.w700,
               color: AppColor.lightblue,
@@ -36,9 +36,9 @@ class Coustomtitleverfaicode extends StatelessWidget {
               text1,
               textAlign: TextAlign.start,
               style: const TextStyle(
-                color: AppColor.dark,
+                // color: AppColor.dark,
                 fontWeight: FontWeight.w700,
-                fontSize: 20,
+
                 // fontFamily: "PlayfairDisplay"
               ),
             ),
@@ -51,7 +51,7 @@ class Coustomtitleverfaicode extends StatelessWidget {
               style: const TextStyle(
                 color: AppColor.lightgrey,
                 fontWeight: FontWeight.w500,
-                fontSize: 16,
+
                 // fontFamily: "PlayfairDisplay"
               ),
             )

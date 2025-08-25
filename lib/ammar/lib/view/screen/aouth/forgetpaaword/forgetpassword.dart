@@ -12,8 +12,11 @@ import 'package:MediLink/ammar/lib/view/widget/aouth/forgetpaasword.dart/customb
 import 'package:MediLink/ammar/lib/view/widget/aouth/login/coustomformfild.dart';
 import 'package:MediLink/ammar/lib/view/widget/aouth/sinup/customtextandicon%20copy.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+
+import '../../../../../../lojain/Controllers/onboarding/SelectionLang.dart';
 
 class Forgetpassword extends StatelessWidget {
  const  Forgetpassword({super.key});
@@ -72,13 +75,13 @@ class Forgetpassword extends StatelessWidget {
                 height: 20,
               ),
               Coustomtitleforgetpassword(
-                  text: "Forgot password",
-                  text1: "Please enter your email to reset the password"),
+                  text:context.watch<Selection>().state == 1?'نسيت كلمة مرورك': "Forgot password",
+                  text1: context.watch<Selection>().state == 1?'يرجى إدخال بريدك الإلكتروني لإعادة تعيين كلمة المرور':"Please enter your email to reset the password"),
               const SizedBox(
                 height: 20,
               ),
-              const customtextandphotosinup(
-                text: "  your email  ",
+               customtextandphotosinup(
+                text:context.watch<Selection>().state == 1?'ايميلك': "  your email  ",
                 photo1: AppImageAsset.Message_light,
               ),
               SizedBox(
@@ -91,17 +94,17 @@ class Forgetpassword extends StatelessWidget {
                 },
                 mycontrller: controlle.email,
 
-                hintText: "Enter your email",
+                hintText: context.watch<Selection>().state == 1?'ادخل ايميلك':"Enter your email",
 
                 ///////////////////////////
 
-                leabeltext: "Email",
+                leabeltext: context.watch<Selection>().state == 1?'الايميل':"Email",
                 isnumber: false,
               ),
               const SizedBox(height: 30),
 
               Custombuttionforgetpasssword(
-                  text: "Reset Password",
+                  text: context.watch<Selection>().state == 1?'تعيين كلمة مرور ': "Reset Password",
                   photo: AppImageAsset.restpassword,
                   onPressed: () {
                     controlle.gotoverifcode();

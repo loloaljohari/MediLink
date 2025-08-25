@@ -771,7 +771,7 @@ class Puplic extends StatelessWidget {
                                 Color.fromRGBO(38, 115, 221, 1))),
                         onPressed: () {
                           Get.to(Sinup(
-                            conte: context,
+                            
                           ));
                         },
                         child: Text(

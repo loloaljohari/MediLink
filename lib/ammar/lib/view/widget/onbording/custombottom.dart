@@ -1,7 +1,9 @@
 
 import 'package:MediLink/ammar/lib/controller/onbording_controler.dart';
 import 'package:MediLink/ammar/lib/core/constant/color.dart';
+import 'package:MediLink/lojain/Controllers/onboarding/SelectionLang.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
 class Custombuttenonbording extends GetView<OnbordingcontrolerImp> {
@@ -35,7 +37,7 @@ class Custombuttenonbording extends GetView<OnbordingcontrolerImp> {
             controller.next();
           },
           child: Text(
-            "Next >>",
+           context.watch<Selection>().state == 1?'التالي<<': "Next >>",
             style: TextStyle(
          
                 fontFamily: "PlayfairDisplay",

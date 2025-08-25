@@ -18,21 +18,19 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
 class Sinup extends StatelessWidget {
-  final BuildContext conte;
-   Sinup({super.key,  required this.conte });
+ 
+   Sinup({super.key});
 
   @override
   Widget build(BuildContext context) {
     var lang= context.read<Selection>().state==1?'ar':'en';
     // Get.lazyPut(()=> SinupcontrollerImp());
     SinupcontrollerImp controlle = Get.put(SinupcontrollerImp());
-    return Directionality(
-      textDirection:    lang== 'ar' ? TextDirection.rtl : TextDirection.ltr,
-      child: Scaffold(
+    return  Scaffold(
           // backgroundColor: AppColor.backgroundColor,
           body:
       // ignore: deprecated_member_use
-              Expanded(
+              Container(
                
                   child: GetBuilder<SinupcontrollerImp>(
                       builder: ((controller) => controlle.statusrequest ==
@@ -46,7 +44,7 @@ class Sinup extends StatelessWidget {
                                 ))
                               : Container(
                                   padding:
-                                      const EdgeInsets.symmetric(horizontal: 25),
+                                      const EdgeInsets.symmetric(horizontal: 15),
                                   child: Form(
                                     key: controller.formstate,
                                     child: ListView(children: [
@@ -54,12 +52,12 @@ class Sinup extends StatelessWidget {
                                         height: 60,
                                       ),
                                       Coustomtitleaouthsinup(
-                                          text: "Register Now"),
+                                          text: context.watch<Selection>().state == 1?'اشترك الآن': "Register Now"),
                                       const SizedBox(
                                         height: 40,
                                       ),
-                                      const customtextandphotosinup(
-                                        text: "  User Name  ",
+                                       customtextandphotosinup(
+                                        text:  context.watch<Selection>().state == 1?'اسم المستخدم': "  User Name  ",
                                         photo1: AppImageAsset.User_alt_light,
                                       ),
                                       const SizedBox(
@@ -71,15 +69,15 @@ class Sinup extends StatelessWidget {
                                               val!, 5, 30, "username");
                                         },
                                         mycontrller: controller.name,
-                                        hintText: "Enter your user Name",
+                                        hintText:  context.watch<Selection>().state == 1?'ادخل اسم المستخدم':"Enter your user Name",
                                         leabeltext: "User Name",
                                         isnumber: false,
                                       ),
                                       const SizedBox(
                                         height: 10,
                                       ),
-                                      const customtextandphotosinup(
-                                        text: "  your email  ",
+                                       customtextandphotosinup(
+                                        text: context.watch<Selection>().state == 1?'ايميلك':  "  your email  ",
                                         photo1: AppImageAsset.Message_light,
                                       ),
                                       const SizedBox(
@@ -94,8 +92,8 @@ class Sinup extends StatelessWidget {
                                         isnumber: false,
                                       ),
                                       const SizedBox(height: 10),
-                                      const customtextandphotosinup(
-                                        text: "  number your phone  ",
+                                       customtextandphotosinup(
+                                        text:  context.watch<Selection>().state == 1?'رقم جوالك':"  number your phone  ",
                                         photo1: AppImageAsset.solar_phone_outline,
                                       ),
                                       const SizedBox(
@@ -109,8 +107,8 @@ class Sinup extends StatelessWidget {
                                         isnumber: true,
                                       ),
                                       const SizedBox(height: 10),
-                                      const customtextandphotosinup(
-                                        text: "  password  ",
+                                       customtextandphotosinup(
+                                        text: context.watch<Selection>().state == 1?'كلمة المرور': "  password  ",
                                         photo1: AppImageAsset
                                             .Chield_check_duotone_line,
                                       ),
@@ -129,20 +127,20 @@ class Sinup extends StatelessWidget {
                                                 val!, 5, 30, "password");
                                           },
                                           mycontrller: controlle.password,
-                                          hintText: "Enter your password",
+                                          hintText:  context.watch<Selection>().state == 1?'ادخل كلمة المرور ' : "Enter your password",
                                           iconData:
                                               controlle.isshowpassword == true
                                                   ? Icons.visibility_off_outlined
                                                   : Icons.visibility_outlined,
-                                          leabeltext: "password",
+                                          leabeltext:  context.watch<Selection>().state == 1?'كلمة المرور':"password",
                                           isnumber: true,
                                         ),
                                       ),
                                       const SizedBox(
                                         height: 10,
                                       ),
-                                      const customtextandphotosinup(
-                                        text: "  password  ",
+                                       customtextandphotosinup(
+                                        text:  context.watch<Selection>().state == 1?'كلمة المرور': "  password  ",
                                         photo1: AppImageAsset
                                             .Chield_check_duotone_line,
                                       ),
@@ -171,10 +169,10 @@ class Sinup extends StatelessWidget {
                                       ),
                                       const SizedBox(height: 30),
                                       Custombuttion_sinup(
-                                          text: "Register",
+                                          text: context.watch<Selection>().state == 1?'اشتراك': "Register",
                                           icon1: Icons.person_add,
                                           onPressed: () {
-                                            controller.gotoverfaicode(conte);
+                                            controller.gotoverfaicode();
                                           }),
                                       const SizedBox(
                                         height: 30,
@@ -193,15 +191,15 @@ class Sinup extends StatelessWidget {
                                             ),
                                             Customtextsininandsinup(
                                                 textone:
-                                                    "if you aleady have an account  ",
-                                                texttow: "Log in",
+                                                  context.watch<Selection>().state == 1?'إذا كان لديك حساب بالفعل؟':  "if you aleady have an account  ",
+                                                texttow: context.watch<Selection>().state == 1?'سجل دخول':"Log in",
                                                 onTap: () {
                                                  Get.to(login());
                                                 })
                                           ])
                                     ]),
                                   ),
-                                ))))),
-    );
+                                )))))
+    ;
   }
 }

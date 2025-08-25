@@ -17,7 +17,7 @@ class Costombodyverfaicode extends StatelessWidget {
         style: const TextStyle(
           color: AppColor.lightgrey,
 
-          fontSize: 16,
+
           // fontFamily: "PlayfairDisplay"
         ),
       ),
@@ -27,7 +27,7 @@ class Costombodyverfaicode extends StatelessWidget {
         style: const TextStyle(
           color: AppColor.lightblue,
 
-          fontSize: 16,
+
           // fontFamily: "PlayfairDisplay"
         ),
       )

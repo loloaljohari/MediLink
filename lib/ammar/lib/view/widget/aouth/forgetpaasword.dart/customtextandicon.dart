@@ -20,7 +20,7 @@ class customtextandphoto extends StatelessWidget {
 
         Text(
           text,
-          style: TextStyle(fontSize: 16, color: AppColor.dark),
+          style: TextStyle(),
         ),
       ],
     );

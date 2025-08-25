@@ -13,7 +13,7 @@ class Coustomtitleaouthsinup extends StatelessWidget {
         text,
         textAlign: TextAlign.center,
         style: TextStyle(
-          fontSize: 32,
+
           // fontFamily: "PlayfairDisplay",
           fontWeight: FontWeight.bold,
           color: AppColor.lightblue,

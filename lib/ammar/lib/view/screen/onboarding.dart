@@ -8,8 +8,11 @@ import 'package:MediLink/ammar/lib/view/widget/onbording/customclipar.dart';
 import 'package:MediLink/ammar/lib/view/widget/onbording/dotcontrolere.dart';
 import 'package:MediLink/lojain/View/Home/HomePages.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../../lojain/Controllers/onboarding/SelectionLang.dart';
 
 class onBording extends StatelessWidget {
   const onBording({super.key});
@@ -70,7 +73,7 @@ class onBording extends StatelessWidget {
                               '$current/3',
                               style: const TextStyle(
                                 // fontWeight: FontWeight.bold,
-                                fontSize: 17,
+
                               ),
                             ),
                           ),
@@ -89,9 +92,10 @@ class onBording extends StatelessWidget {
                      sharedPreferences.setBool('firstopen', false);
                       Get.offAll(HomePages());
                     },
-                    child:const Text(
-                      "Skip",
-                      style: TextStyle(fontSize: 20, color: AppColor.lightblue),
+                    child: Text(
+                   context.watch<Selection>().state == 1
+                                    ? 'تخطي':    "Skip",
+                      style: TextStyle(color: AppColor.lightblue),
                     ),
                   ))
             ],

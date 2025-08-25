@@ -15,8 +15,8 @@ class Coustomtitlesucssful extends StatelessWidget {
         text,
         textAlign: TextAlign.center,
         style: TextStyle(
-          fontSize: 24,
-          color: AppColor.lightdark,
+
+          // color: AppColor.lightdark,
         ),
       ),
    const   SizedBox(
@@ -27,7 +27,7 @@ class Coustomtitlesucssful extends StatelessWidget {
         textAlign: TextAlign.center,
         style: const TextStyle(
           color: AppColor.lightgrey,
-          fontSize: 16,
+
         ),
       )
     ]));

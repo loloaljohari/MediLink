@@ -108,7 +108,7 @@ class MyProfile extends StatelessWidget {
                     backgroundColor: WidgetStatePropertyAll(Color.fromRGBO(38, 115, 221, 1))
                   ),
                     onPressed: () {
-                      Get.to( Sinup(conte: context,));
+                      Get.to( Sinup());
                     },
                     child:  Text(context.watch<Selection>().state == 1
                                     ? ' اشترك':  'Register',style: TextStyle(color: Colors.white),));

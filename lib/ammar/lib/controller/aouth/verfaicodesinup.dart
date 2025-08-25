@@ -11,7 +11,7 @@ import '../../view/screen/aouth/sucssfulsinup.dart';
 
 abstract class Verficodesinupcontrolar extends GetxController {
   chieck();
-  gotosussifulsinup(BuildContext context);
+  gotosussifulsinup();
   back1();
   resendVerificationCode();
 }
@@ -30,7 +30,7 @@ class VerficodesinupcontrolarImp extends Verficodesinupcontrolar {
   chieck() {}
 
   @override
-  gotosussifulsinup( BuildContext context) async {
+  gotosussifulsinup( ) async {
     if (otp.isEmpty) {
       Get.defaultDialog(
         title: "تنبيه",
@@ -59,7 +59,7 @@ class VerficodesinupcontrolarImp extends Verficodesinupcontrolar {
           message == "Registration successful!" ||
           message.toString().toLowerCase().contains("success")) {
         Get.snackbar("نجاح", "تم التحقق بنجاح ✅");
-        Get.off(Sucssfolsinup(context1: context,));
+        Get.off(Sucssfolsinup());
       } else if (message == "انتهت صلاحية الجلسة، يرجى إعادة المحاولة." ||
           message == "Session expired. Please try again.") {
         Get.defaultDialog(

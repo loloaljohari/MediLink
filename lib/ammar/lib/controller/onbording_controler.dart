@@ -20,9 +20,10 @@ class OnbordingcontrolerImp extends Onbordingcontroler {
 
   @override
   next() async{
+    
     currenpage++;
 
-    if (currenpage > onBordinglist.length - 1) {
+    if (currenpage > 2) {
       myservices.sharedPreferences.setString("onbording", "1");
        SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
        sharedPreferences.setBool('firstopen', false);
@@ -51,7 +52,7 @@ class OnbordingcontrolerImp extends Onbordingcontroler {
   back() {
     currenpage--;
 
-    if (currenpage > onBordinglist.length + 1) {
+    if (currenpage > 4) {
       myservices.sharedPreferences.setString("onbording", "1");
     } else {
       pageController.animateToPage(currenpage,

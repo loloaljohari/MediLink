@@ -20,7 +20,7 @@ class customtextandicon extends StatelessWidget {
         ),
         Text(
           text,
-          style: TextStyle(fontSize: 16, color: AppColor.lightdark),
+          style: TextStyle(),
         ),
       ],
     );

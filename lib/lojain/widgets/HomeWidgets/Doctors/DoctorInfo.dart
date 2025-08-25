@@ -824,7 +824,7 @@ class DoctorInfo extends StatelessWidget {
                                                 TextButton(
                                                     onPressed: () {
                                                       Get.to(Sinup(
-                                                          conte: context));
+                                                      ));
                                                     },
                                                     child: Text('register'))
                                               ],

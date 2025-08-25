@@ -28,7 +28,7 @@
 //   textColor: Colors.white,
 //   onPressed:onPressed
 // ,child: Text(textbuton,style:
-//  const TextStyle(fontSize:20,fontWeight: FontWeight.bold , fontFamily: "PlayfairDisplay"),),)
+//  const TextStyle(fontWeight: FontWeight.bold , fontFamily: "PlayfairDisplay"),),)
 
 
 

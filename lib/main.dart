@@ -140,79 +140,84 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
-    return BlocBuilder<SelectionTheme, int?>(
-      builder: (context, theme) {
-        return BlocBuilder<Selection, int?>(
-          builder: (context, lang) {
-            return GetMaterialApp(
-              locale: lang == 1 ? const Locale("ar") : const Locale("en"),
-              supportedLocales: [Locale("en"), Locale("ar")],
-              localizationsDelegates: [
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-              ],
-              theme: theme == 3
-                  ? ThemeData.dark().copyWith(
-                      textTheme: ThemeData.light()
-                          .textTheme
-                          .apply(bodyColor: Colors.white),
-                      scaffoldBackgroundColor: Colors.black,
-                      appBarTheme: AppBarTheme(color: Colors.black),
-                      cardColor: Color.fromRGBO(34, 34, 34, 1),
-                      canvasColor: Colors.white)
-                  : ThemeData.light().copyWith(
-                      scaffoldBackgroundColor: Colors.white,
-                      appBarTheme: AppBarTheme(color: Colors.white),
-                      cardColor: const Color.fromRGBO(221, 221, 221, 1),
-                      canvasColor: Colors.black,
-                      textTheme: ThemeData.light()
-                          .textTheme
-                          .apply(bodyColor: Colors.black)),
-              debugShowCheckedModeBanner: false,
-              initialBinding: initialBindings(),
-              getPages: routes,
-              builder: (context, child) {
-                return Directionality(
-                    textDirection:
-                        lang == 1 ? TextDirection.rtl : TextDirection.ltr,
-                    child: child!);
+    return BlocBuilder<DropdownCubit, DropdownState?>(
+      builder: (context, type) {
+        return BlocBuilder<SelectionTheme, int?>(
+          builder: (context, theme) {
+            return BlocBuilder<Selection, int?>(
+              builder: (context, lang) {
+                return GetMaterialApp(
+                  locale: lang == 1 ? const Locale("ar") : const Locale("en"),
+                  supportedLocales: [Locale("en"), Locale("ar")],
+                  localizationsDelegates: [
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                  ],
+                  theme: theme == 3
+                      ? ThemeData.dark().copyWith(
+                          textTheme: ThemeData.light().textTheme.apply(
+                                bodyColor: Colors.white,
+                              ),
+                          scaffoldBackgroundColor: Colors.black,
+                          appBarTheme: AppBarTheme(color: Colors.black),
+                          cardColor: Color.fromRGBO(34, 34, 34, 1),
+                          canvasColor: Colors.white)
+                      : ThemeData.light().copyWith(
+                          textTheme: ThemeData.light()
+                              .textTheme
+                              .apply(bodyColor: Colors.black),
+                          scaffoldBackgroundColor: Colors.white,
+                          appBarTheme: AppBarTheme(color: Colors.white),
+                          cardColor: const Color.fromRGBO(221, 221, 221, 1),
+                          canvasColor: Colors.black,
+                        ),
+                  debugShowCheckedModeBanner: false,
+                  initialBinding: initialBindings(),
+                  getPages: routes,
+                  builder: (context, child) {
+                    return Directionality(
+                        textDirection:
+                            lang == 1 ? TextDirection.rtl : TextDirection.ltr,
+                        child: child!);
+                  },
+                  home: MaterialApp(
+                    locale: lang == 1 ? const Locale("ar") : const Locale("en"),
+                    supportedLocales: [Locale("en"), Locale("ar")],
+                    localizationsDelegates: [
+                      GlobalMaterialLocalizations.delegate,
+                      GlobalWidgetsLocalizations.delegate,
+                    ],
+                    theme: theme == 3
+                        ? ThemeData.dark().copyWith(
+                            textTheme: ThemeData.light()
+                                .textTheme
+                                .apply(bodyColor: Colors.white),
+                            scaffoldBackgroundColor: Colors.black,
+                            appBarTheme: AppBarTheme(color: Colors.black),
+                            cardColor: Color.fromRGBO(34, 34, 34, 1),
+                            canvasColor: Colors.white)
+                        : ThemeData.light().copyWith(
+                            scaffoldBackgroundColor: Colors.white,
+                            appBarTheme: AppBarTheme(color: Colors.white),
+                            cardColor: const Color.fromRGBO(221, 221, 221, 1),
+                            canvasColor: Colors.black,
+                            textTheme: ThemeData.light()
+                                .textTheme
+                                .apply(bodyColor: Colors.black)),
+                    debugShowCheckedModeBanner: false,
+                    builder: (context, child) {
+                      return Directionality(
+                          textDirection:
+                              lang == 1 ? TextDirection.rtl : TextDirection.ltr,
+                          child: child!);
+                    },
+                    home: Directionality(
+                        textDirection:
+                            lang == 1 ? TextDirection.rtl : TextDirection.ltr,
+                        child: Splashscreen()),
+                  ),
+                );
               },
-              home: MaterialApp(
-                locale: lang == 1 ? const Locale("ar") : const Locale("en"),
-                supportedLocales: [Locale("en"), Locale("ar")],
-                localizationsDelegates: [
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                ],
-                theme: theme == 3
-                    ? ThemeData.dark().copyWith(
-                        textTheme: ThemeData.light()
-                            .textTheme
-                            .apply(bodyColor: Colors.white),
-                        scaffoldBackgroundColor: Colors.black,
-                        appBarTheme: AppBarTheme(color: Colors.black),
-                        cardColor: Color.fromRGBO(34, 34, 34, 1),
-                        canvasColor: Colors.white)
-                    : ThemeData.light().copyWith(
-                        scaffoldBackgroundColor: Colors.white,
-                        appBarTheme: AppBarTheme(color: Colors.white),
-                        cardColor: const Color.fromRGBO(221, 221, 221, 1),
-                        canvasColor: Colors.black,
-                        textTheme: ThemeData.light()
-                            .textTheme
-                            .apply(bodyColor: Colors.black)),
-                debugShowCheckedModeBanner: false,
-                builder: (context, child) {
-                  return Directionality(
-                      textDirection:
-                          lang == 1 ? TextDirection.rtl : TextDirection.ltr,
-                      child: child!);
-                },
-                home: Directionality(
-                    textDirection:
-                        lang == 1 ? TextDirection.rtl : TextDirection.ltr,
-                    child: Splashscreen()),
-              ),
             );
           },
         );

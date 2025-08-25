@@ -33,7 +33,7 @@ class customtextandphotologin extends StatelessWidget {
         Text(
           text,
           style: TextStyle(
-              fontSize: 16, fontWeight: FontWeight.w400),
+              fontWeight: FontWeight.w400),
         ),
       ],
     );

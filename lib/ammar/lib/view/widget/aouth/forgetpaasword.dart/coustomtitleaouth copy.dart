@@ -15,8 +15,8 @@ class Coustomtitleforgetpassword extends StatelessWidget {
         text,
         textAlign: TextAlign.start,
         style: const TextStyle(
-          color: AppColor.lightdark,
-          fontSize: 20,
+          // color: AppColor.lightdark,
+
           fontWeight: FontWeight.w700,
         ),
       ),
@@ -32,7 +32,7 @@ class Coustomtitleforgetpassword extends StatelessWidget {
             style: const TextStyle(
               color: AppColor.lightgrey,
               fontWeight: FontWeight.w700,
-              fontSize: 16,
+
               // fontFamily: "PlayfairDisplay"
             ),
           )),

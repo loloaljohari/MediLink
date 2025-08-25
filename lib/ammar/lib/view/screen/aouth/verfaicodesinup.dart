@@ -9,13 +9,16 @@ import 'package:MediLink/ammar/lib/view/widget/aouth/forgetpaasword.dart/customb
 import 'package:MediLink/ammar/lib/view/widget/aouth/verfaicodesinup.dart/coustomtitleaouth.dart';
 import 'package:MediLink/ammar/lib/view/widget/aouth/verfaicodesinup.dart/custombody.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../../../../lojain/Controllers/onboarding/SelectionLang.dart';
+
 class Verfaicodesinup extends StatelessWidget {
-  final BuildContext context1;
-   Verfaicodesinup({super.key, required this.context1});
+  
+   Verfaicodesinup({super.key, });
 
   @override
   Widget build(BuildContext context) {
@@ -55,8 +58,8 @@ class Verfaicodesinup extends StatelessWidget {
                                   const SizedBox(
                                     height: 40,
                                   ),
-                                  const Coustomtitleaouthverfaicode(
-                                      text: "We just send an massege"),
+                                   Coustomtitleaouthverfaicode(
+                                      text:context.watch<Selection>().state == 1?'لقد أرسلنا للتو رسالة': "We just send an massege"),
 
                                   const SizedBox(
                                     height: 15,
@@ -64,7 +67,7 @@ class Verfaicodesinup extends StatelessWidget {
 
                                   Costombodyverfaicode(
                                       body:
-                                          "Enter the security code ,we send to",
+                                     context.watch<Selection>().state == 1?'أدخل رمز الأمان الذي أرسلناه إليك':     "Enter the security code ,we send to",
                                       body1: "${controller.email}"),
 
                                   const SizedBox(
@@ -74,7 +77,7 @@ class Verfaicodesinup extends StatelessWidget {
                                   OtpTextField(
                                     textStyle: TextStyle(
                                       // color: AppColor.white_number,
-                                      fontSize: 24,
+
                                       fontWeight: FontWeight.w700,
                                       height: 0.8,
                                     ),
@@ -102,10 +105,10 @@ class Verfaicodesinup extends StatelessWidget {
                                     height: 40,
                                   ),
                                   Custombuttionforgetpasssword(
-                                    text: "Verify",
+                                    text: context.watch<Selection>().state == 1?'تحقق':"Verify",
                                     photo: AppImageAsset.verfayi,
                                     onPressed: () {
-                                      controller.gotosussifulsinup(context1);
+                                      controller.gotosussifulsinup();
                                     },
                                   ),
 
@@ -124,10 +127,10 @@ class Verfaicodesinup extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
-                                        const Text(
-                                          "Didn’t receive code ?",
+                                         Text(
+                                         context.watch<Selection>().state == 1?'لم تتلقَ الرمز؟': "Didn’t receive code ?",
                                           style: TextStyle(
-                                            fontSize: 16,
+
                                             // color: Colors.black,
                                           ),
                                         ),
@@ -145,9 +148,9 @@ class Verfaicodesinup extends StatelessWidget {
                                             text: TextSpan(
                                               children: [
                                                 TextSpan(
-                                                  text: "Resend code",
+                                                  text: context.watch<Selection>().state == 1?'إعادة إرسال الرمز':"Resend code",
                                                   style: TextStyle(
-                                                    fontSize: 16,
+
                                                     color: seconds == 0
                                                         ? Colors.blue
                                                         : Colors
@@ -160,7 +163,7 @@ class Verfaicodesinup extends StatelessWidget {
                                                 TextSpan(
                                                   text: "  -  $formattedTime",
                                                   style: const TextStyle(
-                                                    fontSize: 16,
+
                                                     // color: Colors.black54,
                                                   ),
                                                 ),

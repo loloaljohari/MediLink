@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 abstract class Sinupcontroller extends GetxController {
-  gotoverfaicode(BuildContext context);
+  gotoverfaicode();
   gotologin();
 }
 
@@ -57,7 +57,7 @@ class SinupcontrollerImp extends Sinupcontroller {
 
 
   @override
-  gotoverfaicode(BuildContext context) async {
+  gotoverfaicode() async {
     if (formstate.currentState!.validate()) {
       statusrequest = Statusrequest.loding;
       update();
@@ -90,7 +90,7 @@ class SinupcontrollerImp extends Sinupcontroller {
           statusrequest = Statusrequest.success;
 
           Get.off(
-            Verfaicodesinup(context1: context,),
+            Verfaicodesinup(),
             arguments: {"email": email.text},
           );
         }

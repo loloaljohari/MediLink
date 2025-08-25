@@ -9,9 +9,11 @@ import 'package:MediLink/ammar/lib/view/widget/aouth/sinup/coustomformfild.dart'
 import 'package:MediLink/ammar/lib/view/widget/aouth/sinup/customtextandicon.dart';
 import 'package:MediLink/ammar/lib/view/widget/aouth/verfaicode.dart/coustomtitleaouth%20copy.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../../../../../lojain/Controllers/onboarding/SelectionLang.dart';
 import '../../../../core/functions/validinput.dart';
 
 class Restpassword extends StatelessWidget {
@@ -70,13 +72,13 @@ class Restpassword extends StatelessWidget {
                 height: 50,
               ),
               Coustomtitleverfaicode(
-                  text: "New password",
-                  text1: "Set a new password",
+                  text:context.watch<Selection>().state == 1?'كلمة مرور جديدة': "New password",
+                  text1:context.watch<Selection>().state == 1?'تعيين كلمة مرور جديدة': "Set a new password",
                   text2:
-                      "Create a new password. Ensure it differs from previous ones for security"),
+                 context.watch<Selection>().state == 1?'قم بإنشاء كلمة مرور جديدة. تأكد من أنها تختلف عن الكلمات السابقة من أجل الأمان':     "Create a new password. Ensure it differs from previous ones for security"),
               const SizedBox(height: 30),
-              const customtextandiconsinup(
-                  text: "  new password ", icon1: Icons.verified_user_outlined),
+               customtextandiconsinup(
+                  text:context.watch<Selection>().state == 1?'كلمة مرور جديدة': "  new password ", icon1: Icons.verified_user_outlined),
               SizedBox(
                 height: 10,
               ),
@@ -90,19 +92,19 @@ class Restpassword extends StatelessWidget {
                     return validInput(val!, 5, 30, "password");
                   },
                   mycontrller: controlle.password,
-                  hintText: "Enter your password",
+                  hintText:context.watch<Selection>().state == 1?'ادخل كلمة مرور جديدة': "Enter your password",
                   iconData: controlle.isshowpassword == true
                       ? Icons.visibility_off_outlined
                       : Icons.visibility_outlined,
-                  leabeltext: "password",
+                  leabeltext: context.watch<Selection>().state == 1?'كلمة مرور ': "password",
                   isnumber: true,
                 ),
               ),
               SizedBox(
                 height: 10,
               ),
-              const customtextandiconsinup(
-                  text: " confirm password  ",
+               customtextandiconsinup(
+                  text: context.watch<Selection>().state == 1?'تأكيد كلمة المرور':" confirm password  ",
                   icon1: Icons.verified_user_outlined),
               SizedBox(
                 height: 10,
@@ -127,7 +129,7 @@ class Restpassword extends StatelessWidget {
                 height: 20,
               ),
               Custombuttionforgetpasssword(
-                  text: "Reset Password",
+                  text: context.watch<Selection>().state == 1?'تعيين كلمة مرور ':"Reset Password",
                   photo: AppImageAsset.restpassword,
                   onPressed: () {
                     controlle.gotoSucsseful_Restpassword();

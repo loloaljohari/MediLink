@@ -7,11 +7,14 @@ import 'package:MediLink/ammar/lib/view/widget/aouth/forgetpaasword.dart/customb
 import 'package:MediLink/ammar/lib/view/widget/aouth/sinup/coustomtitleaouth%20copy.dart';
 import 'package:MediLink/ammar/lib/view/widget/aouth/sinup/photosucssful.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
+import '../../../../../lojain/Controllers/onboarding/SelectionLang.dart';
+
 class Sucssfolsinup extends StatelessWidget {
-final  BuildContext context1;
-   Sucssfolsinup({super.key, required this.context1});
+
+   Sucssfolsinup({super.key,});
 
   @override
   Widget build(BuildContext context) {
@@ -37,15 +40,15 @@ final  BuildContext context1;
             child: ListView(
               children: [
                 const SizedBox(height: 70),
-                const Coustomtitlesucssful(
-                  text: "Successfully",
-                  text1: "your code has been success",
+                 Coustomtitlesucssful(
+                  text:context.watch<Selection>().state == 1?'بنجاح': "Successfully",
+                  text1:context.watch<Selection>().state == 1?'لقد نجح رمزك': "your code has been success",
                 ),
                 const SizedBox(height: 40),
                 Photosucssful(),
                 const SizedBox(height: 60),
                 Custombuttionforgetpasssword(
-                    text: "Continue",
+                    text: context.watch<Selection>().state == 1?'استمر': "Continue",
                     photo: AppImageAsset.sucssful_icon,
                     onPressed: () {
                       Get.offAll(login());
