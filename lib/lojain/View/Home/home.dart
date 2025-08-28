@@ -2,8 +2,11 @@ import 'package:MediLink/ammar/lib/view/screen/aouth/sinup.dart';
 import 'package:MediLink/lojain/Controllers/home/NavigationCubit.dart';
 import 'package:MediLink/lojain/Controllers/onboarding/SelectionTheme.dart';
 import 'package:MediLink/lojain/Static/Static.dart';
+import 'package:MediLink/lojain/View/Home/Notificationspage.dart';
 import 'package:MediLink/lojain/View/Home/viewAllNearestDate.dart';
 import 'package:MediLink/lojain/models/Doctors/getDoctors.dart';
+import 'package:MediLink/lojain/models/Notifications/getallnotfications.dart';
+import 'package:MediLink/lojain/models/Notifications/postreadNot.dart';
 import 'package:MediLink/lojain/models/Proflie/getProfile.dart';
 import 'package:MediLink/lojain/widgets/HomeWidgets/Doctors/doctorWidget.dart';
 import 'package:MediLink/lojain/widgets/HomeWidgets/home/theNearestDate.dart';
@@ -22,6 +25,7 @@ class Home extends StatelessWidget {
     context.read<GetprofileCubit>().fetchProfile();
     context.read<GetNearestdateCubit>().fetchProfile();
     context.read<GetDoctorsCubit>().fetchProfile();
+    context.read<GetnotficationsCubit>().fetch();
     DateTime now = DateTime.now();
     String timeOfDay;
 
@@ -40,10 +44,12 @@ class Home extends StatelessWidget {
               BlocBuilder<GetprofileCubit, GetProfileState>(
                   builder: (context, state) {
                 if (state is GetProfileLoading) {
-                  return  Align(
+                  return Align(
                     alignment: Alignment.centerLeft,
                     child: CircularProgressIndicator(
-                       color:  context.watch<SelectionTheme>().state==3?Colors.white :Colors.black ,
+                      color: context.watch<SelectionTheme>().state == 3
+                          ? Colors.white
+                          : Colors.black,
                     ),
                   );
                 } else if (state is GetProfileLoaded) {
@@ -96,9 +102,7 @@ class Home extends StatelessWidget {
                             backgroundColor: WidgetStatePropertyAll(
                                 Color.fromRGBO(38, 115, 221, 1))),
                         onPressed: () {
-                          Get.to(Sinup(
-                          
-                          ));
+                          Get.to(Sinup());
                         },
                         child: Text(
                           context.watch<Selection>().state == 1
@@ -133,13 +137,54 @@ class Home extends StatelessWidget {
                 }
                 return const SizedBox();
               }),
-              IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.notifications_active_outlined,
-                    color: Color.fromRGBO(37, 111, 213, 0.964),
-                    size: 30,
-                  ))
+              BlocBuilder<GetnotficationsCubit, GetnotficationsState>(
+                builder: (context, state) {
+                  if (state is GetnotficationsLoaded) {
+                    return IconButton(
+                        onPressed: () async {
+                          bool issecc =
+                              await context.read<PostreadNot>().post();
+                          if (issecc) {
+                            Get.to(Notificationspage());
+                          } else {
+                            print('error');
+                          }
+                        },
+                        icon: SizedBox(
+                          child: Stack(
+                            alignment: Alignment.topLeft,
+                            children: [
+                              Icon(
+                                Icons.notifications_active_outlined,
+                                color: Color.fromRGBO(37, 111, 213, 0.964),
+                                size: 34,
+                              ),
+                              state.notifications['data'].length == 0
+                                  ? SizedBox()
+                                  : SizedBox(
+                                      child: Container(
+                                        width: 18,
+                                        height: 18,
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Colors.red),
+                                        child: Padding(
+                                          padding: EdgeInsets.only(bottom: 3,left: 4),
+                                            child: Text(
+                                                '${state.notifications['data'].length}')),
+                                      ),
+                                    ),
+                            ],
+                          ),
+                        ));
+                  } else
+                    return Icon(
+                      Icons.notifications_active_outlined,
+                      color: Color.fromRGBO(37, 111, 213, 0.964),
+                      size: 34,
+                    );
+                },
+              )
             ],
           ),
         ),
@@ -155,7 +200,7 @@ class Home extends StatelessWidget {
                 children: [
                   Image.asset('images/Vector0.png'),
                   Padding(
-                    padding: EdgeInsets.only(left: 8.0,right: 8),
+                    padding: EdgeInsets.only(left: 8.0, right: 8),
                     child: Text(
                       context.watch<Selection>().state == 1
                           ? 'كيف تشعر اليوم؟'
@@ -204,7 +249,9 @@ class Home extends StatelessWidget {
                 if (state is GetNearestdateLoading) {
                   return Center(
                       child: CircularProgressIndicator(
-                      color:  context.watch<SelectionTheme>().state==3?Colors.white :Colors.black ,
+                    color: context.watch<SelectionTheme>().state == 3
+                        ? Colors.white
+                        : Colors.black,
                   ));
                 } else if (state is GetNearestdateLoaded) {
                   return state.dates['appointment'] == null
@@ -235,8 +282,10 @@ class Home extends StatelessWidget {
                                     onPressed: () {
                                       Get.to(ViewAllNearestDate());
                                     },
-                                    child:  Text(
-                                      context.watch<Selection>().state==1? 'عرض الكل': 'view all',
+                                    child: Text(
+                                        context.watch<Selection>().state == 1
+                                            ? 'عرض الكل'
+                                            : 'view all',
                                         style: TextStyle(
                                             color:
                                                 Color.fromRGBO(38, 115, 221, 1),
@@ -274,8 +323,10 @@ class Home extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Image.asset('images/Vector13.png'),
                 ),
-                 Text(
-                context.watch<Selection>().state==1 ?'الأطباء المتاحين':  'Available Doctor',
+                Text(
+                  context.watch<Selection>().state == 1
+                      ? 'الأطباء المتاحين'
+                      : 'Available Doctor',
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
                     fontSize: 20,
@@ -290,7 +341,10 @@ class Home extends StatelessWidget {
                         onPressed: () {
                           context.read<NavigationCubit>().changePage(2);
                         },
-                        child:  Text( context.watch<Selection>().state==1?'عرض الكل': 'view all',
+                        child: Text(
+                            context.watch<Selection>().state == 1
+                                ? 'عرض الكل'
+                                : 'view all',
                             style: TextStyle(
                                 color: Color.fromRGBO(38, 115, 221, 1),
                                 fontWeight: FontWeight.w400,
@@ -304,7 +358,9 @@ class Home extends StatelessWidget {
                 if (state is GetDoctorsLoading) {
                   return Center(
                     child: CircularProgressIndicator(
-                      color:  context.watch<SelectionTheme>().state==3?Colors.white :Colors.black ,
+                      color: context.watch<SelectionTheme>().state == 3
+                          ? Colors.white
+                          : Colors.black,
                     ),
                   );
                 } else if (state is GetDoctorsLoaded) {
@@ -320,9 +376,12 @@ class Home extends StatelessWidget {
                           imageDoctor: state.doctors['data'][index]["photo"],
                           medSpecialty:
                               '${state.doctors['data'][index]['specialization']}',
-                          namedoctor:
-   context.watch<Selection>().state==1? 'د. ${state.doctors['data'][index]['name']}':  'Dr. ${state.doctors['data'][index]['name']}',
-                          star: '  ${state.doctors['data'][index]['rating']}',
+                          namedoctor: context.watch<Selection>().state == 1
+                              ? 'د. ${state.doctors['data'][index]['name']}'
+                              : 'Dr. ${state.doctors['data'][index]['name']}',
+                          star: state.doctors['data'][index]['rating'] == null
+                              ? '  0'
+                              : '  ${state.doctors['data'][index]['rating']}',
                         );
                       },
                     )),

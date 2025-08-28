@@ -1,6 +1,7 @@
 import 'package:MediLink/lojain/Controllers/onboarding/SelectionTheme.dart';
 import 'package:MediLink/lojain/View/Home/HomePages.dart';
 import 'package:MediLink/lojain/models/Aouth/changeAccount.dart';
+import 'package:MediLink/lojain/models/Aouth/postToken.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -172,14 +173,25 @@ class _ChangeacountState extends State<Changeacount> {
                           email: email.text,
                           password: password.text,
                           password_confirmation: password_confirmation.text);
-                           if (s) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            backgroundColor: Color.fromRGBO(20, 210, 86, 1),
-                            content: Text('success'),
-                          ),
-                        );
-                        Get.offAll(HomePages());
+                      if (s) {
+                        var posttoken = await context.read<PostToken>().post();
+                        if (posttoken) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              backgroundColor: Color.fromRGBO(20, 210, 86, 1),
+                              content: Text('success'),
+                            ),
+                          );
+
+                          Get.offAll(HomePages());
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              backgroundColor: Color.fromRGBO(210, 48, 20, 1),
+                              content: Text('error to send token'),
+                            ),
+                          );
+                        }
                       } else
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(

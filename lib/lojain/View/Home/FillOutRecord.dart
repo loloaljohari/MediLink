@@ -1,4 +1,5 @@
 import 'package:MediLink/lojain/models/record/FillOutRecord/postAllinfornation.dart';
+import 'package:MediLink/lojain/widgets/HomeWidgets/Doctors/DoctorInfo.dart';
 import 'package:MediLink/lojain/widgets/HomeWidgets/FillOutRecord/FillOutSensitivity.dart';
 import 'package:MediLink/lojain/widgets/HomeWidgets/FillOutRecord/FillOutmedicine.dart';
 import 'package:MediLink/lojain/widgets/HomeWidgets/FillOutRecord/FilloutMedicalexaminations.dart';
@@ -16,10 +17,11 @@ import '../../Controllers/onboarding/SelectionLang.dart';
 
 class FillOutRecord extends StatelessWidget {
   final cont;
-  FillOutRecord({Key? key, this.cont}) : super(key: key);
+  final id;
+  FillOutRecord({Key? key, this.cont ,required this. id}) : super(key: key);
 
   final GlobalKey<ScaffoldState> scaffold = GlobalKey<ScaffoldState>();
-  Future<void> showMyDialog(BuildContext context) async {
+  Future<void> showMyDialog(BuildContext context ,id) async {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
@@ -89,7 +91,7 @@ class FillOutRecord extends StatelessWidget {
                           backgroundColor: Colors.green,
                           duration: Duration(seconds: 2),
                         ));
-                        Navigator.popUntil(cont, (route) => route.isFirst,);
+                      Get.off(DoctorInfo(id: id));
                       } else {
                         // ignore: use_build_context_synchronously
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -183,7 +185,7 @@ class FillOutRecord extends StatelessWidget {
                     backgroundColor: WidgetStatePropertyAll(
                         Color.fromRGBO(15, 102, 222, 1))),
                 onPressed: () async {
-                  showMyDialog(context);
+                  showMyDialog(context,id);
                 },
                 child: Text(
                context.watch<Selection>().state == 1 ? 'حفظ كل المعلومات' :   'save all information ',

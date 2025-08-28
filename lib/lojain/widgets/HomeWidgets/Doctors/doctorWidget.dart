@@ -25,7 +25,7 @@ class DoctorWidget extends StatelessWidget {
             
             PageRouteBuilder(
               pageBuilder: (context, animation, secondaryAnimation) =>
-                  DoctorInfo(id:id),
+                  DoctorInfo(id:id,star:star),
               transitionDuration: Duration(milliseconds: 300),
               transitionsBuilder:
                   (context, animation, secondaryAnimation, child) {

@@ -25,7 +25,11 @@ import 'package:MediLink/lojain/models/Doctors/getDoctors.dart';
 import 'package:MediLink/lojain/models/Doctors/getTimes.dart';
 import 'package:MediLink/lojain/models/Doctors/postArriveClinic.dart';
 import 'package:MediLink/lojain/models/Doctors/postBook.dart';
+import 'package:MediLink/lojain/models/Notifications/getallnotfications.dart';
+import 'package:MediLink/lojain/models/Notifications/postreadNot.dart';
 import 'package:MediLink/lojain/models/Proflie/updateProfile.dart';
+import 'package:MediLink/lojain/models/Visits/getPrescriotions.dart';
+import 'package:MediLink/lojain/models/Visits/getallvisits.dart';
 import 'package:MediLink/lojain/models/alarm/deleteAlarm.dart';
 import 'package:MediLink/lojain/models/alarm/getAlarms.dart';
 import 'package:MediLink/lojain/models/alarm/postalarm.dart';
@@ -51,6 +55,8 @@ import 'dart:ui';
 import 'lojain/Controllers/record/checkAddictions.dart';
 import 'lojain/Controllers/services/DropdownCubit.dart';
 import 'lojain/models/Proflie/getProfile.dart';
+import 'lojain/models/Visits/getLastvisit.dart';
+import 'lojain/models/Visits/postEvaluate.dart';
 import 'lojain/models/record/Getpatientrecord/Sensitivitymodel.dart';
 import 'lojain/models/record/Getpatientrecord/medicalFilemodel.dart';
 import 'lojain/models/record/Getpatientrecord/medicinemodel.dart';
@@ -76,12 +82,19 @@ void main() async {
 // Alarm
   await initialservices();
   await Alarm.init();
-  Alarm.stopAll();
+
   print(Alarm.getAlarms());
 
   runApp(
     MultiBlocProvider(
       providers: [
+        BlocProvider(create: (context) => GetallnotficationsCubit()),
+         BlocProvider(create: (context) => GetPrescriotionsCubit()),
+        BlocProvider(create: (context) => GetnotficationsCubit()),
+        BlocProvider(create: (context) => PostEvaluate()),
+        BlocProvider(create: (context) => PostreadNot()),
+        BlocProvider(create: (context) => GetLastvisitCubit()),
+        BlocProvider(create: (context) => GetallvisitsCubit()),
         BlocProvider(create: (context) => GetDoctorsCubit()),
         BlocProvider(create: (context) => GetAllNearestdateCubit()),
         BlocProvider(create: (context) => ChangeAccount()),

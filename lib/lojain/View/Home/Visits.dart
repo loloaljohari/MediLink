@@ -1,24 +1,133 @@
+import 'package:MediLink/lojain/Controllers/onboarding/SelectionTheme.dart';
 import 'package:MediLink/lojain/Controllers/record/SliderValueCubit.dart';
+import 'package:MediLink/lojain/models/Visits/getallvisits.dart';
+import 'package:MediLink/lojain/models/Visits/postEvaluate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 
 import '../../Controllers/onboarding/SelectionLang.dart';
 
 class Visits extends StatelessWidget {
   Visits({Key? key}) : super(key: key);
 
-  final sliderCubit1 = SliderValueCubit();
-
-  final sliderCubit2 = SliderValueCubit();
-
-  final sliderCubit3 = SliderValueCubit();
-
-  final sliderCubit4 = SliderValueCubit();
   @override
   Widget build(BuildContext context) {
+    context.read<GetallvisitsCubit>().fetchProfile();
+    return Scaffold(
+        appBar: AppBar(
+          leading: InkWell(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: const Icon(
+              Icons.arrow_back_ios_new,
+              color: Color.fromRGBO(38, 115, 221, 1),
+            ),
+          ),
+          title: Padding(
+            padding: EdgeInsets.only(left: 100, right: 100),
+            child: Text(
+              context.watch<Selection>().state == 1 ? 'الزيارات' : 'Visits',
+              // style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ),
+        body: BlocBuilder<GetallvisitsCubit, GetallvisitsState>(
+          builder: (context, state) {
+         if(state is GetallvisitsLoading){
+          return  Center(
+            child: CircularProgressIndicator(
+              color:  context .watch<SelectionTheme>().state==3? Colors.white:Colors.black,
+            ),
+          );
+         }
+          else  if (state is GetallvisitsLoaded) {
+
+              if (state.visits['data'].length!=0) {
+                return Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: ListView.builder(
+                    itemCount: state.visits['data'].length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.symmetric(vertical: 5.0),
+                        child: Column(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                Get.to(evaluate(
+                                    id: state.visits['data'][index]['id'],
+                                    doctorname: state.visits['data'][index]
+                                        ['doctor']['name'],
+                                    date: state.visits['data'][index]['date']));
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.blue,
+                                    borderRadius: BorderRadius.circular(20)),
+                                child: ListTile(
+                                  title: Text(
+                                    " ${index + 1}. ${state.visits['data'][index]['type']}",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20),
+                                  ),
+                                  subtitle: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w300,
+                                              fontSize: 12),
+                                          state.visits['data'][index]['doctor']
+                                              ['name']),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Divider(),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                );
+              } else
+                return Text('empty');
+            } else
+              return SizedBox();
+          },
+        ));
+  }
+}
+
+class evaluate extends StatelessWidget {
+  final id;
+  final doctorname;
+  final date;
+  const evaluate(
+      {super.key,
+      required this.id,
+      required this.doctorname,
+      required this.date});
+
+  @override
+  Widget build(BuildContext context) {
+    final sliderCubit1 = SliderValueCubit();
+
+    final sliderCubit2 = SliderValueCubit();
+
+    final sliderCubit3 = SliderValueCubit();
+
+    final sliderCubit4 = SliderValueCubit();
     return Scaffold(
       appBar: AppBar(
-        
         leading: InkWell(
           onTap: () {
             Navigator.pop(context);
@@ -28,10 +137,10 @@ class Visits extends StatelessWidget {
             color: Color.fromRGBO(38, 115, 221, 1),
           ),
         ),
-        title:  Padding(
-          padding: EdgeInsets.only(left: 100,right: 100),
+        title: Padding(
+          padding: EdgeInsets.only(left: 100, right: 100),
           child: Text(
-           context.watch<Selection>().state==1?'الزيارات': 'Visits',
+            context.watch<Selection>().state == 1 ? 'تقييم' : 'Evaluate',
             // style: TextStyle(color: Colors.white),
           ),
         ),
@@ -60,18 +169,20 @@ class Visits extends StatelessWidget {
                         Column(
                           children: [
                             Text(
-                            context.watch<Selection>().state==1?'تاريخ المراجعة':  'Preview history',
+                              context.watch<Selection>().state == 1
+                                  ? 'تاريخ المراجعة'
+                                  : 'Preview history',
                               style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
-                                 ),
+                                fontSize: 12,
+                                fontWeight: FontWeight.w400,
+                              ),
                             ),
                             Text(
-                              '9 Nov , 2025',
+                            '${date}',
                               style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w400,
-                                ),
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                              ),
                             ),
                           ],
                         ),
@@ -85,11 +196,13 @@ class Visits extends StatelessWidget {
                               width: 10,
                             ),
                             Text(
-                             context.watch<Selection>().state==1?'تقييم': 'Evaluate',
+                              context.watch<Selection>().state == 1
+                                  ? 'تقييم'
+                                  : 'Evaluate',
                               style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w400,
-                                  ),
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                              ),
                             ),
                           ],
                         )
@@ -101,18 +214,20 @@ class Visits extends StatelessWidget {
                         Column(
                           children: [
                             Text(
-                          context.watch<Selection>().state==1?'الأقسام المعدلة':    'Edited Sections',
+                              context.watch<Selection>().state == 1
+                                  ? 'الأقسام المعدلة'
+                                  : 'Edited Sections',
                               style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
-                               ),
+                                fontSize: 12,
+                                fontWeight: FontWeight.w400,
+                              ),
                             ),
                             Text(
-                              '3 Sections',
+                              ' Sections',
                               style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w400,
-                                  ),
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                              ),
                             ),
                           ],
                         ),
@@ -133,11 +248,13 @@ class Visits extends StatelessWidget {
                               width: 10,
                             ),
                             Text(
-                              context.watch<Selection>().state==1?'د.amaar':'Dr.Ammar',
+                              context.watch<Selection>().state == 1
+                                  ? 'د.$doctorname'
+                                  : 'Dr.$doctorname',
                               style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w400,
-                    ),
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                              ),
                             ),
                           ],
                         )
@@ -149,178 +266,212 @@ class Visits extends StatelessWidget {
                   height: 10,
                 ),
                 GradientSliderBar(
-                  cubit: sliderCubit1,
-                  text: context.watch<Selection>().state==1?'مرحلة العلاج':'Treatment stage',
-                ),
-                GradientSliderBar(
                   cubit: sliderCubit2,
-                  text: context.watch<Selection>().state==1?'العلاج النهائي': 'Treatment final',
+                  text: context.watch<Selection>().state == 1
+                      ? 'العلاج النهائي'
+                      : 'Treatment final',
                 ),
                 GradientSliderBar(
                   cubit: sliderCubit3,
-                  text: context.watch<Selection>().state==1?'المعاملة': 'Handling',
+                  text: context.watch<Selection>().state == 1
+                      ? 'المعاملة'
+                      : 'Handling',
                 ),
                 GradientSliderBar(
                   cubit: sliderCubit4,
-                  text:context.watch<Selection>().state==1?'الخدمات': 'Services',
+                  text: context.watch<Selection>().state == 1
+                      ? 'الخدمات'
+                      : 'Services',
                 ),
-                Divider(
-                  
-                ),
+                Divider(),
                 BlocBuilder<SliderValueCubit, double>(
-                    bloc: sliderCubit1,
-                    builder: (context, val1) {
+                    bloc: sliderCubit2,
+                    builder: (context, val2) {
                       return BlocBuilder<SliderValueCubit, double>(
-                          bloc: sliderCubit2,
-                          builder: (context, val2) {
+                          bloc: sliderCubit3,
+                          builder: (context, val3) {
                             return BlocBuilder<SliderValueCubit, double>(
-                                bloc: sliderCubit3,
-                                builder: (context, val3) {
-                                  return BlocBuilder<SliderValueCubit, double>(
-                                      bloc: sliderCubit4,
-                                      builder: (context, val4) {
-                                        var per = (val1 + val2) * 0.3 +
-                                            val3 * 0.2 +
-                                            val4 * 0.2;
-                                        var per1 = per / 100;
-                                        return Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                bloc: sliderCubit4,
+                                builder: (context, val4) {
+                                  var per =
+                                      (val2) * 0.6 + val3 * 0.25 + val4 * 0.15;
+                                  var per1 = per / 100;
+                                  return Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                          context.watch<Selection>().state == 1
+                                              ? 'التقييم النهائي'
+                                              : 'Final Evaluate',
+                                          style: TextStyle(
+                                            color:
+                                                Color.fromRGBO(37, 125, 248, 1),
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.w400,
+                                          )),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Container(
+                                        height: 32,
+                                        width: double.infinity,
+                                        child: Stack(
+                                          alignment: Alignment.bottomLeft,
                                           children: [
-                                            Text(
-                                              context.watch<Selection>().state==1?'التقييم النهائي':'Final Evaluate',
-                                                style: TextStyle(
-                                                  color: Color.fromRGBO(
-                                                      37, 125, 248, 1),
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w400,
-                                                )),
-                                                SizedBox(height: 10,),
-                                            Container(
-                                              height: 32,
-                                              width: double.infinity,
-                                              child: Stack(
-                                                alignment: Alignment.bottomLeft,
-                                                children: [
-                                                  Positioned(
-                                                    left: 310 * (per1),
-                                                    bottom: 12,
-                                                    child: Container(
-                                                      height: 20,
-                                                      width: 30,
-                                                      child: Column(
-                                                        mainAxisSize: MainAxisSize.min,
-                                                        children: [
-                                                          Text('${per.toInt()}',
-                                                              style: TextStyle(
-                                                                  fontSize: 8,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w400)),
-                                                         ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                               
-                                                  Positioned(
-                                                    bottom: 1,
-                                                    left: 310 * (per1),
-                                                    child: Icon(
-                                                        Icons
-                                                            .arrow_drop_down_rounded,
-                                                        color: Colors.blue,
-                                                        size: 30),
-                                                  ),
-                                                 
-                                                  Positioned(
-                                                    left: 12,
-                                                    child: Container(
-                                                      height: 6,
-                                                      width: 310,
-                                                      decoration: BoxDecoration(
-                                                          color: Colors.white,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(6)),
-                                                    ),
-                                                  ),
-                                                  Positioned(
-                                                    left: 12,
-                                                    child: Container(
-                                                      height: 6,
-                                                      width: 310 * per1,
-                                                      child: Container(
-                                                        height: 6,
-                                                        width: 310,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                                gradient:
-                                                                    LinearGradient(
-                                                                  colors: [
-                                                                    Color
-                                                                        .fromRGBO(
-                                                                            175,
-                                                                            11,
-                                                                            11,
-                                                                            1),
-                                                                    Color
-                                                                        .fromRGBO(
-                                                                            255,
-                                                                            159,
-                                                                            26,
-                                                                            1),
-                                                                    Color
-                                                                        .fromRGBO(
-                                                                            16,
-                                                                            175,
-                                                                            11,
-                                                                            1),
-                                                                  ],
-                                                                ),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            6)),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
+                                            Positioned(
+                                              left: 310 * (per1),
+                                              bottom: 12,
+                                              child: Container(
+                                                height: 20,
+                                                width: 30,
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    Text('${per.toInt()}',
+                                                        style: TextStyle(
+                                                            fontSize: 8,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w400)),
+                                                  ],
+                                                ),
                                               ),
                                             ),
-                                            SizedBox(
-                                              height: 10,
+                                            Positioned(
+                                              bottom: 1,
+                                              left: 310 * (per1),
+                                              child: Icon(
+                                                  Icons.arrow_drop_down_rounded,
+                                                  color: Colors.blue,
+                                                  size: 30),
                                             ),
-                                            Directionality(
-                                              textDirection: TextDirection.ltr,
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.spaceAround,
-                                                children: [
-                                                  Image.asset(
-                                                    'images/🦆 emoji _angry face_.png',
-                                                    filterQuality:
-                                                        FilterQuality.high,
-                                                  ),
-                                                  Image.asset(
-                                                    'images/🦆 emoji _white frowning face_.png',
-                                                    filterQuality:
-                                                        FilterQuality.high,
-                                                  ),
-                                                  Image.asset(
-                                                    'images/image 1778.png',
-                                                    filterQuality:
-                                                        FilterQuality.high,
-                                                  ),
-                                                  Image.asset(
-                                                      'images/image 27.png'),
-                                                  Image.asset(
-                                                      'images/image 30.png'),
-                                                ],
+                                            Positioned(
+                                              left: 12,
+                                              child: Container(
+                                                height: 6,
+                                                width: 310,
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            6)),
                                               ),
-                                            )
+                                            ),
+                                            Positioned(
+                                              left: 12,
+                                              child: Container(
+                                                height: 6,
+                                                width: 310 * per1,
+                                                child: Container(
+                                                  height: 6,
+                                                  width: 310,
+                                                  decoration: BoxDecoration(
+                                                      gradient: LinearGradient(
+                                                        colors: [
+                                                          Color.fromRGBO(
+                                                              175, 11, 11, 1),
+                                                          Color.fromRGBO(
+                                                              255, 159, 26, 1),
+                                                          Color.fromRGBO(
+                                                              16, 175, 11, 1),
+                                                        ],
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              6)),
+                                                ),
+                                              ),
+                                            ),
                                           ],
-                                        );
-                                      });
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Directionality(
+                                        textDirection: TextDirection.ltr,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Image.asset(
+                                              'images/🦆 emoji _angry face_.png',
+                                              filterQuality: FilterQuality.high,
+                                            ),
+                                            Image.asset(
+                                              'images/🦆 emoji _white frowning face_.png',
+                                              filterQuality: FilterQuality.high,
+                                            ),
+                                            Image.asset(
+                                              'images/image 1778.png',
+                                              filterQuality: FilterQuality.high,
+                                            ),
+                                            Image.asset('images/image 27.png'),
+                                            Image.asset('images/image 30.png'),
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      BlocBuilder<PostEvaluate, bool>(
+                                        builder: (context, state) {
+                                          return ElevatedButton(
+                                              onPressed: () async {
+                                                var treatment_final =
+                                                    sliderCubit2.state;
+                                                var handling =
+                                                    sliderCubit3.state;
+                                                var services =
+                                                    sliderCubit2.state;
+                                                print(treatment_final);
+
+                                                print(handling);
+                                                print(services);
+                                                print(per);
+
+                                                bool issecc = await context
+                                                    .read<PostEvaluate>()
+                                                    .post(
+                                                        id,
+                                                        treatment_final.toInt(),
+                                                        handling.toInt(),
+                                                        services.toInt(),
+                                                        per.toInt());
+
+                                                if (issecc) {
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(SnackBar(
+                                                    content: Text('success'),
+                                                  ));
+
+                                                } else {
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(SnackBar(
+                                                    content: Text('error'),
+                                                    backgroundColor: Colors.red,
+                                                    duration:
+                                                        Duration(seconds: 2),
+                                                  ));
+                                                }
+                                              },
+                                              child: state? Center(child: CircularProgressIndicator(),): Center(
+                                                child: Text(
+                                                  style:TextStyle(color: Colors.white) ,
+                                                  context
+                                                              .watch<Selection>()
+                                                              .state ==
+                                                          1
+                                                      ? 'ارسل تقييمك'
+                                                      : 'send your evaluate',
+                                                ),
+                                              ));
+                                        },
+                                      )
+                                    ],
+                                  );
                                 });
                           });
                     }),
@@ -357,7 +508,6 @@ class GradientSliderBar extends StatelessWidget {
                     text,
                     style: TextStyle(
                       fontWeight: FontWeight.w400,
-                     
                       fontSize: 12,
                     ),
                   ),
@@ -458,8 +608,7 @@ class GradientSliderBar extends StatelessWidget {
         return Column(
           children: [
             Container(height: 10, width: 1, color: Colors.white),
-            Text(label,
-                style: const TextStyle( fontSize: 8)),
+            Text(label, style: const TextStyle(fontSize: 8)),
           ],
         );
       }).toList(),

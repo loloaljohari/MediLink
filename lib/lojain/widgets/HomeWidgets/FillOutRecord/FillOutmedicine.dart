@@ -27,9 +27,7 @@ class FillOutmedicine extends StatelessWidget {
   ];
   var init1 = 'once_daily';
   var list2 = [
-    'before_food',
-    'after_food',
-    'morinng',
+   'before_food','after_food','morning','morning_evening','evening'
   ];
   var init2 = 'before_food';
   var list3 = [

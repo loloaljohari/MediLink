@@ -1,12 +1,13 @@
 import 'dart:convert';
 
 import 'package:MediLink/lojain/Static/Static.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-class PostAllinfornation extends Cubit<bool> {
-  PostAllinfornation() : super(false);
+class PostToken extends Cubit<bool> {
+  PostToken() : super(false);
   Future<bool> post() async {
     try {
       SharedPreferences sharedPreferences =
@@ -24,21 +25,30 @@ class PostAllinfornation extends Cubit<bool> {
       };
       emit(true);
       var request = await http.MultipartRequest(
-          'POST', Uri.parse('$url/patient-record/PatientRecordSave'));
-  
+          'POST', Uri.parse('$url/user/device-token'));
+
+      FirebaseMessaging messaging = FirebaseMessaging.instance;
+      // طلب صلاحية الإشعارات
+      await messaging.requestPermission();
+      // الحصول على الـ token
+      String? tokendevice = await messaging.getToken();
+      print("FCM Token: $token");
+      request.fields.addAll({
+        'token': tokendevice!,
+      });
 
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
       var responsebody = await http.Response.fromStream(response);
-   var data= json.decode(responsebody.body);
+      var data = json.decode(responsebody.body);
+      print(data);
       emit(false);
-      if (response.statusCode == 201||response.statusCode == 200) {
-        print(data);
+      if (response.statusCode == 201 || response.statusCode == 200) {
         print(await responsebody.body);
 
         return true;
-      } else {  print(data);
+      } else {
         print(responsebody.body);
         return false;
       }
@@ -52,4 +62,5 @@ class PostAllinfornation extends Cubit<bool> {
 
 // {
 //     "message": "Unauthenticated."
-// }
+// } {
+

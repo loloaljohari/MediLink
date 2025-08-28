@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../Controllers/onboarding/SelectionLang.dart';
+import '../../../../models/alarm/getAlarms.dart';
 
 class AddAlarm extends StatefulWidget {
   final med;
@@ -76,6 +77,7 @@ class _AddAlarmState extends State<AddAlarm> {
     showDialog(
       context: context,
       builder: (context) {
+
         return AlertDialog(
           backgroundColor: Color.fromRGBO(38, 115, 221, 1),
           title: const Text('تم ضبط المنبه',
@@ -92,7 +94,7 @@ class _AddAlarmState extends State<AddAlarm> {
         );
       },
     );
-    
+     context.read<GetAlarmsCubit>().fetch();
      
     return ;
   }
@@ -135,9 +137,9 @@ class _AddAlarmState extends State<AddAlarm> {
                       child: CustomDropdown<String>(
                         // hideSelectedFieldWhenExpanded: true,
                         decoration: CustomDropdownDecoration(
-                            // closedFillColor:
-                                // const Color.fromRGBO(34, 34, 34, 1),
-                            // expandedFillColor: Colors.black,
+                             closedFillColor:
+                                    const Color.fromARGB(255, 143, 143, 143),
+                                expandedFillColor: const Color.fromARGB(255, 129, 129, 129),
                             headerStyle: const TextStyle(
                                 // color: Colors.white,
                                 fontWeight: FontWeight.w700,
@@ -187,9 +189,9 @@ class _AddAlarmState extends State<AddAlarm> {
                           child: CustomDropdown<dynamic>(
                             // hideSelectedFieldWhenExpanded: true,
                             decoration: CustomDropdownDecoration(
-                                // closedFillColor:
-                                //     const Color.fromRGBO(34, 34, 34, 1),
-                                // expandedFillColor: Colors.black,
+                                closedFillColor:
+                                    const Color.fromARGB(255, 143, 143, 143),
+                                expandedFillColor: const Color.fromARGB(255, 129, 129, 129),
                                 headerStyle: const TextStyle(
                                     // color: Colors.white,
                                     fontWeight: FontWeight.w700,
@@ -237,9 +239,9 @@ class _AddAlarmState extends State<AddAlarm> {
                           child: CustomDropdown<dynamic>(
                             // hideSelectedFieldWhenExpanded: true,
                             decoration: CustomDropdownDecoration(
-                                // closedFillColor:
-                                //     const Color.fromRGBO(34, 34, 34, 1),
-                                // expandedFillColor: Colors.black,
+                                closedFillColor:
+                                    const Color.fromARGB(255, 143, 143, 143),
+                                expandedFillColor: const Color.fromARGB(255, 129, 129, 129),
                                 headerStyle: const TextStyle(
                                     // color: Colors.white,
                                     fontWeight: FontWeight.w700,
@@ -294,92 +296,95 @@ class _AddAlarmState extends State<AddAlarm> {
                   children: [
                     Text(context.watch<Selection>().state == 1
                                     ? 'الوقت:':  'The Time:'),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
-                            color:context.watch<SelectionTheme>().state==3? Color.fromRGBO(34, 34, 34, 1):Colors.white  ,
-                          ),
-                          height: 52,
-                          width: 54,
-                          padding: const EdgeInsets.symmetric(horizontal: 14),
-                          child: Expanded(
-                            child: Theme(
-                              data: Theme.of(context).copyWith(
-                                  textSelectionTheme:
-                                      const TextSelectionThemeData(
-                                          selectionColor: Colors.white,
-                                          selectionHandleColor: Colors.white,
-                                          cursorColor: Colors.white)),
-                              child: TextFormField(
-                                // cursorColor: Colors.white,
-                                decoration: const InputDecoration(
-                                  fillColor: Colors.white,
-                                  hintText: 'HH',
-                                  hintStyle: TextStyle(
+                    Directionality(
+                      textDirection: TextDirection.ltr,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16),
+                              color:context.watch<SelectionTheme>().state==3? Color.fromRGBO(34, 34, 34, 1):Colors.white  ,
+                            ),
+                            height: 52,
+                            width: 54,
+                            padding: const EdgeInsets.symmetric(horizontal: 14),
+                            child: Expanded(
+                              child: Theme(
+                                data: Theme.of(context).copyWith(
+                                    textSelectionTheme:
+                                        const TextSelectionThemeData(
+                                            selectionColor: Colors.white,
+                                            selectionHandleColor: Colors.white,
+                                            cursorColor: Colors.white)),
+                                child: TextFormField(
+                                  // cursorColor: Colors.white,
+                                  decoration: const InputDecoration(
+                                    fillColor: Colors.white,
+                                    hintText: 'HH',
+                                    hintStyle: TextStyle(
+                                        // color: Colors.white,
+                                        fontSize: 14,
+                                        fontStyle: FontStyle.normal,
+                                        fontWeight: FontWeight.w400),
+                                    border: InputBorder.none,
+                                    enabledBorder: InputBorder.none,
+                                    disabledBorder: InputBorder.none,
+                                  ),
+                                  controller: hour,
+                                  style: const TextStyle(
                                       // color: Colors.white,
-                                      fontSize: 14,
-                                      fontStyle: FontStyle.normal,
+                                      fontSize: 20,
                                       fontWeight: FontWeight.w400),
-                                  border: InputBorder.none,
-                                  enabledBorder: InputBorder.none,
-                                  disabledBorder: InputBorder.none,
                                 ),
-                                controller: hour,
-                                style: const TextStyle(
-                                    // color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w400),
                               ),
                             ),
                           ),
-                        ),
-                        Text(
-                          ":",
-                          style: TextStyle(fontSize: 40),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
-                            color:context.watch<SelectionTheme>().state==3? Color.fromRGBO(34, 34, 34, 1):Colors.white  ,
+                          Text(
+                            ":",
+                            style: TextStyle(fontSize: 40),
                           ),
-                          height: 52,
-                          width: 54,
-                          padding: const EdgeInsets.symmetric(horizontal: 14),
-                          child: Expanded(
-                            child: Theme(
-                              data: Theme.of(context).copyWith(
-                                  textSelectionTheme:
-                                      const TextSelectionThemeData(
-                                          selectionColor: Colors.white,
-                                          selectionHandleColor: Colors.white,
-                                          cursorColor: Colors.white)),
-                              child: TextFormField(
-                                // cursorColor: Colors.white,
-                                decoration: const InputDecoration(
-                                  fillColor: Colors.white,
-                                  hintText: 'MM',
-                                  hintStyle: TextStyle(
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16),
+                              color:context.watch<SelectionTheme>().state==3? Color.fromRGBO(34, 34, 34, 1):Colors.white  ,
+                            ),
+                            height: 52,
+                            width: 54,
+                            padding: const EdgeInsets.symmetric(horizontal: 14),
+                            child: Expanded(
+                              child: Theme(
+                                data: Theme.of(context).copyWith(
+                                    textSelectionTheme:
+                                        const TextSelectionThemeData(
+                                            selectionColor: Colors.white,
+                                            selectionHandleColor: Colors.white,
+                                            cursorColor: Colors.white)),
+                                child: TextFormField(
+                                  // cursorColor: Colors.white,
+                                  decoration: const InputDecoration(
+                                    fillColor: Colors.white,
+                                    hintText: 'MM',
+                                    hintStyle: TextStyle(
+                                        // color: Colors.white,
+                                        fontSize: 14,
+                                        fontStyle: FontStyle.normal,
+                                        fontWeight: FontWeight.w400),
+                                    border: InputBorder.none,
+                                    enabledBorder: InputBorder.none,
+                                    disabledBorder: InputBorder.none,
+                                  ),
+                                  controller: minuite,
+                                  style: const TextStyle(
                                       // color: Colors.white,
-                                      fontSize: 14,
-                                      fontStyle: FontStyle.normal,
+                                      fontSize: 20,
                                       fontWeight: FontWeight.w400),
-                                  border: InputBorder.none,
-                                  enabledBorder: InputBorder.none,
-                                  disabledBorder: InputBorder.none,
                                 ),
-                                controller: minuite,
-                                style: const TextStyle(
-                                    // color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w400),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     )
                   ],
                 ),

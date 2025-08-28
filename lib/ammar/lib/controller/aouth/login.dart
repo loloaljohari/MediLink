@@ -3,6 +3,7 @@ import 'package:MediLink/ammar/lib/core/constant/routes.dart';
 import 'package:MediLink/ammar/lib/core/functions/handlingdata_controler.dart';
 import 'package:MediLink/ammar/lib/data/data%20source/remote/aouth/login.dart';
 import 'package:MediLink/lojain/View/Home/HomePages.dart';
+import 'package:MediLink/lojain/models/Aouth/postToken.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -63,8 +64,12 @@ class LogincontrollerImp extends Logincontroller {
 
           if (response["created_by_secretary"]) {
             Get.offAll(Changeacount());
-          } else
+          } else {
+          var posttoken= await PostToken().post();
+           if(posttoken)
             Get.offAll(HomePages());
+            else print('error to send the token');
+            }
         } else if (response.containsKey("message")) {
           String message = response["message"];
           Get.defaultDialog(title: "تنبيه", middleText: message);

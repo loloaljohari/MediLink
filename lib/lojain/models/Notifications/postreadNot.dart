@@ -5,9 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-class PostAllinfornation extends Cubit<bool> {
-  PostAllinfornation() : super(false);
-  Future<bool> post() async {
+class PostreadNot extends Cubit<bool> {
+  PostreadNot() : super(false);
+  Future<dynamic> post() async {
     try {
       SharedPreferences sharedPreferences =
           await SharedPreferences.getInstance();
@@ -19,26 +19,24 @@ class PostAllinfornation extends Cubit<bool> {
         'Content-Type': 'application/json',
         'Accept-Language': 'ar',
         'Authorization': '$Authorization',
-        'Cookie':
-            'syrian_clinic_session=3XzjaNux0m39927nEtzdLhuwpd3Jwn4pXGUDOvOX'
+         'Cookie': 'syrian_clinic_session=TnmIDSa7aw0xwZuGXAdsZson8ERkq4Pan8gK45ol'
       };
       emit(true);
       var request = await http.MultipartRequest(
-          'POST', Uri.parse('$url/patient-record/PatientRecordSave'));
-  
+          'POST', Uri.parse('$url/notifications/read-all'));
 
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
       var responsebody = await http.Response.fromStream(response);
-   var data= json.decode(responsebody.body);
+      var data = json.decode(responsebody.body);
+      print(data);
       emit(false);
-      if (response.statusCode == 201||response.statusCode == 200) {
-        print(data);
+      if (response.statusCode == 201 || response.statusCode == 200) {
         print(await responsebody.body);
 
         return true;
-      } else {  print(data);
+      } else {
         print(responsebody.body);
         return false;
       }

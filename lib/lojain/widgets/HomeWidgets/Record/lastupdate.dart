@@ -32,7 +32,7 @@ class Lastupdate extends StatelessWidget {
             width: 54,
             height: 52,
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(9)),
-            child: Image.asset(imagePath),
+            child: Image.network(imagePath),
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

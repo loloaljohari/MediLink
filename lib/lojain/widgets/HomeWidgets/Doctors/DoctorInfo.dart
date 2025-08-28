@@ -22,8 +22,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class DoctorInfo extends StatelessWidget {
   final id;
-
-  DoctorInfo({super.key, required this.id});
+  final star;
+  DoctorInfo({super.key, required this.id, this.star});
 
   void showMonthDialog(BuildContext context) {
     final baseMonth = DateTime(DateTime.now().year, DateTime.now().month);
@@ -430,7 +430,7 @@ class DoctorInfo extends StatelessWidget {
                               Row(
                                 children: [
                                   Text(
-                                    "${state.info['data']['rating']}",
+                                    "${star}",
                                     style: const TextStyle(
                                         fontWeight: FontWeight.w700,
                                         fontSize: 24),
@@ -779,6 +779,7 @@ class DoctorInfo extends StatelessWidget {
                                   print(data);
                                   if (data.containsKey('message')&& data['message']== "Data has not been entered yet") {
                                   Get.to(FillOutRecord(
+                                    id:  id,
                                       cont: context,
                                     ));
                                     

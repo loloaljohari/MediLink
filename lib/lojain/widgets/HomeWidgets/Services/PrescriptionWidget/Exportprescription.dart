@@ -44,187 +44,187 @@ class Exportprescription extends StatelessWidget {
   Future<void> savePdf(BuildContext context) async {
     await requestPermissions(); // طلب الأذونات أولًا
     final pdf = pw.Document();
-    
-    
-  final ByteData imageData = await rootBundle.load('images/Group (2).png');
-  final Uint8List imageBytes = imageData.buffer.asUint8List();
 
- final ByteData imageData1 = await rootBundle.load('images/Vector (12).png');
-  final Uint8List imageBytes1 = imageData1.buffer.asUint8List();
+    final ByteData imageData = await rootBundle.load('images/Group (2).png');
+    final Uint8List imageBytes = imageData.buffer.asUint8List();
 
+    final ByteData imageData1 = await rootBundle.load('images/Vector (12).png');
+    final Uint8List imageBytes1 = imageData1.buffer.asUint8List();
 
     pdf.addPage(
       pw.Page(
-        build: (pw.Context context) =>pw. Padding(
-          padding: pw. EdgeInsets.symmetric(horizontal: 20.0,vertical: 20),
+        build: (pw.Context context) => pw.Padding(
+          padding: pw.EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
           child: pw.Column(
             children: [
               pw.Row(
-                mainAxisAlignment: pw.MainAxisAlignment.spaceEvenly,
-                
-                children: [
-               pw.Text(
-                    'MedaiLink',
-                    style: pw.TextStyle(
-                        color: PdfColor.fromHex('#2673DD'),
-                        fontSize: 40,
-                        fontWeight: pw.FontWeight.bold),
-                  ),
-               
-                pw.Text(
-                    date,
-                    style: pw.TextStyle(
-                        color: PdfColor.fromHex('#2673DD'),
-                        fontSize: 20,
-                        fontWeight: pw.FontWeight.bold),
-                  ),
-              
-              ]),
+                  mainAxisAlignment: pw.MainAxisAlignment.spaceEvenly,
+                  children: [
+                    pw.Text(
+                      'MedaiLink',
+                      style: pw.TextStyle(
+                          color: PdfColor.fromHex('#2673DD'),
+                          fontSize: 40,
+                          fontWeight: pw.FontWeight.bold),
+                    ),
+                    pw.Text(
+                      date,
+                      style: pw.TextStyle(
+                          color: PdfColor.fromHex('#2673DD'),
+                          fontSize: 20,
+                          fontWeight: pw.FontWeight.bold),
+                    ),
+                  ]),
               pw.SizedBox(height: 30),
               pw.ListView.builder(
                 itemBuilder: (context, index) {
                   return pw.Column(
-                    crossAxisAlignment: pw.CrossAxisAlignment.start,
-                    children: [
-                    pw.Text(
-                      'Medicine_${medicine[index]['id']}:',
-                      style: pw.TextStyle(
-                          color: PdfColors.black,
-                          fontSize: 25,
-                          fontWeight: pw.FontWeight.bold),
-                    ),
-                    pw.Row(
-                      mainAxisAlignment: pw.MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
                       children: [
-                        pw.Column(
-                          crossAxisAlignment: pw.CrossAxisAlignment.start,
-                          children: [
-                            pw.Text(
-                              'Medical name',
-                              style: pw.TextStyle(
-                                  color: PdfColors.grey700,
-                                  fontSize: 20,
-                                  fontWeight: pw.FontWeight.bold),
-                            ),
-                            pw.Text(
-                              medicine[index]['Medicalname'],
-                              style: pw.TextStyle(
-                                color: PdfColors.black,
-                                fontSize: 20,
-                              ),
-                            ),
-                          ],
-                        ),
-                        pw.SizedBox(
-                          width: 40,
-                        ),
-                        pw.Column(
-                          crossAxisAlignment: pw.CrossAxisAlignment.start,
-                          children: [
-                            pw.Text(
-                              'Trade name',
-                              style: pw.TextStyle(
-                                  color: PdfColors.grey700, fontSize: 20,
-                                  fontWeight: pw.FontWeight.bold,
-                                  ),
-                            ),
-                            pw.Text(
-                              medicine[index]['Tradename'],
-                              style: pw.TextStyle(
-                                  color: PdfColors.black,
-                                  fontSize: 20,)
-                            ),
-                          ],
-                        ),
-                        pw.SizedBox(
-                          width: 40,
-                        ),
-                        pw.Column(
-                          crossAxisAlignment: pw.CrossAxisAlignment.start,
-                          children: [
-                            pw.Text(
-                              'alternative',
-                              style: pw.TextStyle(
-                                  color: PdfColors.grey700,
-                                  fontSize: 20,
-                                  fontWeight: pw.FontWeight.bold),
-                            ),
-                            pw.Text(
-                              medicine[index]['alternative'],
-                              style: pw.TextStyle(
-                                color: PdfColors.black,
-                                fontSize: 20,
-                              ),
-                            ),
-                          ],
-                        )
-                      ],
-                    )
-                    ,pw.SizedBox(height: 30)
-                  ]);
-                },
-                itemCount: medicine.length,
-              )
-             , pw.  Row(
-                      mainAxisAlignment:pw. MainAxisAlignment.spaceBetween,
-                      children: [
-                       pw. Row(
-                          children: [
-                        pw.   Container( width: 30,height: 30, child:pw. Image(pw.MemoryImage(imageBytes))),
-                           pw.  SizedBox(
-                              width: 10,
-                            ),
-                          pw.  Column(
-                              crossAxisAlignment: pw.CrossAxisAlignment.start,
-                              children: [
-                                pw. Text(
-                                  'Patient Name',
-                                  style:pw. TextStyle(
-                                      color: PdfColors.black,
-                                      fontSize: 16,
-                                      fontWeight: pw.FontWeight.bold),
-                                ),
-                              pw.  Text(
-                                  patientname,
-                                  style: pw. TextStyle(
-                                      color: PdfColor.fromHex('#2673DD'),
-                                      fontSize: 16,
-                                      fontWeight: pw.FontWeight.bold,
-                                                              )                                ),
-                              ],
-                            )
-                          ],
+                        pw.Text(
+                          'Medicine_${medicine[index]['id']}:',
+                          style: pw.TextStyle(
+                              color: PdfColors.black,
+                              fontSize: 25,
+                              fontWeight: pw.FontWeight.bold),
                         ),
                         pw.Row(
+                          mainAxisAlignment: pw.MainAxisAlignment.spaceEvenly,
                           children: [
-                             pw.   Container( width: 30,height: 30, child :pw.Image(pw.MemoryImage(imageBytes1)),),
-                            pw. SizedBox(
-                              width: 10,
-                            ),
-                          pw.  Column(
-                              crossAxisAlignment:pw. CrossAxisAlignment.start,
+                            pw.Column(
+                              crossAxisAlignment: pw.CrossAxisAlignment.start,
                               children: [
-                                pw. Text(
-                                  'Doctor Name :',
-                                  style:pw. TextStyle(
-                                      color: PdfColors.black,
-                                      fontSize: 16,
+                                pw.Text(
+                                  'Medical name',
+                                  style: pw.TextStyle(
+                                      color: PdfColors.grey700,
+                                      fontSize: 20,
                                       fontWeight: pw.FontWeight.bold),
                                 ),
-                               pw. Text(
-                                  doctorname,
-                                  style: pw. TextStyle(
-                                      color: PdfColor.fromHex('#2673DD'),
-                                      fontSize: 16,
+                                pw.Text(
+                                  medicine[index]['Medicalname'],
+                                  style: pw.TextStyle(
+                                    color: PdfColors.black,
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            pw.SizedBox(
+                              width: 40,
+                            ),
+                            pw.Column(
+                              crossAxisAlignment: pw.CrossAxisAlignment.start,
+                              children: [
+                                pw.Text(
+                                  'Trade name',
+                                  style: pw.TextStyle(
+                                    color: PdfColors.grey700,
+                                    fontSize: 20,
+                                    fontWeight: pw.FontWeight.bold,
+                                  ),
+                                ),
+                                pw.Text(medicine[index]['Tradename'],
+                                    style: pw.TextStyle(
+                                      color: PdfColors.black,
+                                      fontSize: 20,
+                                    )),
+                              ],
+                            ),
+                            pw.SizedBox(
+                              width: 40,
+                            ),
+                            pw.Column(
+                              crossAxisAlignment: pw.CrossAxisAlignment.start,
+                              children: [
+                                pw.Text(
+                                  'alternative',
+                                  style: pw.TextStyle(
+                                      color: PdfColors.grey700,
+                                      fontSize: 20,
                                       fontWeight: pw.FontWeight.bold),
+                                ),
+                                pw.Text(
+                                  medicine[index]['alternative'],
+                                  style: pw.TextStyle(
+                                    color: PdfColors.black,
+                                    fontSize: 20,
+                                  ),
                                 ),
                               ],
                             )
                           ],
                         ),
-                      ],
-                    )
-                
+                        pw.SizedBox(height: 30)
+                      ]);
+                },
+                itemCount: medicine.length,
+              ),
+              pw.Row(
+                mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                children: [
+                  pw.Row(
+                    children: [
+                      pw.Container(
+                          width: 30,
+                          height: 30,
+                          child: pw.Image(pw.MemoryImage(imageBytes))),
+                      pw.SizedBox(
+                        width: 10,
+                      ),
+                      pw.Column(
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                        children: [
+                          pw.Text(
+                            'Patient Name',
+                            style: pw.TextStyle(
+                                color: PdfColors.black,
+                                fontSize: 16,
+                                fontWeight: pw.FontWeight.bold),
+                          ),
+                          pw.Text(patientname,
+                              style: pw.TextStyle(
+                                color: PdfColor.fromHex('#2673DD'),
+                                fontSize: 16,
+                                fontWeight: pw.FontWeight.bold,
+                              )),
+                        ],
+                      )
+                    ],
+                  ),
+                  pw.Row(
+                    children: [
+                      pw.Container(
+                        width: 30,
+                        height: 30,
+                        child: pw.Image(pw.MemoryImage(imageBytes1)),
+                      ),
+                      pw.SizedBox(
+                        width: 10,
+                      ),
+                      pw.Column(
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                        children: [
+                          pw.Text(
+                            'Doctor Name :',
+                            style: pw.TextStyle(
+                                color: PdfColors.black,
+                                fontSize: 16,
+                                fontWeight: pw.FontWeight.bold),
+                          ),
+                          pw.Text(
+                            doctorname,
+                            style: pw.TextStyle(
+                                color: PdfColor.fromHex('#2673DD'),
+                                fontSize: 16,
+                                fontWeight: pw.FontWeight.bold),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ],
+              )
             ],
           ),
         ),
@@ -241,7 +241,9 @@ class Exportprescription extends StatelessWidget {
 
     print("تم حفظ PDF في: ${file.path}");
     ScaffoldMessenger.of(context).showSnackBar(
-       SnackBar(content: Text('Documents في  prescription ${++id}.pdf تم حفظ الملف   ')),
+      SnackBar(
+          content:
+              Text('Documents في  prescription ${++id}.pdf تم حفظ الملف   ')),
     );
   }
 
@@ -287,8 +289,10 @@ class Exportprescription extends StatelessWidget {
         RepaintBoundary(
           key: _globalKey,
           child: Container(
-            // color: Colors.black,   
-             color:context.watch<SelectionTheme>().state==3? Color.fromRGBO(34, 34, 34, 1):Colors.white  ,
+            // color: Colors.black,
+            color: context.watch<SelectionTheme>().state == 3
+                ? Color.fromRGBO(34, 34, 34, 1)
+                : Colors.white,
 
             child: Container(
               padding: const EdgeInsets.all(10),
@@ -324,25 +328,30 @@ class Exportprescription extends StatelessWidget {
                         const SizedBox(
                           height: 20,
                         ),
-                        const Medicinewidget(
-                          id: 1,
-                          alternative: 'Aspiren 81 ',
-                          Medicalname: 'Aspiren 81 ',
-                          Tradename: 'Aspiren 81 ',
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        const Medicinewidget(
-                          id: 2,
-                          alternative: 'Aspiren 81 ',
-                          Medicalname: 'Aspiren 81 ',
-                          Tradename: 'Aspiren 81 ',
-                        ),
                       ],
                     ),
                     const SizedBox(
-                      height: 40,
+                      height: 20,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: List.generate(
+                        medicine.length,
+                        (index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 20.0),
+                            child: Medicinewidget(
+                              id: index + 1,
+                              alternative: medicine[index]['alternatives'][0],
+                              Medicalname: medicine[index]['scientific_name'],
+                              Tradename: medicine[index]['name'],
+                              frequency: medicine[index]['frequency'],
+                              instructions: medicine[index]['instructions'],
+                              timing: medicine[index]['timing'],
+                            ),
+                          );
+                        },
+                      ),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -356,8 +365,10 @@ class Exportprescription extends StatelessWidget {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                 Text(
-                                     context.watch<Selection>().state == 1 ? 'اسم المريض'   :'Patient Name',
+                                Text(
+                                  context.watch<Selection>().state == 1
+                                      ? 'اسم المريض'
+                                      : 'Patient Name',
                                   style: TextStyle(
                                       // color: Colors.white,
                                       fontSize: 14,
@@ -383,8 +394,10 @@ class Exportprescription extends StatelessWidget {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                 Text(
-                                   context.watch<Selection>().state == 1 ? 'اسم الطبيب'   :  'Doctor Name :',
+                                Text(
+                                  context.watch<Selection>().state == 1
+                                      ? 'اسم الطبيب'
+                                      : 'Doctor Name :',
                                   style: TextStyle(
                                       // color: Colors.white,
                                       fontSize: 14,
@@ -412,12 +425,11 @@ class Exportprescription extends StatelessWidget {
         const SizedBox(
           height: 10,
         ),
-         Padding(
+        Padding(
           padding: EdgeInsets.all(8.0),
           child: Text(
-             context.watch<Selection>().state == 1 ? 'تصدير الى'   :  'Export as',
-            style: TextStyle(
-               fontSize: 14, fontWeight: FontWeight.w700),
+            context.watch<Selection>().state == 1 ? 'تصدير الى' : 'Export as',
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
           ),
         ),
         Row(
@@ -448,8 +460,8 @@ class Exportprescription extends StatelessWidget {
                 onPressed: () {
                   saveContainerAsImage(context);
                 },
-                child:  Text(
-                 context.watch<Selection>().state == 1 ? 'صورة'   :    'Image',
+                child: Text(
+                  context.watch<Selection>().state == 1 ? 'صورة' : 'Image',
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 14,
@@ -461,10 +473,11 @@ class Exportprescription extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 10),
           child: Center(
               child: Container(
-            width: MediaQuery.of(context).size.width-30,
+            width: MediaQuery.of(context).size.width - 30,
             height: 2,
-               color:context.watch<SelectionTheme>().state==3? Colors.white :Color.fromRGBO(34, 34, 34, 1) ,
-
+            color: context.watch<SelectionTheme>().state == 3
+                ? Colors.white
+                : Color.fromRGBO(34, 34, 34, 1),
           )),
         )
       ],

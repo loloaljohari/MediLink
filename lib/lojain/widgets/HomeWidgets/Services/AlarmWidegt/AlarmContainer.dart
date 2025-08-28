@@ -3,6 +3,8 @@ import 'package:alarm/alarm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../models/alarm/getAlarms.dart';
+
 class AlarmContainer extends StatelessWidget {
   final String alarm_timing;
   final String alarm_time;
@@ -126,6 +128,7 @@ class AlarmContainer extends StatelessWidget {
                           backgroundColor: Colors.green,
                           duration: Duration(seconds: 2),
                         ));
+                         context.read<GetAlarmsCubit>().fetch();
                         Navigator.of(context).pop();
                       } else {
                         // ignore: use_build_context_synchronously
